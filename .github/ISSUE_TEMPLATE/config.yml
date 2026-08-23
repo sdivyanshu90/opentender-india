@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions — Q&A, ideas, and governance
+    url: https://github.com/somu/opentender-india/discussions
+    about: Ask questions, pitch ideas before filing a formal feature request, and discuss roadmap/governance topics.
+  - name: Security vulnerabilities (private)
+    url: https://github.com/somu/opentender-india/security/advisories/new
+    about: Report security issues privately via GitHub security advisories. Do not open public issues. See SECURITY.md.
+  - name: Conduct / scraping-ethics reports
+    url: https://github.com/somu/opentender-india/discussions/categories/governance
+    about: Scraping-ethics violations (robots.txt, CAPTCHA/login bypass) are conduct issues under CODE_OF_CONDUCT.md, not security or bug issues.
