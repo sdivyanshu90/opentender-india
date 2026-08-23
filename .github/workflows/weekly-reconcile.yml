@@ -1,0 +1,41 @@
+name: weekly-reconcile
+
+# Broader reconciliation crawl (spec #46/#81): recheck active tenders, verify
+# deadlines still match portals, catch anything the daily delta missed.
+on:
+  schedule:
+    - cron: "31 21 * * 0" # Sundays 03:01 IST
+  workflow_dispatch:
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e ".[dev]" --quiet
+      - name: Full fetch pass (all sources, higher page budget)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: opentender fetch --all || echo "::warning::some sources failed independently"
+      - name: Validate + dedupe + rebuild indexes
+        run: |
+          opentender validate
+          opentender dedupe
+          opentender build-index
+      - name: Historical AI enrichment (lowest priority queue)
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          opentender ai queue --reason historical --limit 60 || true
+          opentender ai run --max-tasks 40 || true
+      - name: Commit
+        run: |
+          git config user.name "opentender-bot"
+          git config user.email "actions@opentender.invalid"
+          git add data status apps/web/public/data
+          git diff --cached --quiet || (git commit -m "data: weekly reconciliation $(date -u +%F) [skip ci]" && git push)
