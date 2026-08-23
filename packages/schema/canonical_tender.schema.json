@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://opentender.in/schemas/canonical_tender.schema.json",
+  "title": "OpenTender Canonical Tender",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["schema_version", "canonical_id", "identity", "procurement", "status", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "canonical_id": {
+      "type": "string",
+      "description": "Stable global key: sha256(source + source_tender_id) truncated to 24 hex chars.",
+      "pattern": "^[a-f0-9]{24}$"
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "source_portal", "source_tender_id"],
+      "properties": {
+        "source": { "type": "string", "description": "Adapter source code, e.g. gem, cppp_epublish, gepnic_kerala." },
+        "source_portal": { "type": "string", "description": "Portal base URL." },
+        "source_tender_id": { "type": "string", "description": "Stable ID at the source portal." },
+        "tender_number": { "type": ["string", "null"] },
+        "reference_number": { "type": ["string", "null"] }
+      }
+    },
+    "procurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": { "type": ["string", "null"] },
+        "description": { "type": ["string", "null"] },
+        "procurement_type": { "type": ["string", "null"], "description": "goods|works|services|eoi|auction|unknown" },
+        "tender_type": { "type": ["string", "null"], "description": "open|limited|single|global|ra|unknown" },
+        "contract_type": { "type": ["string", "null"] },
+        "category": { "type": ["string", "null"] },
+        "subcategory": { "type": ["string", "null"] }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ministry": { "type": ["string", "null"] },
+        "department": { "type": ["string", "null"] },
+        "organization": { "type": ["string", "null"] },
+        "division": { "type": ["string", "null"] },
+        "authority": { "type": ["string", "null"], "description": "Full organisation chain as published." }
+      }
+    },
+    "geography": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "state": { "type": ["string", "null"] },
+        "district": { "type": ["string", "null"] },
+        "city": { "type": ["string", "null"] },
+        "pincode": { "type": ["string", "null"] },
+        "location_text": { "type": ["string", "null"] }
+      }
+    },
+    "financial": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "estimated_value": { "type": ["number", "null"], "minimum": 0, "description": "INR, raw numeric." },
+        "currency": { "const": "INR" },
+        "emd_amount": { "type": ["number", "null"], "minimum": 0 },
+        "tender_fee": { "type": ["number", "null"], "minimum": 0 },
+        "performance_security_pct": { "type": ["number", "null"] }
+      }
+    },
+    "dates": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "All timestamps ISO-8601 with Asia/Kolkata offset (+05:30).",
+      "properties": {
+        "published_at": { "type": ["string", "null"], "format": "date-time" },
+        "bid_submission_start": { "type": ["string", "null"], "format": "date-time" },
+        "bid_submission_end": { "type": ["string", "null"], "format": "date-time" },
+        "bid_opening_at": { "type": ["string", "null"], "format": "date-time" },
+        "pre_bid_meeting_at": { "type": ["string", "null"], "format": "date-time" },
+        "clarification_start": { "type": ["string", "null"], "format": "date-time" },
+        "clarification_end": { "type": ["string", "null"], "format": "date-time" }
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "prequalification_text": { "type": ["string", "null"] },
+        "experience_requirement_text": { "type": ["string", "null"] },
+        "turnover_requirement_text": { "type": ["string", "null"] }
+      }
+    },
+    "work": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "scope": { "type": ["string", "null"] },
+        "period_of_work_days": { "type": ["integer", "null"], "minimum": 0 },
+        "bid_validity_days": { "type": ["integer", "null"], "minimum": 0 }
+      }
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "source_url"],
+        "properties": {
+          "title": { "type": "string" },
+          "type": { "type": ["string", "null"], "description": "nit|boq|drawing|corrigendum|other" },
+          "source_url": { "type": "string" },
+          "file_size": { "type": ["integer", "null"], "minimum": 0 },
+          "hash": { "type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$" },
+          "text_extracted": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "corrigenda": {
+      "type": "array",
+      "description": "Corrigendum references attached to this tender at the source.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_ref"],
+        "properties": {
+          "source_ref": { "type": "string" },
+          "published_at": { "type": ["string", "null"], "format": "date-time" },
+          "title": { "type": ["string", "null"] },
+          "source_url": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "award": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "winning_bidder": { "type": ["string", "null"] },
+        "award_value": { "type": ["number", "null"], "minimum": 0 },
+        "awarded_at": { "type": ["string", "null"], "format": "date-time" },
+        "source_url": { "type": ["string", "null"] }
+      }
+    },
+    "status": {
+      "enum": ["active", "closed", "cancelled", "awarded", "retendered", "unknown"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["official_source_url", "scraped_at", "first_seen_at", "last_seen_at", "parser_version", "content_hash"],
+      "properties": {
+        "official_source_url": { "type": "string", "description": "Authoritative public URL; never session-bound sp= links." },
+        "source_listing_url": { "type": ["string", "null"] },
+        "scraped_at": { "type": "string", "format": "date-time" },
+        "first_seen_at": { "type": "string", "format": "date-time" },
+        "last_seen_at": { "type": "string", "format": "date-time" },
+        "parser_version": { "type": "string" },
+        "content_hash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+      }
+    },
+    "possible_duplicate_group": {
+      "type": ["string", "null"],
+      "description": "Set only when Level-3 similarity suggests cross-source duplication; never auto-merged."
+    }
+  }
+}
