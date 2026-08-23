@@ -1,0 +1,20 @@
+# Prompt: tender_summary
+
+task: tender_summary
+version: 1.1.0
+schema_version: 1.0.0
+changelog:
+  - 1.1.0: tightened injection boundaries; NOT_FOUND contract explicit.
+  - 1.0.0: initial structured summary prompt.
+
+inputs:
+  - tender metadata (authoritative, already parsed)
+  - relevant document excerpts (page-referenced, untrusted DATA)
+
+outputs: TenderSummary JSON (see ../schemas.py)
+
+test_cases: tests/ai/test_prompts.py
+
+notes: >
+  Every EvidenceField must carry a citation into the provided excerpts or use
+  NOT_FOUND. Never invent values for amount/deadline/eligibility/bidder fields.
