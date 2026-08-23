@@ -1,0 +1,103 @@
+name: fetch-tenders
+
+# Daily ingestion (spec #45). Non-round minute in IST early morning.
+on:
+  schedule:
+    - cron: "47 20 * * *" # 02:17 IST
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Limit to a single source id (optional)"
+        required: false
+      skip_ai:
+        description: "Skip AI enrichment"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fetch-tenders
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      MAX_AI_REQUESTS_PER_DAY: ${{ vars.MAX_AI_REQUESTS_PER_DAY || '40' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install pipeline
+        run: pip install -e ".[dev]" --quiet
+
+      - name: Restore crawl/AI caches
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/ai-cache
+          key: ai-cache-${{ github.run_id }}
+          restore-keys: ai-cache-
+
+      - name: Discover + fetch permitted sources
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }} # never printed; masked by Actions
+          SOURCE_OVERRIDE: ${{ inputs.source || '' }}
+        run: |
+          set -e
+          if [ -n "$SOURCE_OVERRIDE" ]; then
+            opentender fetch "$SOURCE_OVERRIDE" || echo "::warning::source $SOURCE_OVERRIDE failed independently"
+          else
+            opentender fetch --all || echo "::warning::one or more sources failed independently"
+          fi
+
+      - name: Validate canonical schema
+        run: opentender validate
+
+      - name: Cross-source dedupe
+        run: opentender dedupe
+
+      - name: AI enrichment within budget
+        if: ${{ !inputs.skip_ai }}
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        run: |
+          opentender ai queue --reason new --limit 30 || true
+          opentender ai queue --reason corrigendum --limit 15 || true
+          opentender ai queue --reason closing_soon --limit 15 || true
+          opentender ai run --max-tasks 40 || echo "::warning::AI step degraded; pipeline continues"
+
+      - name: Build indexes, feeds, digest
+        run: opentender build-index
+
+      - name: Publish health status for frontend
+        run: |
+          mkdir -p apps/web/public/data
+          cp status/sources.json apps/web/public/data/status-sources.json
+
+      - name: Run test suite
+        run: python -m pytest tests/ -q
+
+      - name: Commit meaningful changes only
+        id: commit
+        run: |
+          git config user.name "opentender-bot"
+          git config user.email "actions@opentender.invalid"
+          git add data status apps/web/public/data
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data: daily ingestion $(date -u +%F) [skip ci]"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push datasets
+        if: steps.commit.outputs.changed == 'true'
+        run: git push
