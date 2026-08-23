@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-08-23T20:59:32.282049+00:00",
+  "sources": {
+    "cppp_epublish": {
+      "status": "TEMPORARILY_BROKEN",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:58:56.302510+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 1,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gem_bids": {
+      "status": "TEMPORARILY_BROKEN",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:13.245324+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 1,
+      "latency_ms": null,
+      "parser_version": "gem-1.0.0"
+    },
+    "gepnic_bel": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:30.845010+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_jammu_kashmir": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:28.335018+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_kerala": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:19.418316+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_madhya_pradesh": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:22.145586+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_rajasthan": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:15.934883+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_uttarakhand": {
+      "status": "ACTIVE",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:24.942068+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": null,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "ireps_works": {
+      "status": "TEMPORARILY_BROKEN",
+      "last_success": null,
+      "last_attempt": "2026-08-23T20:59:32.281577+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 1,
+      "latency_ms": null,
+      "parser_version": "ireps-1.0.0"
+    }
+  }
+}
