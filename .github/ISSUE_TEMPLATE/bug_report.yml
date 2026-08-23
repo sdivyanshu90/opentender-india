@@ -1,0 +1,86 @@
+name: Bug report
+description: Report a broken parser, wrong data, frontend defect, or CI failure.
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please search existing issues first.
+
+        **Security vulnerabilities must not be reported here** — use [private security advisories](../../security/advisories/new) per SECURITY.md.
+        **Scraping-ethics concerns** (robots.txt, CAPTCHA/login bypass) are conduct issues, not bugs.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Ingestion / adapter (Python)
+        - Parser output correctness
+        - CLI (`opentender` command)
+        - AI pipeline (digest, citations, NOT_FOUND)
+        - Frontend (apps/web)
+        - GitHub Actions workflows
+        - Documentation
+      default: 0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Data source involved (if any)
+      options:
+        - GeM
+        - CPPP ePublishing
+        - NIC GePNIC (state portal)
+        - MahaTenders (POLICY_RESTRICTED)
+        - Not source-specific
+      default: 4
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include expected vs actual behaviour.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. `opentender fetch --source ...`
+        2. `opentender validate`
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: |
+        Logs, error output, screenshots, or (best) a minimal fixture under tests/fixtures/ that demonstrates it.
+        Redact any personal data. Never paste API keys or secrets.
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      placeholder: "0.1.0 or commit SHA"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: "OS, Python 3.x, Node version, browser (for apps/web)"
+    validations:
+      required: false
