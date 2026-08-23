@@ -1,0 +1,37 @@
+{
+  "code": 200,
+  "response": {
+    "response": {
+      "numFound": 23,
+      "start": 0,
+      "docs": [
+        {
+          "b_id": 6900001,
+          "b_bid_number": "GEM/2026/B/7800616",
+          "b_bid_type": 1,
+          "b_category_name": ["Solar Power Systems"],
+          "bbt_title": "Supply and installation of rooftop solar power plant 100 kWp at district office",
+          "ba_official_details_minName": "Ministry of New and Renewable Energy",
+          "ba_official_details_deptName": "District Administration Office",
+          "final_start_date_sort": 1755512400000,
+          "final_end_date_sort": 1756722000000,
+          "b_buyer_status": 0,
+          "is_rc_bid": false,
+          "ba_is_global_tendering": false
+        },
+        {
+          "b_id": 6900002,
+          "b_bid_number": "GEM/2026/B/7800790",
+          "b_bid_type": 2,
+          "b_category_name": ["Medical Consumables"],
+          "bbt_title": "Reverse auction for supply of surgical gloves nitrile powder free",
+          "ba_official_details_minName": "Ministry of Health and Family Welfare",
+          "ba_official_details_deptName": "Central Medical Supplies Depot",
+          "final_start_date_sort": 1755600000000,
+          "final_end_date_sort": 1756032000000,
+          "b_buyer_status": 3
+        }
+      ]
+    }
+  }
+}
