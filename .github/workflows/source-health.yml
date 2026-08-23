@@ -1,0 +1,27 @@
+name: source-health
+
+# Portal smoke tests (spec #46). Detects outages/redesigns between daily runs.
+on:
+  schedule:
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e . --quiet
+      - name: Healthcheck every registered source (failures isolated)
+        run: opentender health || true
+      - name: Commit health status
+        run: |
+          git config user.name "opentender-bot"
+          git config user.email "actions@opentender.invalid"
+          git add status/sources.json
+          git diff --cached --quiet || (git commit -m "status: source health check [skip ci]" && git push)
