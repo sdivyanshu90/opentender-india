@@ -1,0 +1,461 @@
+{
+ "generated_at": "2026-08-23T10:54:03.042Z",
+ "_synthetic": true,
+ "docs": [
+  {
+   "id": "fixture0001",
+   "title": "Design and construction of 25 MW grid-connected solar photovoltaic power plant at Solapur",
+   "authority": "Maharashtra Energy Development Agency",
+   "state": "Maharashtra",
+   "city": null,
+   "category": "Solar Power Systems",
+   "type": "works",
+   "value": 1125000000,
+   "emd": 22400000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-04T10:30:00.000Z",
+   "opening_at": "2026-09-06T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "cppp_epublish",
+   "portal": "https://cppp_epublish.example.gov.in",
+   "ref": "REF/2026/1001",
+   "tender_number": "2026_TEST_900001_1",
+   "url": "https://cppp_epublish.example.gov.in/tender/1",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://cppp_epublish.example.gov.in/docs/1/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://cppp_epublish.example.gov.in/docs/1/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 1,
+   "award": null,
+   "ai": {
+    "summary": {
+     "opportunity": {
+      "value": "25 MW grid-connected solar PV plant including five-year O&M",
+      "confidence": 0.92,
+      "citation": {
+       "document_title": "NIT Document.pdf",
+       "page": 4
+      }
+     },
+     "buyer": {
+      "value": "Maharashtra Energy Development Agency (MEDA)",
+      "confidence": 0.99
+     },
+     "contract_value": {
+      "value": "1125000000",
+      "confidence": 0.85
+     },
+     "deadline": {
+      "value": "bid submission closes in 12 days",
+      "confidence": 0.9
+     },
+     "overall_confidence": 0.88
+    },
+    "eligibility": {
+     "requirements": [
+      {
+       "requirement": "Average annual turnover",
+       "operator": ">=",
+       "value": "224000000",
+       "period": "last 3 financial years",
+       "mandatory": true,
+       "source_page": 38,
+       "source_clause": "4.2",
+       "confidence": 0.94
+      },
+      {
+       "requirement": "Similar completed work",
+       "operator": ">=",
+       "value": "one single work of 20 MW or two works of 10 MW",
+       "period": "last 7 years",
+       "mandatory": true,
+       "source_page": 37,
+       "source_clause": "4.1",
+       "confidence": 0.91
+      },
+      {
+       "requirement": "ISO 9001 certification",
+       "operator": "present",
+       "value": null,
+       "period": null,
+       "mandatory": true,
+       "source_page": 41,
+       "source_clause": "6.3",
+       "confidence": 0.72
+      }
+     ],
+     "exemptions_noted": [
+      "EMD exemption for MSMEs registered with NSIC"
+     ]
+    },
+    "risk": {
+     "flags": [
+      {
+       "label": "IMPORTANT",
+       "risk": "High performance security (5%) with aggressive commissioning schedule",
+       "basis": "Clause 8.1 requires commissioning within 9 months; delay damages 0.5%/week capped at 5%."
+      },
+      {
+       "label": "REVIEW",
+       "risk": "Tariff-linked payment security depends on state discom health",
+       "basis": "PSA annexure references MSEDCL as offtaker."
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "fixture0002",
+   "title": "Supply installation testing and commissioning of 11 kV HT lines and distribution transformers",
+   "authority": "Madhya Pradesh Poorv Kshetra Vidyut Vitaran",
+   "state": "Madhya Pradesh",
+   "city": null,
+   "category": "Electrical Works",
+   "type": "works",
+   "value": 245000000,
+   "emd": 4900000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-08-27T10:30:00.000Z",
+   "opening_at": "2026-08-29T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_madhya_pradesh",
+   "portal": "https://gepnic_madhya_pradesh.example.gov.in",
+   "ref": "REF/2026/1002",
+   "tender_number": "2026_TEST_900002_1",
+   "url": "https://gepnic_madhya_pradesh.example.gov.in/tender/2",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_madhya_pradesh.example.gov.in/docs/2/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_madhya_pradesh.example.gov.in/docs/2/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0003",
+   "title": "Comprehensive maintenance of HVAC systems at district hospital for three years",
+   "authority": "Kerala Medical Services Corporation",
+   "state": "Kerala",
+   "city": null,
+   "category": "Maintenance Services",
+   "type": "works",
+   "value": 32000000,
+   "emd": 640000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-13T10:30:00.000Z",
+   "opening_at": "2026-09-15T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_kerala",
+   "portal": "https://gepnic_kerala.example.gov.in",
+   "ref": "REF/2026/1003",
+   "tender_number": "2026_TEST_900003_1",
+   "url": "https://gepnic_kerala.example.gov.in/tender/3",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_kerala.example.gov.in/docs/3/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_kerala.example.gov.in/docs/3/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0004",
+   "title": "Widening and strengthening of SH-98 from km 14 to km 32 (EPC mode)",
+   "authority": "Rajasthan State Highways Development Corporation",
+   "state": "Rajasthan",
+   "city": null,
+   "category": "Road Works",
+   "type": "works",
+   "value": 1874000000,
+   "emd": 37400000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-18T10:30:00.000Z",
+   "opening_at": "2026-09-20T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_rajasthan",
+   "portal": "https://gepnic_rajasthan.example.gov.in",
+   "ref": "REF/2026/1004",
+   "tender_number": "2026_TEST_900004_1",
+   "url": "https://gepnic_rajasthan.example.gov.in/tender/4",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_rajasthan.example.gov.in/docs/4/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_rajasthan.example.gov.in/docs/4/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0005",
+   "title": "Procurement of 50000 numbers of smart electricity meters under RDSS",
+   "authority": "Jammu & Kashmir Power Distribution Corporation",
+   "state": "Jammu and Kashmir",
+   "city": null,
+   "category": "Smart Meters",
+   "type": "works",
+   "value": 650000000,
+   "emd": 13000000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-10T10:30:00.000Z",
+   "opening_at": "2026-09-12T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_jammu_kashmir",
+   "portal": "https://gepnic_jammu_kashmir.example.gov.in",
+   "ref": "REF/2026/1005",
+   "tender_number": "2026_TEST_900005_1",
+   "url": "https://gepnic_jammu_kashmir.example.gov.in/tender/5",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_jammu_kashmir.example.gov.in/docs/5/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_jammu_kashmir.example.gov.in/docs/5/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 2,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0006",
+   "title": "Construction of two-lane bridge across river Chandrabhaga including approaches",
+   "authority": "Uttarakhand Public Works Department",
+   "state": "Uttarakhand",
+   "city": null,
+   "category": "Bridge Works",
+   "type": "works",
+   "value": 489000000,
+   "emd": 9700000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-25T10:30:00.000Z",
+   "opening_at": "2026-09-27T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_uttarakhand",
+   "portal": "https://gepnic_uttarakhand.example.gov.in",
+   "ref": "REF/2026/1006",
+   "tender_number": "2026_TEST_900006_1",
+   "url": "https://gepnic_uttarakhand.example.gov.in/tender/6",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_uttarakhand.example.gov.in/docs/6/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_uttarakhand.example.gov.in/docs/6/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0007",
+   "title": "Reverse auction for annual rate contract of desktop computers",
+   "authority": "GeM — Ministry of Electronics and IT",
+   "state": null,
+   "city": null,
+   "category": "IT Hardware",
+   "type": "works",
+   "value": 21000000,
+   "emd": 420000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-08-29T10:30:00.000Z",
+   "opening_at": "2026-08-31T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gem_bids",
+   "portal": "https://gem_bids.example.gov.in",
+   "ref": "REF/2026/1007",
+   "tender_number": "2026_TEST_900007_1",
+   "url": "https://gem_bids.example.gov.in/tender/7",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gem_bids.example.gov.in/docs/7/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gem_bids.example.gov.in/docs/7/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0008",
+   "title": "Manpower outsourcing services for airport operations support staff",
+   "authority": "Airports Authority of India",
+   "state": "Delhi",
+   "city": null,
+   "category": "Manpower Services",
+   "type": "works",
+   "value": 156000000,
+   "emd": 3100000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-01T10:30:00.000Z",
+   "opening_at": "2026-09-03T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "cppp_epublish",
+   "portal": "https://cppp_epublish.example.gov.in",
+   "ref": "REF/2026/1008",
+   "tender_number": "2026_TEST_900008_1",
+   "url": "https://cppp_epublish.example.gov.in/tender/8",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://cppp_epublish.example.gov.in/docs/8/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://cppp_epublish.example.gov.in/docs/8/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0009",
+   "title": "Annual operation and maintenance of sewage treatment plant 45 MLD",
+   "authority": "Bharat Electronics Ltd township",
+   "state": null,
+   "city": null,
+   "category": "O&M Services",
+   "type": "works",
+   "value": 84000000,
+   "emd": 1680000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-09-07T10:30:00.000Z",
+   "opening_at": "2026-09-09T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "gepnic_bel",
+   "portal": "https://gepnic_bel.example.gov.in",
+   "ref": "REF/2026/1009",
+   "tender_number": "2026_TEST_900009_1",
+   "url": "https://gepnic_bel.example.gov.in/tender/9",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://gepnic_bel.example.gov.in/docs/9/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://gepnic_bel.example.gov.in/docs/9/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  },
+  {
+   "id": "fixture0010",
+   "title": "Design supply and erection of 220/66 kV GIS substation at Nashik MIDC",
+   "authority": "Maharashtra State Electricity Transmission Company",
+   "state": "Maharashtra",
+   "city": null,
+   "category": "Substation Works",
+   "type": "works",
+   "value": 942000000,
+   "emd": 18800000,
+   "fee": 5900,
+   "published_at": "2026-08-20T07:30:00.000Z",
+   "closing_at": "2026-10-02T10:30:00.000Z",
+   "opening_at": "2026-10-04T06:30:00.000Z",
+   "pre_bid_meeting_at": "2026-08-25T07:30:00.000Z",
+   "status": "active",
+   "source": "cppp_epublish",
+   "portal": "https://cppp_epublish.example.gov.in",
+   "ref": "REF/2026/1010",
+   "tender_number": "2026_TEST_900010_1",
+   "url": "https://cppp_epublish.example.gov.in/tender/10",
+   "first_seen_at": "2026-08-21T07:30:00.000Z",
+   "documents": [
+    {
+     "title": "NIT Document.pdf",
+     "url": "https://cppp_epublish.example.gov.in/docs/10/nit.pdf",
+     "type": "nit"
+    },
+    {
+     "title": "BOQ.xls",
+     "url": "https://cppp_epublish.example.gov.in/docs/10/boq.xls",
+     "type": "boq"
+    }
+   ],
+   "corrigenda_count": 0,
+   "award": null,
+   "ai": null
+  }
+ ]
+}
