@@ -1,0 +1,50 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Generated data (pipeline output is committed selectively by CI;
+# local runs shouldn't flood git)
+data/hot/
+data/ai-cache/
+data/extracted-text/
+data/indexes/chunks/
+archive/*.json.gz
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Playwright / E2E run artifacts (regenerated on every run)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Generated E2E walkthrough screenshots — regenerate via:
+#   npx playwright test e2e/tour.spec.ts
+apps/web/e2e-screenshots/
+
+# Logs and ad-hoc debug scripts
+*.log
+debug-*.mjs
