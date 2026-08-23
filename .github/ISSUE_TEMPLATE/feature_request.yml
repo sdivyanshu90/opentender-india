@@ -1,0 +1,78 @@
+name: Feature request
+description: Propose a new adapter, AI capability, frontend feature, or improvement.
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement. Roadmap context lives in ROADMAP.md; source-inclusion rules (recon report + ethics review required) live in GOVERNANCE.md and CONTRIBUTING.md.
+
+        Requests to bypass CAPTCHA, login walls, or robots.txt will be declined — those are non-negotiable ethics rules, not open questions.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Request type
+      options:
+        - New data source / adapter
+        - Improvement to an existing adapter or parser
+        - AI pipeline (digest quality, citations, budget/cache)
+        - Frontend (apps/web) UI/UX
+        - CLI command or workflow automation
+        - Documentation
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem this solves
+      description: What user need or workflow is currently unmet? Link related issues/discussions.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behaviour you'd expect. For adapters, include verified portal URLs and whether CAPTCHA/login/robots.txt constraints are known.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: ethics
+    attributes:
+      label: Ethics confirmation
+      description: Required for any data-source request.
+      options:
+        - label: This source can be used without bypassing CAPTCHA, logins, or anti-bot controls, and crawling it complies with its robots.txt.
+          required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Willingness to contribute
+      options:
+        - label: I am willing to help implement this (code, fixtures, docs, and/or a reconnaissance report).
+          required: false
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Suggested roadmap fit
+      options:
+        - Current phase work
+        - Backlog
+        - Stretch goal
+        - Not sure
+      default: 3
+    validations:
+      required: false
