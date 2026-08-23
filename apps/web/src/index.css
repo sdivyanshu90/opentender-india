@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-ink-50 text-ink-800 font-sans;
+  }
+  ::selection {
+    @apply bg-accent-100;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md border border-ink-200 bg-white
+      px-3 py-1.5 text-sm font-medium text-ink-700 shadow-sm transition-colors
+      hover:bg-ink-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent-500/50
+      disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply border-accent-600 bg-accent-600 text-white hover:bg-accent-700 focus-visible:ring-accent-500;
+  }
+  .input {
+    @apply rounded-md border border-ink-300 bg-white px-3 py-2 text-sm text-ink-800 placeholder:text-ink-400
+      focus:border-accent-500 focus:outline-none focus:ring-2 focus:ring-accent-500/30;
+  }
+  .card {
+    @apply rounded-lg border border-ink-200 bg-white shadow-sm;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-ink-200 bg-ink-100 px-2.5 py-0.5
+      text-xs font-medium text-ink-600;
+  }
+  .table-header {
+    @apply sticky top-0 z-10 bg-ink-100/95 backdrop-blur text-left text-xs font-semibold uppercase
+      tracking-wide text-ink-500 px-3 py-2.5 border-b border-ink-200;
+  }
+}
