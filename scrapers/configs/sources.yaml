@@ -1,0 +1,132 @@
+# OpenTender India source configuration.
+#
+# Every portal listed here was verified live against its official host.
+# Statuses follow docs/source-research.md:
+#   ACTIVE | EXPERIMENTAL | RESEARCHING | DEGRADED | CAPTCHA_LIMITED |
+#   LOGIN_REQUIRED | POLICY_RESTRICTED | RUNNER_BLOCKED | TEMPORARILY_BROKEN | DEPRECATED
+#
+# Harvest strategies (GePNIC family):
+#   closing_by_date - CAPTCHA-free "tenders by closing date" window (verified on CPPP)
+#   latest_active   - active tenders listing (CAPTCHA on some deployments;
+#                     runtime guard stops politely when a challenge appears)
+#   home_widget     - always-open "latest tenders" widget on the app root
+
+sources:
+  # ---- Central ------------------------------------------------------------
+  - id: cppp_epublish
+    family: gepnic
+    name: CPPP ePublishing (Central Public Procurement Portal)
+    base_url: https://eprocure.gov.in/epublish
+    app_path: /app
+    region: Central Government
+    status: ACTIVE
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [closing_by_date, latest_active]
+    max_detail_per_run: 40
+
+  - id: gem_bids
+    family: gem
+    name: GeM BidPlus (Government e-Marketplace)
+    base_url: https://bidplus.gem.gov.in
+    region: Central / all-India
+    status: ACTIVE
+    enabled: true
+    crawl_delay: 3.5
+    max_pages: 3
+
+  # ---- GePNIC states (verified live) --------------------------------------
+  - id: gepnic_rajasthan
+    family: gepnic
+    name: Rajasthan eProcurement (GePNIC)
+    base_url: https://eproc.rajasthan.gov.in
+    region: Rajasthan
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [latest_active]
+
+  - id: gepnic_kerala
+    family: gepnic
+    name: Kerala eTenders (GePNIC)
+    base_url: https://etenders.kerala.gov.in
+    region: Kerala
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [latest_active]
+
+  - id: gepnic_madhya_pradesh
+    family: gepnic
+    name: MP Tenders (GePNIC)
+    base_url: https://mptenders.gov.in
+    region: Madhya Pradesh
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [latest_active]
+
+  - id: gepnic_uttarakhand
+    family: gepnic
+    name: Uttarakhand eProcurement (GePNIC)
+    base_url: https://uktenders.gov.in
+    region: Uttarakhand
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [latest_active]
+
+  - id: gepnic_jammu_kashmir
+    family: gepnic
+    name: J&K eTenders (GePNIC)
+    base_url: https://jktenders.gov.in
+    region: Jammu and Kashmir
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [latest_active]
+
+  # ---- PSU GePNIC deployments ---------------------------------------------
+  - id: gepnic_bel
+    family: gepnic
+    name: Bharat Electronics Ltd eProcurement
+    base_url: https://eprocurebel.co.in
+    region: PSU (MoD)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 5.0
+    harvest: [latest_active]
+
+  # ---- Policy-restricted ----------------------------------------------------
+  # robots.txt of mahatenders.gov.in disallows ALL crawlers ("Disallow: /").
+  # We respect that: this adapter ships fully implemented but stays disabled in
+  # shared automation. Operators may enable it locally only via
+  # OPEN_TENDER_ALLOW_POLICY_RESTRICTED=1 after making their own judgement.
+  - id: mahatenders
+    family: gepnic
+    name: MahaTenders (Maharashtra eProcurement)
+    base_url: https://mahatenders.gov.in
+    region: Maharashtra
+    status: POLICY_RESTRICTED
+    enabled: true            # adapter registered; gated at runtime (see registry)
+    crawl_delay: 6.0
+    harvest: [home_widget]
+    policy_notes: >
+      robots.txt disallows all crawling. Adapter disabled unless explicitly
+      overridden locally. Home widgets and detail pages are public but listings,
+      search and document downloads are CAPTCHA-gated; we never bypass CAPTCHA.
+
+  - id: ireps_works
+    family: ireps
+    name: Indian Railways E-Procurement (Works module)
+    base_url: https://www.ireps.gov.in
+    region: Indian Railways
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 5.0
+    max_zones_per_run: 4
+    window_days: 7
+
+  # ---- Researching (adapters pending) ---------------------------------------
+  # Karnataka KPPP (SPA), Gujarat nProcure, Telangana/AP custom portals are
+  # tracked in docs/source-research.md with RESEARCHING status.
