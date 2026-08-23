@@ -1,0 +1,26 @@
+name: archive
+
+# Monthly archive compaction (spec #46/#81/#95 ADR-015): move closed tenders
+# past their retention horizon out of the hot set into compressed partitions.
+on:
+  schedule:
+    - cron: "43 22 2 * *" # 2nd of month, non-round minute
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e . --quiet
+      - name: Compact archive by source/year/month
+        run: opentender archive --compact --older-than-days 180 || echo "::warning::archive step incomplete"
+      - name: Commit compacted archive
+        run: |
+          git config user.name "opentender-bot"
+          git config user.email "actions@opentender.invalid"
+          git add archive data
+          git diff --cached --quiet || (git commit -m "archive: monthly compaction $(date -u +%F) [skip ci]" && git push)
