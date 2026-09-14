@@ -1,6 +1,6 @@
 # OpenTender India — Daily Digest
 
-_Generated 13 Sep 2026 22:37 IST from verified portal data._
+_Generated 14 Sep 2026 23:29 IST from verified portal data._
 
 ## New Today (0)
 
