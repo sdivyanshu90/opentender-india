@@ -70,9 +70,44 @@ class TestListingParsing:
         assert "जिल्हा रुग्णालय" in rows[0]["title"]
 
 
+class TestHomeWidgetParsing:
+    def _rows(self):
+        return make_adapter()._parse_home_widget((FIXTURES / "gepnic" / "home.html").read_text())
+
+    def test_parses_only_tender_rows(self):
+        # the header row lives in a separate wrapper table and must be ignored
+        assert len(self._rows()) == 3
+
+    def test_row_fields(self):
+        row = self._rows()[0]
+        assert row["title"] == "ALIPARAMBA GP 160/26-27 KANDAMCHIRA PULIYAMPATTAKUNN PATHWAY CONCRETING"
+        assert row["reference_number"] == "T2/AE/ALP/2026-27 dt. 3-10-2026"
+        assert row["closing_raw"] == "13-Oct-2026 06:55 PM"
+        assert row["detail_href"].startswith("https://tenders.example.gov.in/nicgep/app?component=%24DirectLink")
+
+    def test_rows_without_tender_id_get_distinct_provisional_keys(self):
+        adapter = make_adapter()
+        tenders = [adapter._row_to_tender(r) for r in self._rows()]
+        ids = {t.identity.source_tender_id for t in tenders}
+        assert len(ids) == 3
+        assert all(i.startswith("hash:") for i in ids)
+        assert tenders[0].dates.bid_submission_end is not None
+
+    def test_detail_tender_id_replaces_provisional_key(self, monkeypatch):
+        from types import SimpleNamespace
+
+        adapter = make_adapter()
+        tender = adapter._row_to_tender(self._rows()[0])
+        detail = "<table><tr><td>Tender ID</td><td>2026_LSGD_875715_6</td></tr></table>"
+        monkeypatch.setattr(adapter._http, "get", lambda url: SimpleNamespace(status_code=200, text=detail))
+        enriched = adapter._fetch_detail("https://tenders.example.gov.in/x", tender)
+        assert enriched.identity.source_tender_id == "2026_LSGD_875715_6"
+        assert enriched.canonical_id == CanonicalTender.make_canonical_id("gepnic_test", "2026_LSGD_875715_6")
+
+
 class TestDetailParsing:
     def _detail_tree(self):
-        from selectolax.parser import HTMLParser
+        from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
         return HTMLParser((FIXTURES / "gepnic" / "detail.html").read_text())
 
@@ -127,6 +162,23 @@ class TestGemAdapter:
         ra = adapter._doc_to_tender(self._docs()[1])
         assert ra.procurement.tender_type == "ra"
 
+    def test_solr_multivalued_doc(self):
+        # live API shape (Oct 2026): every field is a single-element list, no bbt_title
+        from scrapers.adapters.gem import GemAdapter
+        cfg = SourceConfig.from_dict({
+            "id": "gem_bids", "family": "gem", "name": "GeM",
+            "base_url": "https://bidplus.gem.gov.in", "region": "India",
+            "crawl_delay": 0.0,
+        })
+        doc = json.loads((FIXTURES / "gem" / "all-bids-data-solr.json").read_text())[0]
+        t = GemAdapter(cfg)._doc_to_tender(doc)
+        assert t.identity.tender_number == "GEM/2026/B/7845020"
+        assert t.procurement.title.startswith("Repair and Overhauling Service")
+        assert t.procurement.category.startswith("Repair and Overhauling Service")
+        assert t.organization.ministry == "Ministry of Defence"
+        assert t.dates.bid_submission_end is not None
+        assert t.status == "active"
+
     def test_epoch_dates(self):
         from scrapers.adapters.gem import _gem_ts
         iso = _gem_ts(1755512400000)
@@ -166,3 +218,33 @@ class TestStoreAndDiff:
         # persisted roundtrip
         loaded = store.existing("a" * 24)
         assert loaded.financial.estimated_value == 2_000_000
+
+
+class TestSourceHealth:
+    def test_status_file_roundtrip_across_runs(self, tmp_path):
+        from scrapers.core.health import SourceHealthTracker
+
+        path = tmp_path / "sources.json"
+        first = SourceHealthTracker(path)
+        first.record("gepnic_x", ok=True, discovered=10, new_tenders=10, changed_tenders=0)
+        first.write()
+        # the next day's run must load what the previous run wrote
+        second = SourceHealthTracker(path)
+        second.record("gepnic_x", ok=True, discovered=8, new_tenders=1, changed_tenders=2)
+        second.write()
+        snap = json.loads(path.read_text())
+        assert snap["sources"]["gepnic_x"]["discovered_last_run"] == 8
+        assert snap["records"]["gepnic_x"]["discovered_baseline"] == [10, 8]
+
+    def test_loads_legacy_snapshot_and_recovers_from_captcha_status(self, tmp_path):
+        from scrapers.core.health import SourceHealthTracker
+
+        path = tmp_path / "sources.json"
+        path.write_text(json.dumps({
+            "generated_at": "2026-10-03T00:00:00+05:30",
+            "sources": {"gepnic_x": {"status": "CAPTCHA_LIMITED", "last_success": None}},
+        }))
+        tracker = SourceHealthTracker(path)
+        tracker.record("gepnic_x", ok=True, discovered=10, new_tenders=10, changed_tenders=0)
+        tracker.write()
+        assert json.loads(path.read_text())["sources"]["gepnic_x"]["status"] == "ACTIVE"

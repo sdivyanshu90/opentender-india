@@ -22,6 +22,26 @@ STATUSES = (
 )
 
 
+def _load_records(raw: dict[str, Any]) -> dict[str, Any]:
+    """Accept the current file shape plus the older snapshot-only one."""
+    if "records" in raw:
+        return raw["records"]
+    if "sources" in raw:  # snapshot without records: seed what it carries
+        return {
+            source: {
+                "history": [],
+                "discovered_baseline": [],
+                "status": snap.get("status", "RESEARCHING"),
+                "last_success": snap.get("last_success"),
+                "last_attempt": snap.get("last_attempt"),
+                "http_failures": snap.get("http_failures_total", 0),
+                "parser_failures": snap.get("parser_failures_total", 0),
+            }
+            for source, snap in raw["sources"].items()
+        }
+    return raw
+
+
 class SourceHealthTracker:
     """Persists per-run outcomes to status/sources.json history."""
 
@@ -31,7 +51,7 @@ class SourceHealthTracker:
         self._data: dict[str, Any] = {}
         if self.status_file.exists():
             try:
-                self._data = json.loads(self.status_file.read_text("utf-8"))
+                self._data = _load_records(json.loads(self.status_file.read_text("utf-8")))
             except Exception:
                 self._data = {}
 
@@ -92,7 +112,7 @@ class SourceHealthTracker:
             rec["status"] = "DEGRADED"
         elif ok:
             current = rec.get("status")
-            if current in ("DEGRADED", "TEMPORARILY_BROKEN"):
+            if current in ("DEGRADED", "TEMPORARILY_BROKEN", "CAPTCHA_LIMITED"):
                 rec["status"] = "ACTIVE"
             elif current in (None, "EXPERIMENTAL"):
                 rec["status"] = "ACTIVE"
@@ -120,7 +140,10 @@ class SourceHealthTracker:
 
     def write(self) -> None:
         self.status_file.parent.mkdir(parents=True, exist_ok=True)
-        self.status_file.write_text(json.dumps(self.snapshot(), indent=2), "utf-8")
+        # "sources" is the public view the frontend reads; "records" keeps the
+        # counters/baselines the next run needs to resume from.
+        payload = {**self.snapshot(), "records": self._data}
+        self.status_file.write_text(json.dumps(payload, indent=2, default=list), "utf-8")
 
     def stale_sources(self, *, max_age_days: int = 3) -> list[str]:
         cutoff = datetime.now().astimezone() - timedelta(days=max_age_days)

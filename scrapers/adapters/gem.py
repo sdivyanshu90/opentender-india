@@ -180,6 +180,7 @@ class GemAdapter:
         return list(inner.get("docs") or []), False
 
     def _doc_to_tender(self, doc: dict) -> CanonicalTender | None:
+        doc = _unwrap_solr(doc)
         bid_number = doc.get("b_bid_number")
         b_id = doc.get("b_id")
         if not bid_number and not b_id:
@@ -213,7 +214,11 @@ class GemAdapter:
                 tender_number=clean_text(bid_number, max_len=100),
             ),
             procurement={
-                "title": clean_text(doc.get("bbt_title"), max_len=500),
+                # live API (Oct 2026) no longer sends bbt_title; the item/service name is the title
+                "title": clean_text(
+                    doc.get("bbt_title") or doc.get("bd_category_name") or (categories[0] if categories else None),
+                    max_len=500,
+                ),
                 "category": clean_text(categories[0], max_len=300) if categories else None,
                 "tender_type": "ra" if int(doc.get("b_bid_type", 1) or 1) == 2 else "open",
             },
@@ -245,6 +250,23 @@ class GemAdapter:
         )
         tender.provenance.content_hash = tender.compute_content_hash()
         return tender
+
+
+# Genuinely multi-valued on GeM; everything else is a Solr single-value list.
+_GEM_LIST_FIELDS = {"b_category_name", "bid_schedule", "parent_bid_schedule"}
+
+
+def _unwrap_solr(doc: dict) -> dict:
+    """Live all-bids-data returns Solr multivalued fields (``"b_bid_type": [1]``)."""
+    out: dict = {}
+    for key, value in doc.items():
+        if key in _GEM_LIST_FIELDS:
+            out[key] = value if isinstance(value, list) else [value]
+        elif isinstance(value, list):
+            out[key] = value[0] if value else None
+        else:
+            out[key] = value
+    return out
 
 
 def _gem_ts(value) -> str | None:

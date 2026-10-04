@@ -1,0 +1,239 @@
+[
+ {
+  "id": "9673281",
+  "b_id": [
+   9673281
+  ],
+  "b_bid_number": [
+   "GEM/2026/B/7845020"
+  ],
+  "b_category_name": [
+   "Repair and Overhauling Service - UPGRADATION OF MCS 5 CONTROLS OF BOTH MAIN ENGINES ONBOARD IN SHIP"
+  ],
+  "b_total_quantity": [
+   1
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   1
+  ],
+  "b_is_bunch": [
+   1
+  ],
+  "b_type": [
+   1
+  ],
+  "b_bid_to_ra": [
+   0
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-08-04T10:43:04Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-05T09:00:00Z"
+  ],
+  "bd_category_name": [
+   "Repair and Overhauling Service - UPGRADATION OF MCS 5 CONTROLS OF BOTH MAIN ENGINES ONBOARD IN SHIP; ANY OTHER SUITABLE BRAND; No; Buyer Premises"
+  ],
+  "b_is_custom_item": [
+   0
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "b_cat_id": [
+   "services_home_gene"
+  ],
+  "b.b_created_by": [
+   "AMCOM_POL"
+  ],
+  "ba_is_single_packet": [
+   1
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_minName": [
+   "Ministry of Defence"
+  ],
+  "ba_official_details_deptName": [
+   "Department of Military Affairs"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ },
+ {
+  "id": "9926291",
+  "b_id": [
+   9926291
+  ],
+  "b_bid_number": [
+   "GEM/2026/B/8065592"
+  ],
+  "b_category_name": [
+   "Mens Casual Shirt,Kurtis and Kurta Sets - Handicraft,Pants,Pants,shoes school pvc boys  girls"
+  ],
+  "b_total_quantity": [
+   7904
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   1
+  ],
+  "b_is_bunch": [
+   5
+  ],
+  "b_type": [
+   0
+  ],
+  "b_bid_to_ra": [
+   0
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-09-22T11:33:22Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-05T09:00:00Z"
+  ],
+  "bd_category_name": [
+   "Mens Casual Shirt,Kurtis and Kurta Sets - Handicraft,Pants,Pants,shoes school pvc boys  girls"
+  ],
+  "b_is_custom_item": [
+   0
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "b_cat_id": [
+   "home_hand_fash_appa_mens,home_hand_fash_appa_ku03371202,home_appa_clot_slac_pa34452042,home_appa_foot_sh88838715_shoe"
+  ],
+  "b.b_created_by": [
+   "itihirakud@buyer"
+  ],
+  "ba_is_single_packet": [
+   0
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_deptName": [
+   "Skill Development and Technical Education Department. Odisha"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ },
+ {
+  "id": "9925691",
+  "b_id": [
+   9925691
+  ],
+  "b_bid_number": [
+   "GEM/2026/B/8065081"
+  ],
+  "b_category_name": [
+   "Provn of Qty 18 x Fast Erection Foldable Shelter"
+  ],
+  "b_total_quantity": [
+   18
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   1
+  ],
+  "b_is_bunch": [
+   1
+  ],
+  "b_type": [
+   0
+  ],
+  "b_bid_to_ra": [
+   0
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-09-21T18:51:29Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-05T09:00:00Z"
+  ],
+  "bd_category_name": [
+   "Provn of Qty 18 x Fast Erection Foldable Shelter"
+  ],
+  "b_is_custom_item": [
+   1
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "b_cat_id": [
+   "home_univ_univ_univ_univ"
+  ],
+  "b.b_created_by": [
+   "rawatlokesh5"
+  ],
+  "ba_is_single_packet": [
+   0
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_minName": [
+   "Ministry of Defence"
+  ],
+  "ba_official_details_deptName": [
+   "Department of Military Affairs"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ }
+]

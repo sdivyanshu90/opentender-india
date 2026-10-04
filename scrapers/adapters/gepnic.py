@@ -12,6 +12,9 @@ Technical model (verified across deployments):
   Title/Ref/TenderID (+detail link) | Organisation Chain.
 - Tender ID is the stable key: YYYY_ORGSITE_NNNNNNN_corrseq.
 - Runtime CAPTCHA guard: never proceed past a challenge - flag and stop.
+- Many deployments now CAPTCHA-gate the full listing pages; the app root's
+  "Latest Tenders" widget (table#activeTenders) stays open and is harvested
+  via the `home_widget` strategy, with Tender IDs recovered from detail pages.
 """
 
 from __future__ import annotations
@@ -23,7 +26,7 @@ from collections.abc import Iterator
 from datetime import datetime
 from urllib.parse import urljoin
 
-from selectolax.parser import HTMLParser
+from selectolax.lexbor import LexborHTMLParser as HTMLParser
 
 from scrapers.core.adapter import AdapterMeta, FetchOutcome
 from scrapers.core.amounts import parse_amount, parse_plain_number
@@ -43,6 +46,7 @@ log = logging.getLogger("opentender.gepnic")
 
 TENDER_ID_RE = re.compile(r"\[(\d{4}_[A-Z0-9]+_\d+_\d+)\]")
 REF_RE = re.compile(r"\[([^\[\]]{3,60})\]")
+WIDGET_SERIAL_RE = re.compile(r"^\d+\.\s*")
 
 PAGE_LATEST_ACTIVE = "FrontEndLatestActiveTenders"
 PAGE_CLOSING_BY_DATE = "FrontEndListTendersbyDate"
@@ -243,7 +247,10 @@ class GePNICAdapter:
         if detect_captcha(html):
             outcome.captcha_hit = True
             return []
-        return self._parse_listing(html, outcome)
+        rows = self._parse_home_widget(html)
+        if not rows:
+            outcome.degraded = True
+        return rows
 
     # -- parsing ----------------------------------------------------------------
 
@@ -287,13 +294,42 @@ class GePNICAdapter:
                 rows.append(row)
         return rows
 
+    def _parse_home_widget(self, html: str) -> list[dict]:
+        """Latest Tenders widget: Title (+detail link) | Reference No | Closing | Opening."""
+        tree = HTMLParser(html)
+        rows: list[dict] = []
+        for tr in tree.css("table#activeTenders tr"):
+            cells = tr.css("td")
+            if len(cells) < 4:
+                continue
+            texts = [_cell_text(c) for c in cells]
+            title = clean_text(WIDGET_SERIAL_RE.sub("", texts[0]))
+            if not title:
+                continue
+            link_node = _first_link(tr)
+            rows.append(
+                {
+                    "title": title,
+                    "reference_number": texts[1] or None,
+                    "closing_raw": texts[2],
+                    "opening_raw": texts[3],
+                    "published_raw": None,
+                    "org_chain": None,
+                    "detail_href": urljoin(self.app_url, link_node.attributes.get("href", ""))
+                    if link_node
+                    else None,
+                }
+            )
+        return rows
+
     def _row_to_tender(self, row: dict) -> CanonicalTender | None:
         tender_id = row.get("tender_id")
         title = row.get("title")
         if not tender_id and not title:
             return None
         now = datetime.now(tz=IST)
-        source_id = tender_id or f"hash:{hashlib.sha256(title.encode()).hexdigest()[:16]}"
+        fallback_key = f"{title}|{row.get('reference_number') or ''}"
+        source_id = tender_id or f"hash:{hashlib.sha256(fallback_key.encode()).hexdigest()[:16]}"
         closing = parse_datetime(row.get("closing_raw"))
         status = "active" if (closing and closing > now) else "closed" if closing else "unknown"
         provenance = ProvenanceInfo(
@@ -353,7 +389,10 @@ class GePNICAdapter:
                 if path is None:
                     continue
                 current = _get_path(tender, path)
-                if current:
+                # widget rows carry a provisional hash key until the detail page
+                # reveals the real Tender ID
+                rekey = path == "identity.source_tender_id" and str(current).startswith("hash:")
+                if current and not rekey:
                     continue
                 parsed_value: object
                 if path.startswith(("financial.",)) :
@@ -368,11 +407,18 @@ class GePNICAdapter:
                     parsed_value = m.group(1) if m else value.strip()
                 elif path.startswith(("geography.",)):
                     parsed_value = clean_text(value, max_len=300)
+                elif label == "organisation chain":
+                    # portal joins the hierarchy as "Dept||District||Office"
+                    parsed_value = clean_text(" › ".join(p.strip() for p in value.split("||") if p.strip()))
                 else:
                     parsed_value = clean_text(value)
                 if parsed_value in (None, "", "NA"):
                     continue
                 _set_path(tender, path, parsed_value)
+                if rekey:
+                    tender.canonical_id = CanonicalTender.make_canonical_id(
+                        self.meta.source_code, tender.identity.source_tender_id
+                    )
                 applied = True
         docs = self._parse_documents(tree)
         if docs:

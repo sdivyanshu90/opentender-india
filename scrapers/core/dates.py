@@ -49,11 +49,12 @@ def parse_datetime(raw: str | None) -> datetime | None:
         except ValueError:
             continue
         return dt.replace(tzinfo=IST)
-    # ISO with offset already?
+    # ISO with offset already? (3.10's fromisoformat rejects a trailing "Z")
     try:
-        return datetime.fromisoformat(text)
+        dt = datetime.fromisoformat(text[:-1] + "+00:00" if text.endswith("Z") else text)
     except ValueError:
         return None
+    return dt.astimezone(IST) if dt.tzinfo else dt.replace(tzinfo=IST)
 
 
 def now_ist() -> datetime:

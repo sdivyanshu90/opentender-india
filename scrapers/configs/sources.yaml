@@ -6,10 +6,11 @@
 #   LOGIN_REQUIRED | POLICY_RESTRICTED | RUNNER_BLOCKED | TEMPORARILY_BROKEN | DEPRECATED
 #
 # Harvest strategies (GePNIC family):
-#   closing_by_date - CAPTCHA-free "tenders by closing date" window (verified on CPPP)
-#   latest_active   - active tenders listing (CAPTCHA on some deployments;
-#                     runtime guard stops politely when a challenge appears)
+#   closing_by_date - "tenders by closing date" listing
+#   latest_active   - active tenders listing
 #   home_widget     - always-open "latest tenders" widget on the app root
+# As of Oct 2026 every deployment below CAPTCHA-gates closing_by_date and
+# latest_active (runtime guard stops politely), so they harvest home_widget only.
 
 sources:
   # ---- Central ------------------------------------------------------------
@@ -22,7 +23,7 @@ sources:
     status: ACTIVE
     enabled: true
     crawl_delay: 4.0
-    harvest: [closing_by_date, latest_active]
+    harvest: [home_widget]
     max_detail_per_run: 40
 
   - id: gem_bids
@@ -44,7 +45,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   - id: gepnic_kerala
     family: gepnic
@@ -54,7 +55,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   - id: gepnic_madhya_pradesh
     family: gepnic
@@ -64,7 +65,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   - id: gepnic_uttarakhand
     family: gepnic
@@ -74,7 +75,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   - id: gepnic_jammu_kashmir
     family: gepnic
@@ -84,7 +85,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   # ---- PSU GePNIC deployments ---------------------------------------------
   - id: gepnic_bel
@@ -95,7 +96,7 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 5.0
-    harvest: [latest_active]
+    harvest: [home_widget]
 
   # ---- Policy-restricted ----------------------------------------------------
   # robots.txt of mahatenders.gov.in disallows ALL crawlers ("Disallow: /").
