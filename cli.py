@@ -470,6 +470,8 @@ def build_index(
 
 
 def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bool) -> tuple[int, int | None]:
+    from scrapers.core.geo import infer_geography
+
     out_dir = DATA_DIR / "indexes"
     out_dir.mkdir(parents=True, exist_ok=True)
     meta_path = out_dir / "search-docs.meta.json"
@@ -530,6 +532,14 @@ def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bo
                 "risk": risk,
             },
         }
+        if not rec.geography.state:
+            # central/PSU/GeM sources carry no state: infer it deterministically (never overrides an adapter)
+            tag = infer_geography(rec)
+            if tag is not None:
+                doc["state"] = tag.state
+                doc["state_inferred"] = True
+                if tag.district and not rec.geography.district:
+                    doc["district"] = tag.district
         docs.append(doc)
     # quality gate (spec 8/46): never overwrite a good dataset with an empty or collapsed one
     collapsed = previous is not None and previous > 0 and len(docs) < previous * (1 - max_drop)

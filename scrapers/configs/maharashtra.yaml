@@ -1,0 +1,402 @@
+# Maharashtra coverage (EXPERIMENTAL): state power utilities + NIC S3WaaS district sites.
+# Verified 2026-10-04 with scrapers.core.http.HttpClient (project UA, robots.txt
+# enforced, >=4s delay), <=10 requests per site, no login/CAPTCHA contact.
+# mahatenders.gov.in is intentionally never contacted.
+
+sources:
+  - id: mahagenco_notices
+    family: notice_pages
+    parser: mahagenco
+    name: MahaGenco tender notices
+    base_url: https://www.mahagenco.in/tenders
+    region: Maharashtra
+    state: Maharashtra
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    window_days: 60        # publication time is only in the PDF filename; skip history
+
+  - id: mahatransco_tenders
+    family: notice_pages
+    parser: mahatransco
+    name: MahaTransco (MSETCL) active tenders
+    base_url: https://www.mahatransco.in/tenders/active
+    region: Maharashtra
+    state: Maharashtra
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 5           # 20 rows/page, offset pagination
+
+  - id: msedcl_tenders
+    family: notice_pages
+    parser: msedcl
+    name: MSEDCL (Mahadiscom) supplier tenders
+    base_url: https://www.mahadiscom.in/en/supplier/tenders/
+    region: Maharashtra
+    state: Maharashtra
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3           # WordPress grid, 6 posts/page, /page/N/
+    window_days: 90
+    # Listing carries title + post date only; closing dates are inside the notice.
+
+# --- NIC S3WaaS district sites. Verified = archive page /en/past-notices/tenders/
+# answered 200 with the S3WaaS template. Not included (one request each, no retry):
+#   robots.txt disallows the path: aurangabad.gov.in (Chhatrapati Sambhajinagar),
+#     buldhana.gov.in, chandrapur.gov.in, hingoli.gov.in, sangli.gov.in, sindhudurg.gov.in
+#   TLS certificate invalid (not bypassed): ahmednagar.gov.in (Ahilyanagar),
+#     osmanabad.gov.in (Dharashiv), satara.gov.in
+#   (mumbaisuburban and solapur serve the template but had an empty archive.)
+
+  - id: s3waas_akola
+    family: s3waas
+    name: "Akola district tenders (S3WaaS)"
+    base_url: https://akola.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Akola
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_amravati
+    family: s3waas
+    name: "Amravati district tenders (S3WaaS)"
+    base_url: https://amravati.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Amravati
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_beed
+    family: s3waas
+    name: "Beed district tenders (S3WaaS)"
+    base_url: https://beed.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Beed
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_bhandara
+    family: s3waas
+    name: "Bhandara district tenders (S3WaaS)"
+    base_url: https://bhandara.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Bhandara
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_dhule
+    family: s3waas
+    name: "Dhule district tenders (S3WaaS)"
+    base_url: https://dhule.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Dhule
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_gadchiroli
+    family: s3waas
+    name: "Gadchiroli district tenders (S3WaaS)"
+    base_url: https://gadchiroli.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Gadchiroli
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_gondia
+    family: s3waas
+    name: "Gondia district tenders (S3WaaS)"
+    base_url: https://gondia.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Gondia
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_jalgaon
+    family: s3waas
+    name: "Jalgaon district tenders (S3WaaS)"
+    base_url: https://jalgaon.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Jalgaon
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_jalna
+    family: s3waas
+    name: "Jalna district tenders (S3WaaS)"
+    base_url: https://jalna.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Jalna
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_kolhapur
+    family: s3waas
+    name: "Kolhapur district tenders (S3WaaS)"
+    base_url: https://kolhapur.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Kolhapur
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_latur
+    family: s3waas
+    name: "Latur district tenders (S3WaaS)"
+    base_url: https://latur.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Latur
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_mumbaicity
+    family: s3waas
+    name: "Mumbai City district tenders (S3WaaS)"
+    base_url: https://mumbaicity.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Mumbai City
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_mumbaisuburban
+    family: s3waas
+    name: "Mumbai Suburban district tenders (S3WaaS)"
+    base_url: https://mumbaisuburban.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Mumbai Suburban
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_nagpur
+    family: s3waas
+    name: "Nagpur district tenders (S3WaaS)"
+    base_url: https://nagpur.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Nagpur
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_nanded
+    family: s3waas
+    name: "Nanded district tenders (S3WaaS)"
+    base_url: https://nanded.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Nanded
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_nandurbar
+    family: s3waas
+    name: "Nandurbar district tenders (S3WaaS)"
+    base_url: https://nandurbar.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Nandurbar
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_nashik
+    family: s3waas
+    name: "Nashik district tenders (S3WaaS)"
+    base_url: https://nashik.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Nashik
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_palghar
+    family: s3waas
+    name: "Palghar district tenders (S3WaaS)"
+    base_url: https://palghar.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Palghar
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_parbhani
+    family: s3waas
+    name: "Parbhani district tenders (S3WaaS)"
+    base_url: https://parbhani.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Parbhani
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_pune
+    family: s3waas
+    name: "Pune district tenders (S3WaaS)"
+    base_url: https://pune.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Pune
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_raigad
+    family: s3waas
+    name: "Raigad district tenders (S3WaaS)"
+    base_url: https://raigad.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Raigad
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_ratnagiri
+    family: s3waas
+    name: "Ratnagiri district tenders (S3WaaS)"
+    base_url: https://ratnagiri.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Ratnagiri
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_solapur
+    family: s3waas
+    name: "Solapur district tenders (S3WaaS)"
+    base_url: https://solapur.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Solapur
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_thane
+    family: s3waas
+    name: "Thane district tenders (S3WaaS)"
+    base_url: https://thane.nic.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Thane
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_wardha
+    family: s3waas
+    name: "Wardha district tenders (S3WaaS)"
+    base_url: https://wardha.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Wardha
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_washim
+    family: s3waas
+    name: "Washim district tenders (S3WaaS)"
+    base_url: https://washim.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Washim
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90
+
+  - id: s3waas_yavatmal
+    family: s3waas
+    name: "Yavatmal district tenders (S3WaaS)"
+    base_url: https://yavatmal.gov.in
+    region: Maharashtra
+    state: Maharashtra
+    district: Yavatmal
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    max_pages: 3
+    window_days: 90

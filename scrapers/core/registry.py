@@ -93,6 +93,14 @@ def build_adapter(cfg: SourceConfig, *, allow_policy_restricted: bool | None = N
         return GemAdapter(cfg)
     if cfg.family == "ireps":
         return IrepsWorksAdapter(cfg)
+    if cfg.family == "notice_pages":
+        from scrapers.adapters.notice_pages import NoticePagesAdapter
+
+        return NoticePagesAdapter(cfg)
+    if cfg.family == "s3waas":
+        from scrapers.adapters.s3waas import S3WaaSAdapter
+
+        return S3WaaSAdapter(cfg)
     raise ValueError(f"no adapter for family {cfg.family!r} ({cfg.id})")
 
 
