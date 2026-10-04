@@ -7,6 +7,9 @@ on:
     - cron: "43 22 2 * *" # 2nd of month, non-round minute
   workflow_dispatch:
 
+permissions:
+  contents: write # the compaction commit is pushed back to main
+
 jobs:
   archive:
     runs-on: ubuntu-latest

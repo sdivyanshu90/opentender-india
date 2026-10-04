@@ -21,8 +21,8 @@ dist/
 *.tsbuildinfo
 
 # Generated data (pipeline output is committed selectively by CI;
-# local runs shouldn't flood git)
-data/hot/
+# local runs shouldn't flood git). data/hot/ IS committed: it is the
+# cross-run tender store build-index reads from (ADR-005).
 data/ai-cache/
 data/extracted-text/
 data/indexes/chunks/

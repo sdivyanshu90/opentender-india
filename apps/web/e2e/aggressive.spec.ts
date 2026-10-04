@@ -103,7 +103,8 @@ test.describe("state & limits", () => {
     // bookmark one first
     await page.goto("/discover?q=solar");
     await page.locator('button[aria-label^="Bookmark"]').first().click();
-    await page.goto("/saved");
+    await expect(page.locator('button[aria-label="Remove bookmark"]').first()).toBeVisible();
+    await page.getByRole("link", { name: /saved/i }).first().click();
     const dl = page.waitForEvent("download");
     await page.getByRole("button", { name: "Export CSV" }).click();
     const download = await dl;

@@ -36,7 +36,8 @@ test("journey 2: bookmark → saved → export", async ({ page }) => {
   const bookmark = page.locator('button[aria-label^="Bookmark"]').first();
   if (await bookmark.count()) {
     await bookmark.click();
-    await page.goto("/saved");
+    await expect(page.locator('button[aria-label="Remove bookmark"]').first()).toBeVisible();
+    await page.getByRole("link", { name: /saved/i }).first().click();
     await expect(page.getByRole("heading", { name: /saved/i })).toBeVisible();
     await expect(page.getByRole("button", { name: "Export CSV" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Backup JSON" })).toBeVisible();

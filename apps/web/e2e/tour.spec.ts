@@ -86,7 +86,9 @@ test.describe.serial("guided tour — desktop 1280x800", () => {
   test("14 bookmark then saved workspace", async ({ page }) => {
     await page.goto("/discover?q=solar");
     await page.locator('button[aria-label^="Bookmark"]').first().click();
-    await page.goto("/saved");
+    await expect(page.locator('button[aria-label="Remove bookmark"]').first()).toBeVisible();
+    // navigate in-app: a hard reload can abort the pending IndexedDB write
+    await page.getByRole("link", { name: /saved/i }).first().click();
     await expect(page.getByText(/bookmarked tenders/i)).toBeVisible();
     await shot(page, "14-saved-workspace");
   });

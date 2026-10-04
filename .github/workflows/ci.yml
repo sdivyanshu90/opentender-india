@@ -49,6 +49,7 @@ jobs:
           if grep -R "OPENROUTER_API_KEY" apps/web/src apps/web/index.html; then
             echo "::error::OPENROUTER_API_KEY referenced in frontend code"; exit 1
           fi
-          if grep -RIE "sk-or-" apps/web/src; then
+          # real keys look like sk-or-v1-<64 hex>; UI placeholders like "sk-or-v1-…" must not trip this
+          if grep -RIE "sk-or-v[0-9]+-[A-Za-z0-9]{16,}" apps/web/src; then
             echo "::error::possible API key literal in frontend source"; exit 1
           fi

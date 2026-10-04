@@ -3,6 +3,11 @@ name: deploy
 on:
   push:
     branches: [main]
+  # Ingestion commits carry [skip ci], which suppresses push-triggered runs,
+  # so redeploy explicitly whenever the daily fetch finishes.
+  workflow_run:
+    workflows: [fetch-tenders]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,9 +21,12 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main # workflow_run would otherwise check out the pre-ingestion commit
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -26,12 +34,17 @@ jobs:
           cache-dependency-path: apps/web/package-lock.json
       - name: Build frontend
         working-directory: apps/web
+        env:
+          # project site is served from https://<owner>.github.io/<repo>/
+          BASE_PATH: /${{ github.event.repository.name }}/
         run: |
           npm ci || npm install
           npm run build
+          # SPA fallback: Pages serves 404.html for deep links like /tender/<id>
+          cp dist/index.html dist/404.html
       - name: Copy generated datasets + status into the site
         run: |
-          mkdir -p apps/web/dist/data/index apps/web/dist/data/status-sources.json.tmp
+          mkdir -p apps/web/dist/data/index
           if [ -d data/indexes ]; then cp -r data/indexes/* apps/web/dist/data/index/; fi
           if [ -f status/sources.json ]; then cp status/sources.json apps/web/dist/data/status-sources.json; fi
       - uses: actions/upload-pages-artifact@v3
