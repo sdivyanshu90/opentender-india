@@ -9,8 +9,11 @@
 #   closing_by_date - "tenders by closing date" listing
 #   latest_active   - active tenders listing
 #   home_widget     - always-open "latest tenders" widget on the app root
+#   org_walk        - open "Tenders by Organisation" pages: org list with live
+#                     counts, then each org's full tender list (largest first,
+#                     capped by max_orgs); falls back to home_widget when empty
 # As of Oct 2026 every deployment below CAPTCHA-gates closing_by_date and
-# latest_active (runtime guard stops politely), so they harvest home_widget only.
+# latest_active (runtime guard stops politely), so they use org_walk.
 
 sources:
   # ---- Central ------------------------------------------------------------
@@ -23,8 +26,9 @@ sources:
     status: ACTIVE
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
-    max_detail_per_run: 40
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
 
   - id: gem_bids
     family: gem
@@ -34,7 +38,8 @@ sources:
     status: ACTIVE
     enabled: true
     crawl_delay: 3.5
-    max_pages: 3
+    max_pages: 50   # ~500 newest ongoing bids/run (10 per page); env OPENTENDER_GEM_MAX_PAGES overrides
+    sort: Bid-Start-Date-Latest
 
   # ---- GePNIC states (verified live) --------------------------------------
   - id: gepnic_rajasthan
@@ -45,7 +50,10 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
+    state: Rajasthan
 
   - id: gepnic_kerala
     family: gepnic
@@ -55,7 +63,10 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
+    state: Kerala
 
   - id: gepnic_madhya_pradesh
     family: gepnic
@@ -65,7 +76,10 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
+    state: Madhya Pradesh
 
   - id: gepnic_uttarakhand
     family: gepnic
@@ -75,7 +89,10 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
+    state: Uttarakhand
 
   - id: gepnic_jammu_kashmir
     family: gepnic
@@ -85,7 +102,10 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 4.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
+    state: Jammu and Kashmir
 
   # ---- PSU GePNIC deployments ---------------------------------------------
   - id: gepnic_bel
@@ -96,7 +116,9 @@ sources:
     status: EXPERIMENTAL
     enabled: true
     crawl_delay: 5.0
-    harvest: [home_widget]
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 20
 
   # ---- Policy-restricted ----------------------------------------------------
   # robots.txt of mahatenders.gov.in disallows ALL crawlers ("Disallow: /").
@@ -123,7 +145,9 @@ sources:
     base_url: https://www.ireps.gov.in
     region: Indian Railways
     status: EXPERIMENTAL
-    enabled: true
+    # robots.txt disallows the anonymous works search (re-checked 4 Oct 2026);
+    # every run ended in RobotsDisallowedError, so keep it off until that changes.
+    enabled: false
     crawl_delay: 5.0
     max_zones_per_run: 4
     window_days: 7

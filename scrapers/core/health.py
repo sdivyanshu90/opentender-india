@@ -42,11 +42,26 @@ def _load_records(raw: dict[str, Any]) -> dict[str, Any]:
     return raw
 
 
+_VOLATILE = {
+    "generated_at", "last_attempt", "last_success", "at", "latency_ms", "last_latency_ms",
+}
+
+
+def _strip_volatile(obj: Any) -> Any:
+    """Drop timestamp/latency keys so only meaningful changes compare unequal."""
+    if isinstance(obj, dict):
+        return {k: _strip_volatile(v) for k, v in obj.items() if k not in _VOLATILE}
+    if isinstance(obj, list):
+        return [_strip_volatile(v) for v in obj]
+    return obj
+
+
 class SourceHealthTracker:
     """Persists per-run outcomes to status/sources.json history."""
 
-    def __init__(self, status_file: Path, *, baseline_window: int = 30):
+    def __init__(self, status_file: Path, *, baseline_window: int = 30, public_file: Path | None = None):
         self.status_file = Path(status_file)
+        self.public_file = Path(public_file) if public_file else None
         self.baseline_window = baseline_window
         self._data: dict[str, Any] = {}
         if self.status_file.exists():
@@ -86,6 +101,8 @@ class SourceHealthTracker:
             rec["last_latency_ms"] = latency_ms
         if parser_version:
             rec["parser_version"] = parser_version
+        # baseline of prior non-zero runs, captured before this run is appended
+        prior = [int(x) for x in rec.get("discovered_baseline", [])]
         if ok and discovered > 0:
             rec["last_success"] = now.isoformat()
             rec["consecutive_failures"] = 0
@@ -101,8 +118,7 @@ class SourceHealthTracker:
             "captcha_hit": captcha_hit,
         }
         degraded = False
-        baseline = [int(x) for x in rec.get("discovered_baseline", [])][:-1]
-        if ok and discovered == 0 and len(baseline) >= 3:
+        if ok and discovered == 0 and len(prior) >= 3:
             degraded = True  # HTTP 200 but zero results vs. historical norm
         elif not ok and rec["consecutive_failures"] >= 2:
             degraded = True
@@ -110,12 +126,12 @@ class SourceHealthTracker:
             rec["status"] = "CAPTCHA_LIMITED"
         elif degraded:
             rec["status"] = "DEGRADED"
-        elif ok:
+        elif ok and discovered > 0:
             current = rec.get("status")
-            if current in ("DEGRADED", "TEMPORARILY_BROKEN", "CAPTCHA_LIMITED"):
+            if current in ("DEGRADED", "TEMPORARILY_BROKEN", "CAPTCHA_LIMITED", None, "EXPERIMENTAL"):
                 rec["status"] = "ACTIVE"
-            elif current in (None, "EXPERIMENTAL"):
-                rec["status"] = "ACTIVE"
+        elif ok:
+            pass  # zero results, no baseline yet: neither promote nor demote
         else:
             rec["status"] = "TEMPORARILY_BROKEN"
         return degraded
@@ -138,12 +154,29 @@ class SourceHealthTracker:
             }
         return out
 
-    def write(self) -> None:
-        self.status_file.parent.mkdir(parents=True, exist_ok=True)
-        # "sources" is the public view the frontend reads; "records" keeps the
-        # counters/baselines the next run needs to resume from.
+    def write(self) -> bool:
+        """Persist state. Returns True when the committed status file was rewritten.
+
+        "sources" is the public view the frontend reads; "records" keeps the
+        counters/baselines the next run needs to resume from. The committed file is
+        left untouched when only timestamps/latencies changed, so no-op runs create
+        no git churn; ``public_file`` (when set) is always written fresh for the site.
+        """
         payload = {**self.snapshot(), "records": self._data}
-        self.status_file.write_text(json.dumps(payload, indent=2, default=list), "utf-8")
+        if self.public_file is not None:
+            self.public_file.parent.mkdir(parents=True, exist_ok=True)
+            self.public_file.write_text(json.dumps(self.snapshot(), indent=2), "utf-8")
+        self.status_file.parent.mkdir(parents=True, exist_ok=True)
+        new = json.loads(json.dumps(payload, default=list))
+        if self.status_file.exists():
+            try:
+                old = json.loads(self.status_file.read_text("utf-8"))
+                if _strip_volatile(old) == _strip_volatile(new):
+                    return False
+            except Exception:  # noqa: BLE001, S110 - unreadable file: rewrite it
+                pass
+        self.status_file.write_text(json.dumps(new, indent=2), "utf-8")
+        return True
 
     def stale_sources(self, *, max_age_days: int = 3) -> list[str]:
         cutoff = datetime.now().astimezone() - timedelta(days=max_age_days)

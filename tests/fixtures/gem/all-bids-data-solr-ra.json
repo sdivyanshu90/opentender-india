@@ -1,0 +1,278 @@
+[
+ {
+  "id": "9983017",
+  "b_id": [
+   9983017
+  ],
+  "b_bid_number": [
+   "GEM/2026/R/746178"
+  ],
+  "b_category_name": [
+   "Chicken Eggs"
+  ],
+  "b_total_quantity": [
+   129328
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   2
+  ],
+  "b_is_bunch": [
+   1
+  ],
+  "b_type": [
+   0
+  ],
+  "b_bid_to_ra": [
+   1
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-10-05T18:00:00Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-06T18:00:00Z"
+  ],
+  "bd_category_name": [
+   "Chicken Eggs"
+  ],
+  "b_is_custom_item": [
+   0
+  ],
+  "b_bid_number_parent": [
+   "GEM/2026/B/7847156"
+  ],
+  "b_id_parent": [
+   9675711
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "ra_b_status": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "ra_b_buyer_status": [
+   2
+  ],
+  "b_cat_id": [
+   "home_food_dair_eggs_chic"
+  ],
+  "b.b_created_by": [
+   "qm@15"
+  ],
+  "ba_is_single_packet": [
+   0
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_minName": [
+   "Ministry of Home Affairs"
+  ],
+  "ba_official_details_deptName": [
+   "Central Armed Police Forces"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ },
+ {
+  "id": "9983022",
+  "b_id": [
+   9983022
+  ],
+  "b_bid_number": [
+   "GEM/2026/R/746181"
+  ],
+  "b_category_name": [
+   "Catering Service per Packet based - Non-Veg; Snacks/High; Buffet(Breakfast/Lunch/Dinner),Catering S"
+  ],
+  "b_total_quantity": [
+   2800
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   2
+  ],
+  "b_is_bunch": [
+   6
+  ],
+  "b_type": [
+   1
+  ],
+  "b_bid_to_ra": [
+   1
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-10-05T18:00:00Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-06T18:00:00Z"
+  ],
+  "bd_category_name": [
+   "Catering Service per Packet based - Non-Veg; Snacks/High; Buffet(Breakfast/Lunch/Dinner),Catering Service per Packet based - Veg; Snacks/High; Buffet(Breakfast/Lunch/Dinner),Catering Service per Packet based - Non-Veg; Lunch; Buffet(Breakfast/Lunch/Dinner),Catering Service per Packet based - Veg; Lunch; Buffet(Breakfast/Lunch/Dinner),Catering Service per Packet based - Non-Veg; Dinner; Buffet(Breakfast/Lunch/Dinner),Catering Service per Packet based - Veg; Dinner; Buffet(Breakfast/Lunch/Dinner)"
+  ],
+  "b_is_custom_item": [
+   0
+  ],
+  "b_bid_number_parent": [
+   "GEM/2026/B/7940063"
+  ],
+  "b_id_parent": [
+   9781757
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "ra_b_status": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "ra_b_buyer_status": [
+   2
+  ],
+  "b_cat_id": [
+   "services_home_rest_ca11785255"
+  ],
+  "b.b_created_by": [
+   "logogaruda"
+  ],
+  "ba_is_single_packet": [
+   0
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_minName": [
+   "Ministry of Defence"
+  ],
+  "ba_official_details_deptName": [
+   "Department of Military Affairs"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ },
+ {
+  "id": "9983021",
+  "b_id": [
+   9983021
+  ],
+  "b_bid_number": [
+   "GEM/2026/R/746180"
+  ],
+  "b_category_name": [
+   "Humidifier (V2)"
+  ],
+  "b_total_quantity": [
+   6
+  ],
+  "b_status": [
+   1
+  ],
+  "b_bid_type": [
+   2
+  ],
+  "b_is_bunch": [
+   1
+  ],
+  "b_type": [
+   0
+  ],
+  "b_bid_to_ra": [
+   1
+  ],
+  "b_buyer_status": [
+   0
+  ],
+  "b_eval_type": [
+   0
+  ],
+  "final_start_date_sort": [
+   "2026-10-05T18:00:00Z"
+  ],
+  "final_end_date_sort": [
+   "2026-10-06T18:00:00Z"
+  ],
+  "bd_category_name": [
+   "Humidifier (V2)"
+  ],
+  "b_is_custom_item": [
+   0
+  ],
+  "b_bid_number_parent": [
+   "GEM/2026/B/7858245"
+  ],
+  "b_id_parent": [
+   9688142
+  ],
+  "is_high_value": [
+   false
+  ],
+  "b_ra_to_bid": [
+   1
+  ],
+  "ra_b_status": [
+   1
+  ],
+  "b_is_inactive": [
+   0
+  ],
+  "ra_b_buyer_status": [
+   2
+  ],
+  "b_cat_id": [
+   "home_dist_heat_humi_hu88225443"
+  ],
+  "b.b_created_by": [
+   "qm@15"
+  ],
+  "ba_is_single_packet": [
+   0
+  ],
+  "ba_is_global_tendering": [
+   0
+  ],
+  "is_rc_bid": [
+   0
+  ],
+  "ba_official_details_minName": [
+   "Ministry of Home Affairs"
+  ],
+  "ba_official_details_deptName": [
+   "Central Armed Police Forces"
+  ],
+  "bid_schedule": [],
+  "parent_bid_schedule": []
+ }
+]

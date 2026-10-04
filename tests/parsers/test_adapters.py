@@ -105,6 +105,98 @@ class TestHomeWidgetParsing:
         assert enriched.canonical_id == CanonicalTender.make_canonical_id("gepnic_test", "2026_LSGD_875715_6")
 
 
+class TestOrgWalk:
+    def _fixture(self, name):
+        return (FIXTURES / "gepnic" / name).read_text()
+
+    def test_org_list_parsed_with_counts(self):
+        orgs = make_adapter()._parse_org_list(self._fixture("org_list.html"))
+        assert [o["name"] for o in orgs][0] == "Agency for Development of Aquaculture Kerala"
+        assert orgs[0]["count"] == 9
+        assert len(orgs) == 3
+        assert orgs[0]["href"].startswith("https://tenders.example.gov.in/nicgep/app?component=%24DirectLink")
+
+    def test_live_listing_layout(self):
+        # <td> "S.No" header row, bracketed [Title] [Ref][TenderID] cells, one unclosed <a>
+        rows = make_adapter()._parse_listing(self._fixture("org_tenders.html"), None)
+        assert len(rows) == 3
+        first = rows[0]
+        assert first["tender_id"] == "2026_ADAK_868218_2"
+        assert first["title"] == "Retender for the supply of Tilapia Fish Seeds"
+        assert first["reference_number"] == "ADAK/RE.CZ/173/2026"
+        assert first["published_raw"] == "29-Sep-2026 06:00 PM"
+
+    def test_walk_visits_largest_orgs_first_and_respects_cap(self, monkeypatch):
+        from types import SimpleNamespace
+
+        adapter = make_adapter(max_orgs=1)
+        visited = []
+
+        def fake_get(url):
+            if "page=FrontEndTendersByOrganisation&service=page" in url:
+                return SimpleNamespace(status_code=200, text=self._fixture("org_list.html"))
+            visited.append(url)
+            return SimpleNamespace(status_code=200, text=self._fixture("org_tenders.html"))
+
+        monkeypatch.setattr(adapter._http, "get", fake_get)
+        from scrapers.core.adapter import FetchOutcome
+
+        outcome = FetchOutcome()
+        rows = adapter._fetch_org_walk(outcome)
+        assert len(visited) == 1  # capped
+        assert len(rows) == 3
+        # the org list's own CAPTCHA search form must not stop the walk
+        assert outcome.captcha_hit is False
+        assert any("advertised" in n for n in outcome.notes)
+
+    def test_walk_survives_a_dropped_connection(self, monkeypatch):
+        from types import SimpleNamespace
+
+        from scrapers.core.adapter import FetchOutcome
+
+        adapter = make_adapter()
+        calls = {"n": 0}
+
+        def fake_get(url):
+            if "page=FrontEndTendersByOrganisation&service=page" in url:
+                return SimpleNamespace(status_code=200, text=self._fixture("org_list.html"))
+            calls["n"] += 1
+            if calls["n"] == 1:
+                raise ConnectionError("Server disconnected without sending a response.")
+            return SimpleNamespace(status_code=200, text=self._fixture("org_tenders.html"))
+
+        monkeypatch.setattr(adapter._http, "get", fake_get)
+        outcome = FetchOutcome()
+        rows = adapter._fetch_org_walk(outcome)
+        assert len(rows) == 6  # orgs 2 and 3 still harvested
+        assert any("skipped" in n for n in outcome.notes)
+
+    def test_walk_stops_if_tender_list_is_gated(self, monkeypatch):
+        from types import SimpleNamespace
+
+        from scrapers.core.adapter import FetchOutcome
+
+        adapter = make_adapter()
+        gated = '<form><input name="captchaText"/></form>'
+
+        def fake_get(url):
+            if "page=FrontEndTendersByOrganisation&service=page" in url:
+                return SimpleNamespace(status_code=200, text=self._fixture("org_list.html"))
+            return SimpleNamespace(status_code=200, text=gated)
+
+        monkeypatch.setattr(adapter._http, "get", fake_get)
+        outcome = FetchOutcome()
+        assert adapter._fetch_org_walk(outcome) == []
+        assert outcome.captcha_hit is True
+
+    def test_state_and_org_chain_on_tender(self):
+        adapter = make_adapter(state="Kerala")
+        row = adapter._parse_listing(self._fixture("org_tenders.html"), None)[0]
+        tender = adapter._row_to_tender(row)
+        assert tender.geography.state == "Kerala"
+        assert tender.organization.authority == "Agency for Development of Aquaculture Kerala › ADAK Regional Office Ernakulam"
+
+
 class TestDetailParsing:
     def _detail_tree(self):
         from selectolax.lexbor import LexborHTMLParser as HTMLParser
@@ -248,3 +340,46 @@ class TestSourceHealth:
         tracker.record("gepnic_x", ok=True, discovered=10, new_tenders=10, changed_tenders=0)
         tracker.write()
         assert json.loads(path.read_text())["sources"]["gepnic_x"]["status"] == "ACTIVE"
+
+
+class TestDedupe:
+    def _tender(self, cid, source, title, ref=None, end_hour=15):
+        from datetime import datetime
+
+        from scrapers.core.dates import IST
+
+        return CanonicalTender(
+            canonical_id=cid,
+            identity={"source": source, "source_portal": "https://x.gov.in", "source_tender_id": cid,
+                      "reference_number": ref},
+            procurement={"title": title},
+            organization={"authority": "PWD"},
+            geography={"state": "Kerala"},
+            dates={"bid_submission_end": datetime(2026, 10, 20, end_hour, tzinfo=IST)},
+            status="active",
+            provenance={"official_source_url": "https://x.gov.in", "scraped_at": datetime(2026, 10, 4, tzinfo=IST),
+                        "first_seen_at": datetime(2026, 10, 4, tzinfo=IST),
+                        "last_seen_at": datetime(2026, 10, 4, tzinfo=IST),
+                        "parser_version": "t", "content_hash": "x"},
+        )
+
+    def test_reference_match_across_sources_is_transitive(self):
+        from scrapers.core.dedupe import deduplicate
+
+        a = self._tender("a" * 24, "cppp", "Road works", ref="PWD/1")
+        b = self._tender("b" * 24, "kerala", "Road works phase 1", ref="pwd/1 ")
+        c = self._tender("c" * 24, "gem", "Road works", ref="PWD/1")
+        _, report = deduplicate([c, b, a])
+        assert a.possible_duplicate_group == b.possible_duplicate_group == c.possible_duplicate_group == f"dup:{'a' * 24}"
+        assert report.reference_matched == 2
+
+    def test_similar_titles_need_close_deadline_and_different_source(self):
+        from scrapers.core.dedupe import deduplicate
+
+        a = self._tender("a" * 24, "cppp", "Construction of bridge at Kochi")
+        b = self._tender("b" * 24, "kerala", "Construction of bridge at Kochi", end_hour=17)
+        same_src = self._tender("c" * 24, "cppp", "Construction of bridge at Kochi")
+        far = self._tender("d" * 24, "gem", "Construction of bridge at Kochi", end_hour=2)
+        deduplicate([a, b, same_src, far])
+        assert a.possible_duplicate_group == b.possible_duplicate_group is not None
+        assert far.possible_duplicate_group is None

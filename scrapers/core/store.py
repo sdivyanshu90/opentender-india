@@ -76,10 +76,13 @@ class TenderStore:
         rec["title"] = final.procurement.title
         rec["source"] = final.identity.source
         rec["value"] = final.financial.estimated_value
+        # the sighting time lives in state.json so unchanged tenders need no file rewrite
+        rec["last_seen_at"] = final.provenance.last_seen_at.isoformat()
         rec["authority"] = final.organization.authority or final.organization.organization
         rec["state"] = final.geography.state
         self._state[cid] = rec
-        self._write_tender(final)
+        if current is None or not _same_but_sightings(current, final):
+            self._write_tender(final)
         return (None if is_new else final), changes, is_new
 
     def commit_state(self) -> None:
@@ -99,7 +102,9 @@ class TenderStore:
             if not path.exists():
                 continue
             record = json.loads(gzip.decompress(path.read_bytes()))
-            by_source[record["identity"]["source"]].append(_slim(record))
+            slim = _slim(record)
+            slim["last_seen_at"] = self._state[cid].get("last_seen_at") or slim["last_seen_at"]
+            by_source[record["identity"]["source"]].append(slim)
             total += 1
         shards: list[dict] = []
         for source, records in sorted(by_source.items()):
@@ -127,6 +132,11 @@ class TenderStore:
         return manifest
 
     # -- internal ---------------------------------------------------------
+
+    def last_seen_at(self, canonical_id: str) -> str | None:
+        """Latest sighting (ISO); state.json is authoritative, the stored file may lag."""
+        rec = self._state.get(canonical_id)
+        return rec.get("last_seen_at") if rec else None
 
     def _tender_path(self, canonical_id: str) -> Path:
         prefix = canonical_id[:2]
@@ -175,3 +185,11 @@ def _slim(record: dict) -> dict:
         "award": record.get("award"),
         "possible_duplicate_group": record.get("possible_duplicate_group"),
     }
+
+
+def _same_but_sightings(current: CanonicalTender, final: CanonicalTender) -> bool:
+    """True when only per-sighting provenance (last_seen_at/scraped_at) differs."""
+    probe = final.model_copy(deep=True)
+    probe.provenance.last_seen_at = current.provenance.last_seen_at
+    probe.provenance.scraped_at = current.provenance.scraped_at
+    return probe.model_dump_json() == current.model_dump_json()

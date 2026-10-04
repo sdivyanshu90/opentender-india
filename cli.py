@@ -15,9 +15,11 @@ Commands
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
 import logging
 import os
+import re
 from datetime import datetime
 from pathlib import Path
 
@@ -46,7 +48,9 @@ def _store():
 def _health_tracker():
     from scrapers.core.health import SourceHealthTracker
 
-    return SourceHealthTracker(STATUS_DIR / "sources.json")
+    # status/sources.json is committed (only rewritten on real changes); the public copy
+    # for the site is always fresh and travels via the site-data artifact.
+    return SourceHealthTracker(STATUS_DIR / "sources.json", public_file=DATA_DIR / "public" / "status-sources.json")
 
 
 # --------------------------------------------------------------------------- sources
@@ -104,13 +108,39 @@ def health(source: str | None = typer.Argument(None)) -> None:
 # --------------------------------------------------------------------------- fetch
 
 
+def _fetch_group(group, results) -> None:
+    """Worker thread: fetch one host's sources strictly one after another (politeness).
+
+    Only network/parsing happens here; every store/tracker/console side effect is done by
+    the main thread. Never raises - failures are handed back as the result.
+    """
+    for cfg, adapter in group:
+        started = datetime.now()
+        outcome = error = None
+        try:
+            outcome = adapter.fetch_outcome()
+        except Exception as exc:  # noqa: BLE001 - failure isolation per source
+            error = exc
+        finally:
+            try:
+                adapter.close()
+            except Exception:  # noqa: BLE001
+                logging.getLogger("opentender.fetch").exception("closing adapter %s", cfg.id)
+        results.put((cfg, adapter, outcome, error, int((datetime.now() - started).total_seconds() * 1000)))
+
+
 @app.command()
 def fetch(
     source: str | None = typer.Argument(None, help="source id, or omit with --all"),
     all_sources: bool = typer.Option(False, "--all"),
     limit: int = typer.Option(None, help="max tenders per source (testing)"),
+    workers: int = typer.Option(8, min=1, help="sources fetched concurrently (one host is never fetched concurrently)"),
 ) -> None:
     """Fetch new/updated tenders. Each source fails independently."""
+    import queue
+    from concurrent.futures import ThreadPoolExecutor
+    from urllib.parse import urlparse
+
     from scrapers.core.registry import build_adapter, load_configs
 
     if not source and not all_sources:
@@ -119,7 +149,9 @@ def fetch(
     store = _store()
     tracker = _health_tracker()
     totals = {"fetched": 0, "new": 0, "changed": 0}
-    exit_code = 0
+    summary: dict[str, str] = {}
+    order: list[str] = []
+    groups: dict[str, list] = {}
     for cfg in load_configs():
         if source and cfg.id != source:
             continue
@@ -127,11 +159,21 @@ def fetch(
         if adapter is None:
             typer.secho(f"{cfg.id}: skipped (POLICY_RESTRICTED)", fg=typer.colors.YELLOW)
             continue
-        typer.echo(f"[{cfg.id}] fetching…")
+        order.append(cfg.id)
+        groups.setdefault(urlparse(cfg.base_url).netloc or cfg.id, []).append((cfg, adapter))
+    results: queue.Queue = queue.Queue()
+    pool = ThreadPoolExecutor(max_workers=max(1, min(workers, len(groups) or 1)), thread_name_prefix="fetch")
+    for group in groups.values():
+        pool.submit(_fetch_group, group, results)
+    for _ in range(len(order)):
+        cfg, adapter, outcome, error, latency_ms = results.get()
+        typer.echo(f"[{cfg.id}] fetched")
         discovered = new = changed = 0
         ok = True
+        captcha_hit = False
         try:
-            outcome = adapter.fetch_outcome()
+            if error is not None:
+                raise error
             if limit:
                 outcome.tenders = outcome.tenders[:limit]
             discovered = len(outcome.tenders)
@@ -144,8 +186,11 @@ def fetch(
             for err in outcome.errors:
                 typer.secho(f"  error: {err}", fg=typer.colors.RED)
             ok = not outcome.errors and not outcome.degraded
+            for note in outcome.notes:
+                typer.echo(f"  note: {note}")
+            captcha_hit = outcome.captcha_hit
             if outcome.captcha_hit:
-                typer.secho(f"  CAPTCHA encountered - stopped politely", fg=typer.colors.YELLOW)
+                typer.secho("  CAPTCHA encountered - stopped politely", fg=typer.colors.YELLOW)
         except Exception as exc:  # noqa: BLE001 - failure isolation per source
             ok = False
             typer.secho(f"  FATAL: {type(exc).__name__}: {exc}", fg=typer.colors.RED)
@@ -156,19 +201,40 @@ def fetch(
             new_tenders=new,
             changed_tenders=changed,
             parser_errors=0 if ok else 1,
+            captcha_hit=captcha_hit and discovered == 0,
+            latency_ms=latency_ms,
             parser_version=f"{adapter.family}-1.0.0",
         )
         if degraded:
-            typer.secho(f"  ⚠ anomaly detected → DEGRADED", fg=typer.colors.YELLOW)
-        adapter.close()
+            typer.secho("  ⚠ anomaly detected → DEGRADED", fg=typer.colors.YELLOW)
         typer.echo(f"[{cfg.id}] discovered={discovered} new={new} changed={changed}")
+        summary[cfg.id] = f"| {cfg.id} | {'✅' if ok else '⚠️'} | {discovered} | {new} | {changed} |"
         totals["fetched"] += discovered
         totals["new"] += new
         totals["changed"] += changed
         store.commit_state()
+    pool.shutdown(wait=True)
     tracker.write()
     typer.echo(f"TOTAL fetched={totals['fetched']} new={totals['new']} changed={totals['changed']}")
+    _job_summary(
+        ["## Ingestion", "", "| source | ok | discovered | new | changed |", "|---|---|---|---|---|",
+         *(summary[c] for c in order),
+         "", f"**Total:** {totals['fetched']} fetched, {totals['new']} new, {totals['changed']} changed"]
+    )
+    exit_code = 0
+    if summary and totals["fetched"] == 0:
+        # every source failing at once is an outage or a parser break, never a quiet success
+        typer.secho("no tenders fetched from any source", fg=typer.colors.RED)
+        exit_code = 3
     raise typer.Exit(exit_code)
+
+
+def _job_summary(lines: list[str]) -> None:
+    """Append Markdown to the GitHub Actions job summary when running in CI."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if path:
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write("\n".join(lines) + "\n")
 
 
 # --------------------------------------------------------------------------- quality
@@ -388,24 +454,44 @@ def _evidence_chunks(canonical_id: str):
 
 
 @app.command("build-index")
-def build_index() -> None:
+def build_index(
+    retention_days: int = typer.Option(30, help="Drop tenders that closed more than N days ago from the frontend index."),
+    max_drop: float = typer.Option(0.5, help="Refuse to publish if the index shrinks by more than this fraction."),
+    force: bool = typer.Option(False, help="Publish even when the quality gate fails."),
+) -> None:
     """Generate frontend datasets + evidence chunk indexes + feeds."""
     store = _store()
     manifest = store.export_hot_shards(DATA_DIR / "index")
-    _write_search_docs(store)
+    count, previous = _write_search_docs(store, retention_days=retention_days, max_drop=max_drop, force=force)
+    _job_summary(["## Index", "", f"{count} tenders published (previous: {previous if previous is not None else 'n/a'})"])
     n_chunks = _build_chunk_indexes(store)
     _write_digest(store)
     typer.echo(f"index built: {manifest['total_tenders']} tenders, {n_chunks} evidence chunks")
 
 
-def _write_search_docs(store) -> None:
+def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bool) -> tuple[int, int | None]:
     out_dir = DATA_DIR / "indexes"
     out_dir.mkdir(parents=True, exist_ok=True)
+    meta_path = out_dir / "search-docs.meta.json"
+    previous = None
+    if meta_path.exists():
+        try:
+            previous = int(json.loads(meta_path.read_text("utf-8"))["count"])
+        except (ValueError, KeyError, TypeError):
+            previous = None
+    now = datetime.now().astimezone()
+    horizon = now.timestamp() - retention_days * 86400
     docs = []
     for cid in sorted(store._state):
         rec = store.existing(cid)
         if rec is None:
             continue
+        closing = rec.dates.bid_submission_end
+        if closing is not None and closing.timestamp() < horizon:
+            continue  # long closed: kept in the store/archive, not shipped to browsers
+        status = rec.status
+        if status == "active" and closing is not None and closing < now:
+            status = "closed"  # sources only re-list open tenders, so derive it here
         ai_summary = _load_ai_artifact(cid, "tender_summary")
         eligibility = _load_ai_artifact(cid, "eligibility_extraction") or _load_ai_artifact(cid, "summary")
         risk = _load_ai_artifact(cid, "risk_analysis")
@@ -424,13 +510,17 @@ def _write_search_docs(store) -> None:
             "closing_at": rec.dates.bid_submission_end.isoformat() if rec.dates.bid_submission_end else None,
             "pre_bid_meeting_at": rec.dates.pre_bid_meeting_at.isoformat() if rec.dates.pre_bid_meeting_at else None,
             "opening_at": rec.dates.bid_opening_at.isoformat() if rec.dates.bid_opening_at else None,
-            "status": rec.status,
+            "status": status,
             "source": rec.identity.source,
             "portal": rec.identity.source_portal,
             "ref": rec.identity.reference_number,
-            "tender_number": rec.identity.tender_number,
+            # GePNIC keys records by their public Tender ID (e.g. 2026_LSGD_875715_6); expose it so
+            # users can search for it. Provisional keys ("hash:", "bid:") are internal only.
+            "tender_number": rec.identity.tender_number
+            or (None if rec.identity.source_tender_id.startswith(("hash:", "bid:")) else rec.identity.source_tender_id),
             "url": rec.provenance.official_source_url,
             "first_seen_at": rec.provenance.first_seen_at.isoformat(),
+            "last_seen_at": store.last_seen_at(cid) or rec.provenance.last_seen_at.isoformat(),
             "documents": [d.model_dump(mode="json") for d in rec.documents],
             "corrigenda_count": len(rec.corrigenda),
             "award": rec.award.model_dump(mode="json") if rec.award else None,
@@ -441,12 +531,133 @@ def _write_search_docs(store) -> None:
             },
         }
         docs.append(doc)
-    blob = gzip.compress(json.dumps(docs, ensure_ascii=False).encode("utf-8"), mtime=0)
+    # quality gate (spec 8/46): never overwrite a good dataset with an empty or collapsed one
+    collapsed = previous is not None and previous > 0 and len(docs) < previous * (1 - max_drop)
+    if not force and (not docs or collapsed):
+        typer.secho(
+            f"quality gate failed: {len(docs)} tenders (previous {previous}); keeping the published index",
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(4)
+    _write_detail_shards(docs, DATA_DIR / "details")
+    slim = [{k: v for k, v in d.items() if k not in DETAIL_FIELDS} for d in docs]
+    blob = gzip.compress(json.dumps(slim, ensure_ascii=False).encode("utf-8"), mtime=0)
     (out_dir / "search-docs.json.gz").write_bytes(blob)
     (out_dir / "search-docs.meta.json").write_text(
-        json.dumps({"count": len(docs), "sha256": __import__("hashlib").sha256(blob).hexdigest()}, indent=1),
+        json.dumps({"count": len(docs), "sha256": hashlib.sha256(blob).hexdigest()}, indent=1),
         "utf-8",
     )
+    _write_feeds(docs, DATA_DIR / "feeds")
+    return len(docs), previous
+
+
+# Fields only the tender page needs. They ship in 256 small shards keyed by the
+# first two hex chars of the id, so the list every visitor downloads stays slim
+# at ~60k tenders (spec 37: no gigantic homepage dataset).
+DETAIL_FIELDS = ("documents", "ai", "award", "portal", "fee", "pre_bid_meeting_at", "city")
+
+
+def _write_detail_shards(docs: list[dict], out_dir: Path) -> None:
+    import shutil
+
+    shutil.rmtree(out_dir, ignore_errors=True)  # ids that left the index must not linger
+    out_dir.mkdir(parents=True, exist_ok=True)
+    shards: dict[str, dict[str, dict]] = {}
+    for d in docs:
+        shards.setdefault(d["id"][:2].lower(), {})[d["id"]] = {k: d.get(k) for k in DETAIL_FIELDS}
+    for key, payload in shards.items():
+        blob = gzip.compress(json.dumps(payload, ensure_ascii=False).encode("utf-8"), mtime=0)
+        (out_dir / f"{key}.json.gz").write_bytes(blob)
+
+
+# --------------------------------------------------------------------------- atom feeds (spec #22)
+
+FEED_LIMIT = 200
+_ATOM_NS = "http://www.w3.org/2005/Atom"
+_XML_BAD = re.compile("[\x00-\x08\x0b\x0c\x0e-\x1f\ufffe\uffff]")
+
+
+def _slug(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", value.lower()).strip("-")
+
+
+def _xml_text(value) -> str:
+    """Strip characters XML 1.0 cannot carry; escaping itself is done by ElementTree."""
+    return _XML_BAD.sub("", str(value))
+
+
+def _atom_feed(title: str, feed_id: str, docs: list[dict]) -> bytes:
+    import xml.etree.ElementTree as ET
+
+    ET.register_namespace("", _ATOM_NS)
+    feed = ET.Element(f"{{{_ATOM_NS}}}feed")
+
+    def add(parent, tag, text=None, **attrs):
+        el = ET.SubElement(parent, f"{{{_ATOM_NS}}}{tag}", {k: _xml_text(v) for k, v in attrs.items()})
+        if text is not None:
+            el.text = _xml_text(text)
+        return el
+
+    add(feed, "title", title)
+    add(feed, "id", f"urn:opentender-india:feed:{feed_id}")
+    add(feed, "updated", max((d["first_seen_at"] for d in docs), default="1970-01-01T00:00:00+00:00"))
+    for d in docs:
+        entry = add(feed, "entry")
+        add(entry, "title", d.get("title") or "Untitled tender")
+        add(entry, "id", f"urn:opentender-india:tender:{d['id']}")
+        add(entry, "updated", d.get("last_seen_at") or d["first_seen_at"])
+        add(entry, "published", d["first_seen_at"])
+        url = d.get("url") or ""
+        if url.startswith(("http://", "https://")):  # never emit javascript:/data: links from scraped text
+            add(entry, "link", rel="alternate", href=url)
+        add(entry, "author").append(_name_el(d.get("authority") or d.get("portal") or "Unknown authority"))
+        parts = [
+            f"Authority: {d.get('authority') or 'n/a'}",
+            f"Closing: {d.get('closing_at') or 'n/a'}",
+            f"Tender number: {d.get('tender_number') or 'n/a'}",
+            f"Official link: {url or 'n/a'}",
+        ]
+        add(entry, "summary", "\n".join(parts), type="text")
+    ET.indent(feed)
+    return ET.tostring(feed, encoding="utf-8", xml_declaration=True)
+
+
+def _name_el(text: str):
+    import xml.etree.ElementTree as ET
+
+    el = ET.Element(f"{{{_ATOM_NS}}}name")
+    el.text = _xml_text(text)
+    return el
+
+
+def _write_feeds(docs: list[dict], out_dir: Path) -> None:
+    """data/feeds/all.xml, source-<id>.xml, state-<slug>.xml and index.json (newest first)."""
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for old in list(out_dir.glob("*.xml")) + list(out_dir.glob("index.json")):
+        old.unlink()  # feeds for sources/states that vanished must not linger
+    newest = sorted(docs, key=lambda d: (d["first_seen_at"], d["id"]), reverse=True)
+    groups: list[tuple[str, str, list[dict]]] = [("OpenTender India - all tenders", "all", newest)]
+    by_source: dict[str, list[dict]] = {}
+    by_state: dict[str, list[dict]] = {}
+    for d in newest:
+        if d.get("source"):
+            by_source.setdefault(d["source"], []).append(d)
+        if d.get("state"):
+            by_state.setdefault(d["state"], []).append(d)
+    for src in sorted(by_source):
+        groups.append((f"OpenTender India - source {src}", f"source-{_slug(src)}", by_source[src]))
+    seen: set[str] = set()
+    for state in sorted(by_state):
+        slug = _slug(state)
+        if not slug or slug in seen:
+            continue
+        seen.add(slug)
+        groups.append((f"OpenTender India - {state}", f"state-{slug}", by_state[state]))
+    index = []
+    for title, name, items in groups:
+        (out_dir / f"{name}.xml").write_bytes(_atom_feed(title, name, items[:FEED_LIMIT]))
+        index.append({"title": title, "path": f"feeds/{name}.xml"})
+    (out_dir / "index.json").write_text(json.dumps(index, indent=1, ensure_ascii=False), "utf-8")
 
 
 def _load_ai_artifact(cid: str, task: str):
@@ -514,7 +725,14 @@ def _write_digest(store) -> None:
         lines.append("")
     feeds_dir = STATUS_DIR / "feeds"
     feeds_dir.mkdir(parents=True, exist_ok=True)
-    (feeds_dir / "daily-digest.md").write_text("\n".join(lines), "utf-8")
+    target = feeds_dir / "daily-digest.md"
+    text = "\n".join(lines)
+    if target.exists():
+        # the "_Generated ..._" stamp alone must not turn a no-op run into a commit
+        strip = lambda t: "\n".join(x for x in t.splitlines() if not x.startswith("_Generated "))  # noqa: E731
+        if strip(target.read_text("utf-8")) == strip(text):
+            return
+    target.write_text(text, "utf-8")
 
 
 @app.command()
@@ -545,7 +763,8 @@ def archive(
             ts = datetime.fromisoformat(last_seen).timestamp() if last_seen else 0
         except ValueError:
             continue
-        if rec.get("status") == "active" or ts > cutoff:
+        # stored status can stay "active" after a tender leaves the listings, so go by the deadline
+        if not ts or ts > cutoff:
             continue
         tender = store.existing(cid)
         if tender is None:
@@ -561,6 +780,10 @@ def archive(
         for key, records in sorted(archived.items()):
             out = ROOT / "archive" / f"{key.replace('/', '_')}.json.gz"
             out.parent.mkdir(parents=True, exist_ok=True)
+            if out.exists():  # partitions accumulate across runs; never overwrite earlier records
+                merged = {r["canonical_id"]: r for r in json.loads(_gzip.decompress(out.read_bytes()))}
+                merged.update({r["canonical_id"]: r for r in records})
+                records = list(merged.values())
             blob = _gzip.compress(json.dumps(records, ensure_ascii=False).encode(), mtime=0)
             out.write_bytes(blob)
     store.commit_state()

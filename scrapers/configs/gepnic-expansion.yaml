@@ -1,0 +1,390 @@
+# GePNIC expansion: official NIC GePNIC portals whose open "Tenders by
+# Organisation" page was verified live on 2026-10-04.
+# Method: scrapers.core.http.HttpClient (project UA, robots.txt enforced, 4s
+# delay), one GET of <base><app_path>?page=FrontEndTendersByOrganisation&service=page
+# per portal, parsed with GePNICAdapter._parse_org_list. No CAPTCHA contact, no login.
+# Portals that were down, geo-blocked, CAPTCHA-gated or duplicate another instance
+# are omitted; see docs/recon/gepnic-expansion-2026-10.md.
+
+sources:
+  - id: gepnic_central_eprocure
+    family: gepnic
+    name: CPPP eProcure eProcurement (GePNIC)
+    base_url: https://eprocure.gov.in
+    app_path: /eprocure/app
+    region: Central Government
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_central_etenders
+    family: gepnic
+    name: etenders.gov.in (CPPP alias) eProcurement (GePNIC)
+    base_url: https://etenders.gov.in
+    app_path: /eprocure/app
+    region: Central Government
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_up
+    family: gepnic
+    name: Uttar Pradesh eProcurement (GePNIC)
+    base_url: https://etender.up.nic.in
+    app_path: /nicgep/app
+    region: Uttar Pradesh
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Uttar Pradesh
+
+  - id: gepnic_tamil_nadu
+    family: gepnic
+    name: Tamil Nadu eProcurement (GePNIC)
+    base_url: https://tntenders.gov.in
+    app_path: /nicgep/app
+    region: Tamil Nadu
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Tamil Nadu
+
+  - id: gepnic_odisha
+    family: gepnic
+    name: Odisha eProcurement (GePNIC)
+    base_url: https://tendersodisha.gov.in
+    app_path: /nicgep/app
+    region: Odisha
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Odisha
+
+  - id: gepnic_punjab
+    family: gepnic
+    name: Punjab eProcurement (GePNIC)
+    base_url: https://eproc.punjab.gov.in
+    app_path: /nicgep/app
+    region: Punjab
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Punjab
+
+  - id: gepnic_himachal
+    family: gepnic
+    name: Himachal Pradesh eProcurement (GePNIC)
+    base_url: https://hptenders.gov.in
+    app_path: /nicgep/app
+    region: Himachal Pradesh
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Himachal Pradesh
+
+  - id: gepnic_assam
+    family: gepnic
+    name: Assam eProcurement (GePNIC)
+    base_url: https://assamtenders.gov.in
+    app_path: /nicgep/app
+    region: Assam
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Assam
+
+  - id: gepnic_tripura
+    family: gepnic
+    name: Tripura eProcurement (GePNIC)
+    base_url: https://tripuratenders.gov.in
+    app_path: /nicgep/app
+    region: Tripura
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Tripura
+
+  - id: gepnic_manipur
+    family: gepnic
+    name: Manipur eProcurement (GePNIC)
+    base_url: https://manipurtenders.gov.in
+    app_path: /nicgep/app
+    region: Manipur
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Manipur
+
+  - id: gepnic_meghalaya
+    family: gepnic
+    name: Meghalaya eProcurement (GePNIC)
+    base_url: https://meghalayatenders.gov.in
+    app_path: /nicgep/app
+    region: Meghalaya
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Meghalaya
+
+  - id: gepnic_nagaland
+    family: gepnic
+    name: Nagaland eProcurement (GePNIC)
+    base_url: https://nagalandtenders.gov.in
+    app_path: /nicgep/app
+    region: Nagaland
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Nagaland
+
+  - id: gepnic_arunachal
+    family: gepnic
+    name: Arunachal Pradesh eProcurement (GePNIC)
+    base_url: https://arunachaltenders.gov.in
+    app_path: /nicgep/app
+    region: Arunachal Pradesh
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Arunachal Pradesh
+
+  - id: gepnic_chandigarh
+    family: gepnic
+    name: Chandigarh eProcurement (GePNIC)
+    base_url: https://etenders.chd.nic.in
+    app_path: /nicgep/app
+    region: Chandigarh
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Chandigarh
+
+  - id: gepnic_puducherry
+    family: gepnic
+    name: Puducherry eProcurement (GePNIC)
+    base_url: https://pudutenders.gov.in
+    app_path: /nicgep/app
+    region: Puducherry
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Puducherry
+
+  - id: gepnic_lakshadweep
+    family: gepnic
+    name: Lakshadweep eProcurement (GePNIC)
+    base_url: https://tendersutl.gov.in
+    app_path: /nicgep/app
+    region: Lakshadweep
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Lakshadweep
+
+  - id: gepnic_delhi
+    family: gepnic
+    name: Delhi eProcurement (GePNIC)
+    base_url: https://govtprocurement.delhi.gov.in
+    app_path: /nicgep/app
+    region: Delhi
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Delhi
+
+  - id: gepnic_jharkhand
+    family: gepnic
+    name: Jharkhand eProcurement (GePNIC)
+    base_url: https://jharkhandtenders.gov.in
+    app_path: /nicgep/app
+    region: Jharkhand
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Jharkhand
+
+  - id: gepnic_west_bengal
+    family: gepnic
+    name: West Bengal eProcurement (GePNIC)
+    base_url: https://wbtenders.gov.in
+    app_path: /nicgep/app
+    region: West Bengal
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: West Bengal
+
+  - id: gepnic_dnhdd
+    family: gepnic
+    name: Dadra & Nagar Haveli and Daman & Diu eProcurement (GePNIC)
+    base_url: https://ddtenders.gov.in
+    app_path: /nicgep/app
+    region: Dadra and Nagar Haveli and Daman and Diu
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+    state: Dadra and Nagar Haveli and Daman and Diu
+
+  - id: gepnic_pmgsy
+    family: gepnic
+    name: PMGSY national eProcurement (GePNIC)
+    base_url: https://pmgsytenders.gov.in
+    app_path: /nicgep/app
+    region: Central Government
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_defproc
+    family: gepnic
+    name: Defence Procurement eProcurement (GePNIC)
+    base_url: https://defproc.gov.in
+    app_path: /nicgep/app
+    region: Defence
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_iocl
+    family: gepnic
+    name: IOCL eProcurement (GePNIC)
+    base_url: https://iocletenders.nic.in
+    app_path: /nicgep/app
+    region: PSU (Petroleum)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_coal_india
+    family: gepnic
+    name: Coal India eProcurement (GePNIC)
+    base_url: https://coalindiatenders.nic.in
+    app_path: /nicgep/app
+    region: PSU (Coal)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_ntpc
+    family: gepnic
+    name: NTPC eProcurement (GePNIC)
+    base_url: https://eprocurentpc.nic.in
+    app_path: /nicgep/app
+    region: PSU (Power)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_bhel
+    family: gepnic
+    name: BHEL eProcurement (GePNIC)
+    base_url: https://eprocurebhel.co.in
+    app_path: /nicgep/app
+    region: PSU (Heavy Industries)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_cpcl
+    family: gepnic
+    name: CPCL eProcurement (GePNIC)
+    base_url: https://cpcletenders.nic.in
+    app_path: /nicgep/app
+    region: PSU (Petroleum)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10
+
+  - id: gepnic_gsl
+    family: gepnic
+    name: Goa Shipyard eProcurement (GePNIC)
+    base_url: https://eprocuregsl.nic.in
+    app_path: /nicgep/app
+    region: PSU (MoD)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.0
+    harvest: [org_walk]
+    max_orgs: 60
+    max_detail_per_run: 10

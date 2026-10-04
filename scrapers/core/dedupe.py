@@ -17,7 +17,7 @@ def normalize_title(title: str | None) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-@dataclass(frozen=True)
+@dataclass
 class DedupeReport:
     exact_merged: int = 0
     reference_matched: int = 0
@@ -58,32 +58,62 @@ def deduplicate(
     similarity_threshold: float = 0.88,
 ) -> tuple[list[CanonicalTender], DedupeReport]:
     """Levels 1+2 are handled upstream by canonical_id / reference matching at
-    merge time; this pass forms Level-3 possible_duplicate_groups only."""
+    merge time; this pass forms Level-3 possible_duplicate_groups only.
+
+    Only cross-source pairs are considered (Level 1 guarantees uniqueness
+    within a source). Candidates are blocked rather than compared all-pairs:
+    by normalised reference number, and by closing time - the similarity
+    threshold is unreachable without the closing-date signal. Groups are
+    transitive (union-find) and named after their smallest member.
+    """
     report = DedupeReport()
-    groups: dict[str, int] = {}
-    n = len(tenders)
-    for i in range(n):
-        for j in range(i + 1, n):
-            a, b = tenders[i], tenders[j]
-            if a.identity.source == b.identity.source and not (
-                a.identity.tender_number and b.identity.tender_number
-                and a.identity.tender_number != b.identity.tender_number
-            ):
-                continue  # same source: Level-1 already guarantees uniqueness
-            ref_a = a.identity.reference_number or a.identity.tender_number
-            ref_b = b.identity.reference_number or b.identity.tender_number
-            if ref_a and ref_b and ref_a.strip().upper() == ref_b.strip().upper():
-                group = groups.get(a.canonical_id) or f"dup:{min(a.canonical_id, b.canonical_id)}"
-                groups[a.canonical_id] = hash(group)
-                groups[b.canonical_id] = hash(group)
-                a.possible_duplicate_group = group
-                b.possible_duplicate_group = group
+    by_id = {t.canonical_id: t for t in tenders}
+    parent = {cid: cid for cid in by_id}
+
+    def find(x: str) -> str:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(a: CanonicalTender, b: CanonicalTender) -> bool:
+        ra, rb = find(a.canonical_id), find(b.canonical_id)
+        if ra == rb:
+            return False
+        parent[max(ra, rb)] = min(ra, rb)
+        return True
+
+    by_ref: dict[str, list[CanonicalTender]] = {}
+    for t in tenders:
+        ref = t.identity.reference_number or t.identity.tender_number
+        if ref and ref.strip():
+            by_ref.setdefault(ref.strip().upper(), []).append(t)
+    for bucket in by_ref.values():
+        for a, b in zip(bucket, bucket[1:], strict=False):
+            if a.identity.source != b.identity.source and union(a, b):
                 report.reference_matched += 1
-                continue
-            if _similarity(a, b) >= similarity_threshold:
-                group = f"similar:{min(a.canonical_id, b.canonical_id)}"
-                if a.possible_duplicate_group != group:
-                    a.possible_duplicate_group = group
-                    b.possible_duplicate_group = group
+
+    # 6h buckets; comparing each bucket with its successor covers the 6h window
+    by_slot: dict[int, list[CanonicalTender]] = {}
+    for t in tenders:
+        end = t.dates.bid_submission_end
+        if end is not None:
+            by_slot.setdefault(int(end.timestamp() // (6 * 3600)), []).append(t)
+    for slot, bucket in by_slot.items():
+        neighbours = bucket + by_slot.get(slot + 1, [])
+        for i, a in enumerate(bucket):
+            for b in neighbours[i + 1 :]:
+                if a.identity.source == b.identity.source:
+                    continue
+                if _similarity(a, b) >= similarity_threshold and union(a, b):
                     report.duplicate_groups_formed += 1
+
+    members: dict[str, int] = {}
+    for cid in by_id:
+        root = find(cid)
+        members[root] = members.get(root, 0) + 1
+    for cid, t in by_id.items():
+        root = find(cid)
+        if members[root] > 1:
+            t.possible_duplicate_group = f"dup:{root}"
     return tenders, report

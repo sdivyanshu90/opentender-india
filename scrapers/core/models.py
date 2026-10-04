@@ -186,6 +186,9 @@ class CanonicalTender(BaseModel):
         if fresh.status != merged.status:
             merged.status = fresh.status
             changed = True
+        if fresh.possible_duplicate_group and fresh.possible_duplicate_group != merged.possible_duplicate_group:
+            merged.possible_duplicate_group = fresh.possible_duplicate_group  # set by the dedupe pass
+            changed = True
         now = datetime.now().astimezone()
         merged.provenance.last_seen_at = now
         merged.provenance.scraped_at = fresh.provenance.scraped_at

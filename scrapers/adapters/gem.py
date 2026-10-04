@@ -13,9 +13,12 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 from collections.abc import Iterator
 from datetime import datetime
+
+import httpx
 
 from scrapers.core.adapter import AdapterMeta
 from scrapers.core.dates import IST, parse_datetime
@@ -50,7 +53,10 @@ class GemAdapter:
         self.base = cfg.base_url.rstrip("/")
         self.listing_url = f"{self.base}/all-bids"
         self.data_url = f"{self.base}/all-bids-data"
-        self.max_pages = int(opts.get("max_pages", 3))
+        env_pages = os.environ.get("OPENTENDER_GEM_MAX_PAGES")
+        self.max_pages = int(env_pages or opts.get("max_pages", 50))
+        # newest-first so a capped daily run always picks up freshly published bids
+        self.sort = str(opts.get("sort", "Bid-Start-Date-Latest"))
         self.page_size = 10  # server-side fixed
         self.meta = AdapterMeta(
             source_code=cfg.id,
@@ -65,6 +71,8 @@ class GemAdapter:
             policy_notes=cfg.policy_notes,
         )
         self._http = HttpClient(min_delay=cfg.crawl_delay)
+        # fail fast on datacentre-blocked networks instead of waiting out the default connect timeout
+        self._http._client.timeout = httpx.Timeout(30.0, connect=8.0)
 
     # -- public API ----------------------------------------------------------
 
@@ -80,17 +88,28 @@ class GemAdapter:
         if token is None:
             return outcome
         seen_ids: set[str] = set()
+        total: int | None = None
         for page in range(1, self.max_pages + 1):
-            docs, err = self._fetch_page(page, token, outcome)
+            docs, found, err = self._fetch_page(page, token, outcome)
             if err or not docs:
                 break
+            total = found if found is not None else total
+            new = 0
             for doc in docs:
                 tender = self._doc_to_tender(doc)
                 if tender and tender.identity.source_tender_id not in seen_ids:
                     seen_ids.add(tender.identity.source_tender_id)
                     outcome.tenders.append(tender)
-            if len(seen_ids) < page * self.page_size - len(docs):  # exhausted
+                    new += 1
+            if new == 0:  # pagination stopped advancing
+                outcome.notes.append(f"page {page}: no new bids; stopping")
                 break
+            if len(docs) < self.page_size or (total is not None and page * self.page_size >= total):
+                break  # last page
+        outcome.notes.append(
+            f"gem: {len(outcome.tenders)} bids fetched (ongoing total reported: {total}, "
+            f"cap {self.max_pages} pages, sort {self.sort})"
+        )
         return outcome
 
     def healthcheck(self) -> dict[str, object]:
@@ -123,6 +142,12 @@ class GemAdapter:
     def _get_csrf_token(self, outcome) -> str | None:
         try:
             res = self._http.get(self.listing_url)
+        except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+            outcome.errors.append(
+                f"blocked from this network: cannot connect to {self.base} ({type(exc).__name__}). "
+                "GeM blocks many datacentre/CI IP ranges; run from an India residential/office network."
+            )
+            return None
         except Exception as exc:  # noqa: BLE001
             outcome.errors.append(f"listing fetch failed: {type(exc).__name__}: {exc}")
             return None
@@ -141,7 +166,7 @@ class GemAdapter:
             return None
         return m.group(1)
 
-    def _fetch_page(self, page: int, token: str, outcome) -> tuple[list[dict], bool]:
+    def _fetch_page(self, page: int, token: str, outcome) -> tuple[list[dict], int | None, bool]:
         payload = json.dumps(
             {
                 "page": page,
@@ -151,7 +176,7 @@ class GemAdapter:
                     "byType": "all",
                     "highBidValue": "",
                     "byEndDate": {"from": "", "to": ""},
-                    "sort": "Bid-End-Date-Oldest",
+                    "sort": self.sort,
                 },
             }
         )
@@ -163,21 +188,36 @@ class GemAdapter:
             )
         except Exception as exc:  # noqa: BLE001
             outcome.errors.append(f"data fetch failed: {type(exc).__name__}: {exc}")
-            return [], True
+            return [], None, True
         if res.status_code != 200:
             outcome.errors.append(f"data HTTP {res.status_code} (page {page})")
-            return [], True
+            return [], None, True
         try:
             body = json.loads(res.text)
         except json.JSONDecodeError:
             outcome.degraded = True
             outcome.notes.append(f"page {page}: non-JSON response")
-            return [], True
-        if isinstance(body, dict) and body.get("code") != 200:
-            outcome.errors.append(f"API code={body.get('code')}")
-            return [], True
+            return [], None, True
+        if not isinstance(body, dict) or body.get("code") != 200:
+            outcome.errors.append(f"API code={body.get('code') if isinstance(body, dict) else 'n/a'}")
+            return [], None, True
         inner = ((body.get("response") or {}).get("response")) or {}
-        return list(inner.get("docs") or []), False
+        found = inner.get("numFound")
+        return list(inner.get("docs") or []), (int(found) if isinstance(found, (int, float)) else None), False
+
+    def doc_url(self, doc: dict) -> str | None:
+        """Public bid-document PDF (verified login-free). Mirrors the portal's own link logic."""
+        b_id = doc.get("b_id")
+        if not b_id:
+            return None
+        btype = _to_int(doc.get("b_bid_type"))
+        if btype == 5:
+            label = "showdirectradocumentPdf"
+        elif btype == 2:
+            label = "list-ra-schedules" if (_to_int(doc.get("b_eval_type")) or 0) > 0 else "showradocumentPdf"
+        else:
+            label = "showbidDocument"
+        return f"{self.base}/{label}/{b_id}"
 
     def _doc_to_tender(self, doc: dict) -> CanonicalTender | None:
         doc = _unwrap_solr(doc)
@@ -187,24 +227,59 @@ class GemAdapter:
             return None
         now = datetime.now(tz=IST)
         source_id = bid_number or f"bid:{b_id}"
-        start_raw = _gem_ts(doc.get("final_start_date_sort"))
-        end_raw = _gem_ts(doc.get("final_end_date_sort"))
-        status = "active" if doc.get("b_buyer_status", 0) == 0 else BUYER_STATUS.get(int(doc.get("b_buyer_status", 0)), ("unknown", ""))[0]
+        start = _gem_ts(doc.get("final_start_date_sort"))
+        end = _gem_ts(doc.get("final_end_date_sort"))
+        buyer_status = _to_int(doc.get("b_buyer_status")) or 0
+        status = BUYER_STATUS.get(buyer_status, ("unknown", ""))[0]
         categories = doc.get("b_category_name") or []
-        official = f"{self.base}/bidlists"  # stable public surface for this record class
-        detail_hint = (
-            f"https://bidplus.gem.gov.in/showbidDocument/{b_id}" if b_id else None
-        )
+        btype = _to_int(doc.get("b_bid_type"))
+        is_ra = btype in (2, 5)
+        doc_url = self.doc_url(doc)
+        official = doc_url or f"{self.base}/bidlists"
         provenance = ProvenanceInfo(
             official_source_url=official,
+            source_listing_url=self.listing_url,
             scraped_at=now,
             first_seen_at=now,
             last_seen_at=now,
-            parser_version=f"gem-1.0.0",
+            parser_version="gem-1.1.0",
             content_hash="pending",
         )
         min_name = doc.get("ba_official_details_minName")
         dept_name = doc.get("ba_official_details_deptName")
+        parent_no = doc.get("b_bid_number_parent")
+        parent_id = doc.get("b_id_parent")
+        documents = []
+        if doc_url:
+            documents.append(
+                TenderDocument(
+                    title="Reverse auction document (official PDF)" if is_ra else "Bid document (official PDF)",
+                    type="nit",
+                    source_url=doc_url,
+                )
+            )
+        if is_ra and parent_id:
+            documents.append(
+                TenderDocument(
+                    title=f"Parent bid document ({parent_no})" if parent_no else "Parent bid document",
+                    type="nit",
+                    source_url=f"{self.base}/showbidDocument/{parent_id}",
+                )
+            )
+        procurement: dict = {
+            # live API (Oct 2026) no longer sends bbt_title; the item/service name is the title
+            "title": clean_text(
+                doc.get("bbt_title") or doc.get("bd_category_name") or (categories[0] if categories else None),
+                max_len=500,
+            ),
+            "description": _description(doc),
+            "category": clean_text(categories[0], max_len=300) if categories else None,
+            "tender_type": "ra" if is_ra else "open",
+        }
+        if is_ra:
+            procurement["procurement_type"] = "auction"
+        elif str(doc.get("b_cat_id") or "").startswith("services"):
+            procurement["procurement_type"] = "services"
         tender = CanonicalTender(
             canonical_id=CanonicalTender.make_canonical_id(self.meta.source_code, source_id),
             identity=TenderIdentity(
@@ -212,16 +287,9 @@ class GemAdapter:
                 source_portal=self.meta.base_url,
                 source_tender_id=source_id,
                 tender_number=clean_text(bid_number, max_len=100),
+                reference_number=clean_text(parent_no, max_len=100) if is_ra and parent_no else None,
             ),
-            procurement={
-                # live API (Oct 2026) no longer sends bbt_title; the item/service name is the title
-                "title": clean_text(
-                    doc.get("bbt_title") or doc.get("bd_category_name") or (categories[0] if categories else None),
-                    max_len=500,
-                ),
-                "category": clean_text(categories[0], max_len=300) if categories else None,
-                "tender_type": "ra" if int(doc.get("b_bid_type", 1) or 1) == 2 else "open",
-            },
+            procurement=procurement,
             organization={
                 "ministry": clean_text(min_name, max_len=200),
                 "department": clean_text(dept_name, max_len=200),
@@ -230,26 +298,44 @@ class GemAdapter:
                 ),
             },
             dates={
-                "published_at": parse_datetime(start_raw) if isinstance(start_raw, str) else None,
-                "bid_submission_start": parse_datetime(start_raw) if isinstance(start_raw, str) else None,
-                "bid_submission_end": parse_datetime(end_raw) if isinstance(end_raw, str) else None,
+                "published_at": parse_datetime(start),
+                "bid_submission_start": parse_datetime(start),
+                "bid_submission_end": parse_datetime(end),
             },
-            documents=(
-                [
-                    TenderDocument(
-                        title="Bid document (official PDF)",
-                        type="nit",
-                        source_url=detail_hint,
-                    )
-                ]
-                if detail_hint
-                else []
-            ),
+            documents=documents,
             status=status,
             provenance=provenance,
         )
         tender.provenance.content_hash = tender.compute_content_hash()
         return tender
+
+
+def _to_int(value) -> int | None:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _description(doc: dict) -> str | None:
+    """Facts the public JSON states, joined into one line. Nothing is inferred."""
+    parts: list[str] = []
+    qty = doc.get("b_total_quantity")
+    if isinstance(qty, (int, float)) and qty > 0:
+        parts.append(f"Quantity: {int(qty) if float(qty).is_integer() else qty}")
+    detail = doc.get("bd_category_name")
+    cat = (doc.get("b_category_name") or [None])[0]
+    if detail and detail != cat:
+        parts.append(f"Item details: {detail}")
+    if doc.get("is_high_value") is True:
+        parts.append("High-value bid")
+    if _to_int(doc.get("ba_is_global_tendering")) == 1:
+        parts.append("Global tender enquiry")
+    if _to_int(doc.get("is_rc_bid")) == 1:
+        parts.append("Rate contract bid")
+    if doc.get("b_bid_number_parent"):
+        parts.append(f"Reverse auction on bid {doc['b_bid_number_parent']}")
+    return clean_text("; ".join(parts), max_len=1000) if parts else None
 
 
 # Genuinely multi-valued on GeM; everything else is a Solr single-value list.
@@ -270,10 +356,16 @@ def _unwrap_solr(doc: dict) -> dict:
 
 
 def _gem_ts(value) -> str | None:
-    """GeM date fields arrive as epoch-millis or ISO strings depending on API version."""
+    """GeM date fields arrive as epoch-millis or ISO strings depending on API version.
+
+    The portal's own JS renders the ISO value with getUTC*() fields, i.e. the "Z"
+    is cosmetic and the wall-clock digits are IST. We therefore drop the suffix
+    so downstream parsing treats the digits as IST.
+    """
     if value in (None, ""):
         return None
     if isinstance(value, (int, float)):
         seconds = value / 1000 if value > 10**11 else value
         return datetime.fromtimestamp(seconds, tz=IST).isoformat()
-    return str(value)
+    text = str(value)
+    return text[:-1] if text.endswith("Z") else text

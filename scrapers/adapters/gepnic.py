@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import os
 import re
 from collections.abc import Iterator
 from datetime import datetime
@@ -51,6 +52,8 @@ WIDGET_SERIAL_RE = re.compile(r"^\d+\.\s*")
 PAGE_LATEST_ACTIVE = "FrontEndLatestActiveTenders"
 PAGE_CLOSING_BY_DATE = "FrontEndListTendersbyDate"
 PAGE_LATEST_CORRIGENDA = "FrontEndLatestActiveCorrigendums"
+PAGE_BY_ORGANISATION = "FrontEndTendersByOrganisation"
+BRACKET_RE = re.compile(r"\[([^\[\]]+)\]")
 
 # Label aliases on GePNIC tender-detail pages (tolerant to version skew).
 _LABEL_MAP = {
@@ -111,6 +114,10 @@ class GePNICAdapter:
         self.harvest = list(opts.get("harvest", ["latest_active"]))
         self.max_detail_per_run = int(opts.get("max_detail_per_run", 40))
         self.max_pages = int(opts.get("max_pages", 2))
+        # the weekly reconcile walks every organisation (OPEN_TENDER_MAX_ORGS=100000)
+        self.max_orgs = int(os.environ.get("OPEN_TENDER_MAX_ORGS") or opts.get("max_orgs", 60))
+        # single-state deployments: every tender belongs to this State/UT
+        self.state = opts.get("state")
         base = cfg.base_url
         self.app_url = f"{base}{self.app_path}"
         self.meta = AdapterMeta(
@@ -143,6 +150,10 @@ class GePNICAdapter:
                     rows += self._fetch_closing_by_date(outcome)
                 elif strategy == "home_widget":
                     rows += self._fetch_home_widget(outcome)
+                elif strategy == "org_walk":
+                    walked = self._fetch_org_walk(outcome)
+                    # the widget's rows lack Tender IDs, so only fall back when the walk is empty
+                    rows += walked or self._fetch_home_widget(outcome)
                 else:
                     outcome.notes.append(f"unknown harvest strategy {strategy}")
         except Exception as exc:  # noqa: BLE001
@@ -252,7 +263,84 @@ class GePNICAdapter:
             outcome.degraded = True
         return rows
 
+    def _fetch_org_walk(self, outcome: FetchOutcome) -> list[dict]:
+        """Full-coverage harvest via the open "Tenders by Organisation" pages.
+
+        The organisation list (name + live tender count) and each organisation's
+        tender list are public. The page also carries a separate CAPTCHA search
+        form, which we never touch; the walk stops if a tender list itself is
+        ever gated. Largest organisations are visited first so a capped run
+        still covers most tenders.
+        """
+        list_url = f"{self.app_url}?page={PAGE_BY_ORGANISATION}&service=page"
+        res = self._http.get(list_url)
+        if res.status_code != 200:
+            outcome.errors.append(f"{PAGE_BY_ORGANISATION}: HTTP {res.status_code}")
+            return []
+        orgs = self._parse_org_list(res.text)
+        if not orgs:
+            if detect_captcha(res.text):
+                outcome.captcha_hit = True
+                outcome.notes.append("organisation list is CAPTCHA-gated; skipped politely")
+            return []
+        orgs.sort(key=lambda o: o["count"], reverse=True)
+        visit = orgs[: self.max_orgs]
+        rows: list[dict] = []
+        failures = 0
+        for org in visit:
+            try:
+                res = self._http.get(org["href"])
+            except Exception as exc:  # noqa: BLE001 - one dropped connection must not lose the whole portal
+                failures += 1
+                outcome.notes.append(f"org {org['name'][:40]}: {type(exc).__name__}, skipped")
+                if failures >= 3:
+                    outcome.notes.append("3 consecutive organisation failures, walk stopped")
+                    break
+                continue
+            failures = 0
+            html = res.text
+            if res.status_code != 200 or "stale session" in html.lower():
+                outcome.notes.append(f"org {org['name'][:40]}: HTTP {res.status_code}, walk stopped")
+                break
+            org_rows = self._parse_listing(html, outcome)
+            if not org_rows and detect_captcha(html):
+                outcome.captcha_hit = True
+                outcome.notes.append("organisation tender list is CAPTCHA-gated; walk stopped")
+                break
+            for r in org_rows:
+                r["source_url"] = list_url
+            rows += org_rows
+        advertised = sum(o["count"] for o in orgs)
+        outcome.notes.append(
+            f"org_walk: visited {len(visit)}/{len(orgs)} organisations, "
+            f"{len(rows)} of {advertised} advertised tenders"
+        )
+        if not rows:
+            outcome.degraded = True
+        return rows
+
     # -- parsing ----------------------------------------------------------------
+
+    def _parse_org_list(self, html: str) -> list[dict]:
+        """Rows of S.No | Organisation (+DirectLink) | Tender count."""
+        orgs: list[dict] = []
+        seen: set[str] = set()
+        for tr in HTMLParser(html).css("tr"):
+            if tr.css("table"):  # layout rows wrap whole nested tables
+                continue
+            cells = tr.css("td")
+            if len(cells) < 3:
+                continue
+            texts = [_cell_text(c) for c in cells]
+            link = _first_link(tr)
+            if not (link and texts[0].isdigit() and texts[2].isdigit()):
+                continue
+            href = urljoin(self.app_url, link.attributes.get("href", ""))
+            if href in seen:
+                continue
+            seen.add(href)
+            orgs.append({"name": texts[1], "count": int(texts[2]), "href": href})
+        return orgs
 
     def _parse_listing(self, html: str, outcome: FetchOutcome) -> list[dict]:
         tree = HTMLParser(html)
@@ -262,14 +350,21 @@ class GePNICAdapter:
                 _cell_text(th).lower()
                 for th in table.css("thead th") or table.css("tr:first-child th")
             ]
-            if not header_cells or "sl.no" not in " ".join(header_cells):
+            if not header_cells:
+                # live portals: <tr class="list_header"><td>S.No</td>... as the table's own first row
+                first = table.css_first("tr")
+                if first is not None and "list_header" in (first.attributes.get("class") or ""):
+                    header_cells = [_cell_text(td).lower() for td in first.css("td")]
+            joined = " ".join(header_cells).replace(" ", "")
+            if "sl.no" not in joined and "s.no" not in joined:
                 continue
-            body_rows = table.css("tbody tr") or table.css("tr")[1:]
-            for tr in body_rows:
+            for tr in table.css("tr"):
                 cells = tr.css("td")
                 if len(cells) < 5:
                     continue
                 texts = [_cell_text(c) for c in cells]
+                if not re.match(r"\d+", texts[0]):  # header / layout rows
+                    continue
                 link_node = _first_link(tr)
                 row = {
                     "published_raw": texts[1],
@@ -284,13 +379,7 @@ class GePNICAdapter:
                 m_tid = TENDER_ID_RE.search(row["title_block"])
                 if m_tid:
                     row["tender_id"] = m_tid.group(1)
-                refs = REF_RE.findall(row["title_block"])
-                refs = [r for r in refs if not TENDER_ID_RE.fullmatch(f"[{r}]")]
-                row["reference_number"] = refs[0] if refs else None
-                title_text = TENDER_ID_RE.sub("", row["title_block"])
-                for r in refs:
-                    title_text = title_text.replace(f"[{r}]", "")
-                row["title"] = clean_text(title_text.strip(" :-"))
+                row["title"], row["reference_number"] = _split_title_block(row["title_block"])
                 rows.append(row)
         return rows
 
@@ -350,7 +439,8 @@ class GePNICAdapter:
                 reference_number=clean_text(row.get("reference_number"), max_len=200),
             ),
             procurement={"title": title},
-            organization={"authority": clean_text(row.get("org_chain"), max_len=500)},
+            organization={"authority": _org_chain(row.get("org_chain"))},
+            geography={"state": self.state},
             dates={
                 "published_at": parse_datetime(row.get("published_raw")),
                 "bid_submission_end": closing,
@@ -408,8 +498,7 @@ class GePNICAdapter:
                 elif path.startswith(("geography.",)):
                     parsed_value = clean_text(value, max_len=300)
                 elif label == "organisation chain":
-                    # portal joins the hierarchy as "Dept||District||Office"
-                    parsed_value = clean_text(" › ".join(p.strip() for p in value.split("||") if p.strip()))
+                    parsed_value = _org_chain(value)
                 else:
                     parsed_value = clean_text(value)
                 if parsed_value in (None, "", "NA"):
@@ -466,6 +555,29 @@ class GePNICAdapter:
 
 
 # -- small helpers -------------------------------------------------------------
+
+
+def _split_title_block(block: str) -> tuple[str | None, str | None]:
+    """Split a listing's title cell into (title, reference number).
+
+    Two layouts are live: ``Title [TenderID] [Ref]`` and the bracketed
+    ``[Title] [Ref][TenderID]`` used by current portal versions.
+    """
+    groups = [g.strip() for g in BRACKET_RE.findall(block)]
+    non_id = [g for g in groups if not TENDER_ID_RE.fullmatch(f"[{g}]")]
+    outside = (clean_text(BRACKET_RE.sub(" ", block)) or "").strip(" :-")
+    if outside:
+        title, refs = outside, non_id
+    else:
+        title, refs = (non_id[0] if non_id else None), non_id[1:]
+    return clean_text(title), (clean_text(refs[0], max_len=200) if refs else None)
+
+
+def _org_chain(value: str | None) -> str | None:
+    """Portals join the hierarchy as "Dept||District||Office"."""
+    if not value:
+        return None
+    return clean_text(" › ".join(p.strip() for p in value.split("||") if p.strip()), max_len=500)
 
 
 def _cell_text(node) -> str:
