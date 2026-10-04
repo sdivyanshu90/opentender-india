@@ -6,12 +6,13 @@ on:
   # Ingestion commits carry [skip ci], which suppresses push-triggered runs,
   # so redeploy explicitly whenever the daily fetch finishes.
   workflow_run:
-    workflows: [fetch-tenders]
+    workflows: [fetch-tenders, weekly-reconcile]
     types: [completed]
   workflow_dispatch:
 
 permissions:
   contents: read
+  actions: read # download the dataset artifact from the ingestion run
   pages: write
   id-token: write
 
@@ -42,11 +43,44 @@ jobs:
           npm run build
           # SPA fallback: Pages serves 404.html for deep links like /tender/<id>
           cp dist/index.html dist/404.html
-      - name: Copy generated datasets + status into the site
+      - name: Add the latest ingested dataset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRIGGER_RUN: ${{ github.event.workflow_run.id }}
         run: |
-          mkdir -p apps/web/dist/data/index
-          if [ -d data/indexes ]; then cp -r data/indexes/* apps/web/dist/data/index/; fi
-          if [ -f status/sources.json ]; then cp status/sources.json apps/web/dist/data/status-sources.json; fi
+          # synthetic dev fixtures must never ship (spec #52)
+          rm -f apps/web/dist/data/dev-fixtures.json
+          run="$TRIGGER_RUN"
+          if [ -z "$run" ]; then
+            # newest successful ingestion of either kind (daily or weekly full walk)
+            run=$(for wf in fetch-tenders.yml weekly-reconcile.yml; do
+                    gh run list --repo "$GITHUB_REPOSITORY" --workflow "$wf" --limit 20 \
+                      --json databaseId,createdAt,conclusion \
+                      -q '[.[] | select(.conclusion == "success")][0] | select(. != null) | "\(.createdAt) \(.databaseId)"'
+                  done | sort -r | head -1 | cut -d' ' -f2)
+          fi
+          if [ -n "$run" ] && gh run download "$run" --repo "$GITHUB_REPOSITORY" -n site-data -D site-data; then
+            mkdir -p apps/web/dist/data/index
+            cp site-data/data/indexes/search-docs.json.gz site-data/data/index/manifest.json apps/web/dist/data/index/
+            # fresh public health snapshot; the committed status/sources.json is only a fallback
+            if [ -f site-data/data/public/status-sources.json ]; then
+              cp site-data/data/public/status-sources.json apps/web/dist/data/status-sources.json
+            else
+              cp site-data/status/sources.json apps/web/dist/data/status-sources.json
+            fi
+            if [ -d site-data/data/feeds ]; then
+              mkdir -p apps/web/dist/data/feeds
+              cp site-data/data/feeds/* apps/web/dist/data/feeds/
+            fi
+            # per-tender detail shards, lazy-loaded by the tender page
+            if [ -d site-data/data/details ]; then
+              mkdir -p apps/web/dist/data/details
+              cp site-data/data/details/* apps/web/dist/data/details/
+            fi
+            echo "dataset from run $run: $(cat site-data/data/indexes/search-docs.meta.json)" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning::no ingested dataset available yet; deploying without tender data"
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: apps/web/dist

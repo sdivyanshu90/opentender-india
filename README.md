@@ -12,13 +12,41 @@ NIC eProcurement portals — with evidence-first AI assistance.
 [![ci](https://github.com/opentender-india/opentender-india/actions/workflows/ci.yml/badge.svg)](./.github/workflows/ci.yml)
 [License: AGPL-3.0](LICENSE) · Runs at **₹0/month** baseline infrastructure cost.
 
+**Live site:** <https://sdivyanshu90.github.io/opentender-india/> (GitHub Pages;
+rebuilt after every daily ingestion).
+
+## Coverage (as of 4 Oct 2026)
+
+Hosted data comes from the seven GePNIC portals below, harvested through their
+open "Tenders by Organisation" pages. Active tenders each portal advertised on
+4 Oct 2026:
+
+| Portal | Advertised active tenders |
+|---|---|
+| CPPP ePublishing | 1,382 |
+| Rajasthan | 4,832 |
+| Kerala | 7,525 |
+| Madhya Pradesh | 5,320 |
+| Uttarakhand | 725 |
+| Jammu & Kashmir | 4,767 |
+| BEL | 100 |
+| **Total** | **24,651** |
+
+The daily run visits the 60 largest organisations per portal, which covers
+roughly 97% of those advertised tenders; the weekly reconcile walks every
+organisation. These are the portals' own counts, not a guarantee of what the
+site holds at any moment, and the site is not a complete view of Indian
+procurement. See [limitations](#known-limitations) and
+[docs/source-research.md](docs/source-research.md).
+
 ---
 
 ## What it does
 
-- **One search across India** — a single query over multiple official
-  procurement ecosystems: GeM BidPlus, CPPP ePublishing, NIC GePNIC state/PSU
-  portals (see [source coverage](docs/source-research.md)).
+- **One search across official portals** — a single query over CPPP
+  ePublishing and NIC GePNIC state/PSU portals in the hosted dataset; a GeM
+  adapter exists but does not currently feed it (see
+  [limitations](#known-limitations) and [source coverage](docs/source-research.md)).
 - **Deterministic first, AI second** — dates, amounts (₹ lakh/crore), tender
   numbers, deduplication and change detection are parsed deterministically.
   AI is reserved for summarisation, eligibility extraction and risk analysis —
@@ -40,17 +68,20 @@ flowchart LR
     CPPP[CPPP ePublishing]
     ST[GePNIC states / PSUs]
   end
-  subgraph Actions["GitHub Actions (daily)"]
-    FETCH[opentender fetch] --> NORM[normalize → validate → dedupe → diff]
-    NORM --> DOCS[sandboxed doc parsing]
-    DOCS --> INTEL[deterministic intelligence]
-    INTEL --> AI[budgeted OpenRouter enrichment]
-    AI --> OUT[sharded datasets + indexes + health]
+  subgraph Actions["GitHub Actions (daily + weekly)"]
+    FETCH[opentender fetch] --> NORM[validate → dedupe → diff]
+    NORM --> AI[budgeted OpenRouter enrichment]
+    AI --> IDX[build-index + quality gate]
+    CACHE[(Actions cache: tender store)] <--> FETCH
+    IDX --> ART[site-data artifact]
   end
   subgraph Pages["GitHub Pages (static)"]
-    OUT --> WEB[React PWA · MiniSearch local search]
+    ART --> DEPLOY[deploy.yml] --> WEB[React PWA · MiniSearch local search]
     WEB --> IDB[(IndexedDB: bookmarks · profile · notes)]
   end
+  CPPP --> FETCH
+  ST --> FETCH
+  GEM -.local runs only.-> FETCH
   OR[OpenRouter] -.project key, budgeted.-> AI
   OR2[OpenRouter] -.user's own key (BYOK).-> WEB
 ```
@@ -69,8 +100,9 @@ scrapers/core       Adapter framework, models, parsers, store, health
 scrapers/adapters   GePNIC generic adapter, GeM adapter
 scrapers/configs    Per-source YAML configuration
 cli.py              `opentender` command-line interface
-data/               Hot storage + generated indexes (committed by CI)
-status/             Source health, AI budget, feeds
+data/               Local tender store + generated indexes (git-ignored; see Storage model)
+archive/            Immutable monthly partitions of long-closed tenders (committed)
+status/             Source health, AI budget, feeds (committed)
 docs/               Research reports, architecture, ADRs
 tests/              Fixture-driven parser tests + AI-layer tests
 .github/workflows   fetch / reconcile / source-health / archive / ci / deploy
@@ -98,9 +130,29 @@ opentender sources          # list registered sources + statuses
 opentender health           # smoke-test every portal
 opentender fetch --all      # polite crawl of permitted sources
 opentender validate         # validate stored data against canonical schema
+opentender dedupe           # cross-source possible-duplicate groups
 opentender build-index      # generate frontend datasets + digest
 opentender stats
 ```
+
+`opentender fetch --all` walks GePNIC portals through their "Tenders by
+Organisation" pages: largest organisations first, capped at `max_orgs` (60)
+per portal. Set `OPEN_TENDER_MAX_ORGS` to override the cap, for example
+`OPEN_TENDER_MAX_ORGS=100000` to walk every organisation (what the weekly
+reconcile does). A single source: `opentender fetch gepnic_kerala`. Exit codes:
+`0` ok, `2` no source given, `3` nothing was fetched from any source.
+
+`opentender build-index` writes `data/indexes/search-docs.json.gz` and its
+`.meta.json`. Options:
+
+| Option | Default | Effect |
+|---|---|---|
+| `--retention-days` | 30 | drop tenders that closed more than N days ago from the browser index (they stay in the store/archive) |
+| `--max-drop` | 0.5 | quality gate: refuse to publish if the index shrinks by more than this fraction versus the previous build |
+| `--force` | off | publish even if the gate fails |
+
+The gate also refuses an empty index. On failure it exits with code `4` and
+leaves the previously published index untouched.
 
 Optional AI enrichment (uses your key; never required):
 
@@ -119,6 +171,54 @@ cd apps/web && npm run typecheck # frontend types
 npm run build                    # production build
 ruff check scrapers packages cli.py tests
 ```
+
+## Storage model
+
+- **Not committed:** `data/hot/` (per-tender gzip JSON), `data/state.json`,
+  `data/index/` and `data/indexes/` are git-ignored. Rewriting ~25k records
+  daily would bloat history and bury real changes in noise commits
+  ([ADR-005](docs/adr/ADR-005.md)).
+- **Committed:** `status/` (source health, feeds) and `data/ai-queue.jsonl` and
+  `archive/`, immutable `source_YYYY_MM.json.gz` partitions that
+  `opentender archive` writes monthly for tenders closed more than 180 days.
+- **Between runs:** the store lives in the GitHub Actions cache
+  (`tender-store-*`). Each run re-walks all active tenders, so an evicted
+  cache loses revision history, not current data.
+
+## CI topology
+
+| Workflow | Trigger | Role |
+|---|---|---|
+| `fetch-tenders` | daily 02:17 IST, manual | restore store from cache, `fetch --all`, validate, dedupe, AI (budgeted), `build-index`, tests; saves the store to the cache and uploads the `site-data` artifact; commits `status/` only |
+| `weekly-reconcile` | Sundays | calls `fetch-tenders` via `workflow_call` with a full organisation walk |
+| `deploy` | push to `main`, after `fetch-tenders`/`weekly-reconcile` succeed, manual | builds the frontend with `BASE_PATH=/opentender-india/`, downloads the latest `site-data` artifact, publishes to Pages (`404.html` is the SPA fallback for deep links) |
+| `source-health` | every 6 h | portal smoke tests, writes `status/sources.json` |
+| `archive` | monthly | compacts old closed tenders into `archive/` partitions |
+| `ci` | push to `main`, PRs | pytest, lint, frontend tests, typecheck, build |
+| `e2e` | manual, weekly (Fri) | Playwright journeys against fixture data |
+
+`fetch-tenders`, `source-health` and `archive` share the `data-commit`
+concurrency group so only one writes the store or pushes to `main` at a time.
+`deploy` runs in its own `pages` group.
+
+## Known limitations
+
+- **GeM is not in the hosted data.** GeM coverage comes from the public BidPlus
+  listing (about 45,000 ongoing bids on 4 Oct 2026). Each run takes up to 50
+  pages (~500 bids) newest-first at ≥3.5 s per request, so older bids are not
+  backfilled; every record links to the public bid PDF. MSE/startup/Make-in-India
+  flags are not exposed publicly and are not captured. GeM refuses connections
+  from datacentre IPs, including GitHub-hosted runners: run this source from an
+  Indian network (e.g. a free self-hosted runner) — the adapter reports
+  "blocked from this network" instead of hanging.
+- **GePNIC listings behind CAPTCHA are skipped, never bypassed.** On 4 Oct 2026
+  "Latest Active Tenders" and "Tenders by Closing Date" were CAPTCHA-gated on all
+  seven configured portals, hence the organisation walk.
+- **Not ingested:** IREPS (its search is disallowed by robots.txt) and
+  MahaTenders (robots.txt disallows all crawling; `POLICY_RESTRICTED`, opt-in
+  by environment variable only).
+- Per-run detail-page hydration is capped (`max_detail_per_run`), so some
+  records carry listing-level fields only.
 
 ## Scraping ethics
 

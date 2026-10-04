@@ -1,7 +1,8 @@
 # Source Research & Reconnaissance
 
-**Last verified: 23 August 2026.** Every claim below was reproduced from live
-fetches of production portals during this session unless explicitly marked as
+**Last verified: 23 August 2026; GePNIC CAPTCHA status and coverage re-verified
+4 October 2026** (see "GePNIC CAPTCHA status" below). Every claim below was
+reproduced from live fetches of production portals unless explicitly marked as
 assumption. Raw evidence reports live in [`docs/recon/`](recon/).
 
 > OpenTender India is an independent open-source project and is not affiliated
@@ -28,16 +29,47 @@ assumption. Raw evidence reports live in [`docs/recon/`](recon/).
 
 | Source | Family | Access | CAPTCHA | Documents | Corrigenda | Results | Adapter | Strategy | Status |
 |---|---|---|---|---|---|---|---|---|---|
-| GeM BidPlus (`bidplus.gem.gov.in`) | GeM | Public XHR JSON w/ CSRF token from `/all-bids`; cookie jar required | Login/participation + View-Contracts only | **Public PDFs**: GET `/showbidDocument/{b_id}` no auth | `/public-bid-other-details/{id}`, `/viewCorrigendum/{id}` public | `/bidresultlists` + `getBidResultView/{id}` public | `gem.py` | Daily paged delta via POST `/all-bids-data` (`payload=<JSON>&csrf_bd_gem_nk=`); Solr-shaped response; 10/page; sort Bid-End-Date-Oldest | **ACTIVE** |
-| CPPP ePublishing (`eprocure.gov.in/epublish/app`) | NIC GePNIC | Server-rendered HTML; Tapestry `$DirectLink` session links | **Closing-date lists OPEN**; active/search/corrigendum/award listings CAPTCHA-gated; doc downloads CAPTCHA interstitial | Gated (never bypassed) | Widget + gated listing | Gated (`ResultOfTenders`) | `GePNICAdapter` (`cppp_epublish`) | Harvest `closing_by_date` (+14-day windows) + home widget; hydrate details in-session immediately | **ACTIVE** |
-| Rajasthan / Kerala / MP / Uttarakhand / J&K eProcurement | NIC GePNIC | Public HTML; login-only CAPTCHA per community scrapers + runtime guard | Listings believed open; runtime `captchaText` guard stops politely if challenged | Login/DSC | Listing pages | Listing pages | `GePNICAdapter` (per-site YAML) | `latest_active` walk, ≤2 pages/day, 4 s delay | **EXPERIMENTAL** |
-| BEL eProcurement (`eprocurebel.co.in`) | NIC GePNIC (PSU/MoD) | Public HTML | Login only | Login/DSC | Yes | Reduced menu | `GePNICAdapter` | `latest_active` walk | **EXPERIMENTAL** |
+| GeM BidPlus (`bidplus.gem.gov.in`) | GeM | Public XHR JSON w/ CSRF token from `/all-bids`; cookie jar required | Login/participation + View-Contracts only | **Public PDFs**: GET `/showbidDocument/{b_id}` no auth | `/public-bid-other-details/{id}`, `/viewCorrigendum/{id}` public | `/bidresultlists` + `getBidResultView/{id}` public | `gem.py` | Daily paged delta via POST `/all-bids-data` (`payload=<JSON>&csrf_bd_gem_nk=`); Solr-shaped response; 10/page; sort Bid-End-Date-Oldest | **ACTIVE** (config) - **not ingested by hosted runs**: GeM refuses connections from GitHub-hosted runner IPs; works from Indian networks. Live API returns Solr single-value lists. Under research (4 Oct 2026) |
+| CPPP ePublishing (`eprocure.gov.in/epublish/app`) | NIC GePNIC | Server-rendered HTML; Tapestry `$DirectLink` session links | **Re-verified 4 Oct 2026:** Latest Active and Closing Date listings CAPTCHA-gated; **Tenders by Organisation and each organisation's list open**; doc downloads CAPTCHA interstitial | Gated (never bypassed) | Widget + gated listing | Gated (`ResultOfTenders`) | `GePNICAdapter` (`cppp_epublish`) | `org_walk` (largest 60 orgs/day, all weekly), home widget fallback; hydrate details in-session immediately. 1,382 advertised active tenders on 4 Oct 2026 | **ACTIVE** |
+| Rajasthan / Kerala / MP / Uttarakhand / J&K eProcurement | NIC GePNIC | Public HTML; login-only CAPTCHA per community scrapers (23 Aug) | **4 Oct 2026:** Latest Active gated on all five (Location and Classification also gated where checked, on Kerala); Tenders by Organisation and org lists open; runtime `captchaText` guard stops politely if challenged | Login/DSC | Listing pages | Listing pages | `GePNICAdapter` (per-site YAML) | `org_walk`, `max_orgs: 60`, 4 s delay. Advertised active tenders 4 Oct 2026: Rajasthan 4,832; Kerala 7,525; MP 5,320; Uttarakhand 725; J&K 4,767 | **EXPERIMENTAL** |
+| BEL eProcurement (`eprocurebel.co.in`) | NIC GePNIC (PSU/MoD) | Public HTML | Login only (23 Aug); **4 Oct 2026:** Latest Active gated, org pages open | Login/DSC | Yes | Reduced menu | `GePNICAdapter` | `org_walk`, 5 s delay. 100 advertised active tenders on 4 Oct 2026 | **EXPERIMENTAL** |
 | MahaTenders (`mahatenders.gov.in`) | NIC GePNIC | Public HTML; ⚠️ **robots.txt = `Disallow: /`** | Home widgets open; full listings/search/doc downloads CAPTCHA-gated; `sp=` detail links die with session | CAPTCHA-gated | Widget (10 latest) | Gated | `GePNICAdapter` (`mahatenders`) | Widgets + immediate in-session detail hydration only; **disabled unless `OPEN_TENDER_ALLOW_POLICY_RESTRICTED=1`** | **POLICY_RESTRICTED** |
-| IREPS Works (`ireps.gov.in/eps/anonymSearch.do`) | IREPS | Anonymous form POST; zone-ID list embedded in page | No CAPTCHA on works search; ≤91-day window constraint | Via works flow anonymously | In-flow | Static `html/misc/*Awarded*.html` pages | `ireps_works.py` (WP3) | Zone-wise daily crawl inside 90-day window | **EXPERIMENTAL** |
+| IREPS Works (`ireps.gov.in/eps/anonymSearch.do`) | IREPS | Anonymous form POST; zone-ID list embedded in page | No CAPTCHA on works search; ≤91-day window constraint | Via works flow anonymously | In-flow | Static `html/misc/*Awarded*.html` pages | `ireps_works.py` (WP3) | Zone-wise daily crawl inside 90-day window | **EXPERIMENTAL** (config); IREPS search is disallowed by robots.txt, so it is not part of hosted ingestion |
 | IREPS Goods & Services / Supply POs | IREPS | Mobile number → image CAPTCHA → SMS OTP guest wall | **SMS OTP** (max 2/hr, IP logged) | Gated | Gated | Gated | — | Not automatable politely; human-in-the-loop only | **LOGIN_REQUIRED** |
 | Karnataka KPPP (`kppp.karnataka.gov.in`) | Custom SPA | Angular-style client rendering; routes `/tender`, `/bid`, `/auction` | ? | ? | ? | ? | — | Needs JSON API reverse-engineering or headless render | **RESEARCHING** |
 | Gujarat nProcure (`tender.nprocure.com`) | eProc-Suite | New host verified live; legacy host geo-fenced/timeouts | ? | ? | ? | ? | — | Recon pending on new host | **RESEARCHING** |
 | Telangana / AP eProcurement | Custom Java | Auto-posting CSRF login shell at root | ? | ? | ? | ? | — | Needs JS-capable recon | **RESEARCHING** |
+
+## GePNIC CAPTCHA status (verified 4 October 2026)
+
+Checked live against all seven configured deployments (CPPP ePublishing,
+Rajasthan, Kerala, MP, Uttarakhand, J&K, BEL).
+
+| GePNIC page | Status |
+|---|---|
+| Latest Active Tenders (`FrontEndLatestActiveTenders`) | CAPTCHA-gated on all 7 |
+| Tenders by Closing Date (`FrontEndListTendersbyDate`) | CAPTCHA-gated (checked on CPPP) |
+| Tenders by Location / Classification | CAPTCHA-gated (checked on Kerala only) |
+| **Tenders by Organisation** (`FrontEndTendersByOrganisation`) | Open: every organisation with its live tender count, linking to the organisation's full tender list, no CAPTCHA |
+| App-root "Latest Tenders" widget | 10 rows, no Tender IDs; used as fallback only (not re-checked per portal on 4 Oct) |
+
+The Tenders by Organisation page also holds a separate CAPTCHA search form;
+the adapter never uses it. Largest organisation pages come back as one page
+(Kerala LSGD: 5,338 rows).
+
+Advertised active tenders on 4 Oct 2026: CPPP 1,382; Rajasthan 4,832; Kerala
+7,525; MP 5,320; Uttarakhand 725; J&K 4,767; BEL 100 - 24,651 in total. The
+daily cap of the 60 largest organisations per portal covers about 97% of them;
+the weekly reconcile walks every organisation. These are portal-advertised
+counts, not a measure of what OpenTender holds.
+
+Before this was fixed, scheduled runs stored no tenders from 23 Aug to early
+Oct 2026: first the listings became CAPTCHA-gated, then selectolax 1.0 removed
+the Modest backend the parser used.
+
+Other policy status: IREPS search is disallowed by robots.txt and stays off;
+MahaTenders robots.txt disallows all crawling (`POLICY_RESTRICTED`, opt-in via
+`OPEN_TENDER_ALLOW_POLICY_RESTRICTED=1` only).
 
 ## Cross-cutting GePNIC facts (verified across 9+ portals)
 
@@ -79,6 +111,10 @@ assumption. Raw evidence reports live in [`docs/recon/`](recon/).
 - Geo-fencing risk exists for some state hosts (Punjab legacy, Odisha) — these
   are marked accordingly and probed by `source-health.yml` every 6 h so
   degradation is public rather than silent.
+
+- **GeM from runners:** GeM refuses connections from GitHub-hosted runners
+  (datacentre IPs) but works from Indian networks (observed 4 Oct 2026). GePNIC
+  portals were reachable from runners. GeM hosted ingestion is an open item.
 
 ## Assumptions & risks (explicitly unverified)
 

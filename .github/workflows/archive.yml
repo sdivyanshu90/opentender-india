@@ -13,17 +13,41 @@ permissions:
 jobs:
   archive:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+    concurrency:
+      group: data-commit # the store cache and main are shared with ingestion
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: pip install -e . --quiet
+      - name: Restore tender store
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            data/hot
+            data/state.json
+            data/indexes/search-docs.meta.json
+            data/ai-cache
+          key: tender-store-${{ github.run_id }}
+          restore-keys: tender-store-
       - name: Compact archive by source/year/month
         run: opentender archive --compact --older-than-days 180 || echo "::warning::archive step incomplete"
       - name: Commit compacted archive
         run: |
           git config user.name "opentender-bot"
           git config user.email "actions@opentender.invalid"
-          git add archive data
-          git diff --cached --quiet || (git commit -m "archive: monthly compaction $(date -u +%F) [skip ci]" && git push)
+          git add archive
+          git diff --cached --quiet || (git commit -m "archive: monthly compaction $(date -u +%F) [skip ci]" && git pull --rebase --quiet origin main && git push)
+      # only after the partitions are safely pushed may the store drop those records
+      - name: Save compacted tender store
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/hot
+            data/state.json
+            data/indexes/search-docs.meta.json
+            data/ai-cache
+          key: tender-store-${{ github.run_id }}

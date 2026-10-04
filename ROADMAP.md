@@ -24,6 +24,7 @@ Current release: **0.1.0** (2026-08-23) — ingestion framework, GePNIC/GeM adap
 - **IREPS works adapter**: Indian Railways E-procurement System (IREPS) public works tenders — preceded by a verified reconnaissance report and ethics review per the source-inclusion policy.
 - **More GePNIC states**: enable additional verified state deployments from the recon roster (e.g., Tamil Nadu, Punjab, Odisha, Jharkhand, Assam), each gated by fixture tests and health wiring.
 - CPPP ePublishing coverage improvements where gaps remain against GePNIC listings.
+- **GeM in hosted data**: GeM refuses connections from GitHub-hosted runners, so scheduled runs cannot ingest it today; needs a verified, policy-compliant path (research in progress).
 
 ## Phase 10 — Awards & analytics dashboards
 

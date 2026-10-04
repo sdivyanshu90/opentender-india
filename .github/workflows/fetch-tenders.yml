@@ -1,6 +1,12 @@
 name: fetch-tenders
 
 # Daily ingestion (spec #45). Non-round minute in IST early morning.
+#
+# Storage (ADR-005): the tender store (data/hot + data/state.json) is carried
+# between runs in the Actions cache, and the built datasets are handed to
+# deploy.yml as the `site-data` artifact. Only small status files are committed,
+# so ~25k daily-rewritten records never churn git history. Every run re-walks
+# all active tenders, so a cache eviction loses revision history, not data.
 on:
   schedule:
     - cron: "47 20 * * *" # 02:17 IST
@@ -13,20 +19,27 @@ on:
         description: "Skip AI enrichment"
         type: boolean
         default: false
+  workflow_call: # weekly-reconcile reuses this pipeline with a full organisation walk
+    inputs:
+      full_walk:
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
-concurrency:
-  group: fetch-tenders
-  cancel-in-progress: false
-
 jobs:
   ingest:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    concurrency:
+      group: data-commit # shared with every job that pushes data/status
+      cancel-in-progress: false
+    timeout-minutes: 150
     env:
       MAX_AI_REQUESTS_PER_DAY: ${{ vars.MAX_AI_REQUESTS_PER_DAY || '40' }}
+      # GePNIC org walk: daily visits the largest 60 orgs per portal (~97% of
+      # tenders); the weekly reconcile walks all of them.
+      OPEN_TENDER_MAX_ORGS: ${{ inputs.full_walk && '100000' || '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -38,24 +51,28 @@ jobs:
       - name: Install pipeline
         run: pip install -e ".[dev]" --quiet
 
-      - name: Restore crawl/AI caches
-        uses: actions/cache@v4
+      - name: Restore tender store + AI cache
+        uses: actions/cache/restore@v4
         with:
           path: |
+            data/hot
+            data/state.json
+            data/indexes/search-docs.meta.json
             data/ai-cache
-          key: ai-cache-${{ github.run_id }}
-          restore-keys: ai-cache-
+          key: tender-store-${{ github.run_id }}
+          restore-keys: tender-store-
 
       - name: Discover + fetch permitted sources
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }} # never printed; masked by Actions
           SOURCE_OVERRIDE: ${{ inputs.source || '' }}
+        # each source fails independently inside the CLI; a non-zero exit means
+        # nothing at all was fetched, which must fail the run
         run: |
-          set -e
           if [ -n "$SOURCE_OVERRIDE" ]; then
-            opentender fetch "$SOURCE_OVERRIDE" || echo "::warning::source $SOURCE_OVERRIDE failed independently"
+            opentender fetch "$SOURCE_OVERRIDE"
           else
-            opentender fetch --all || echo "::warning::one or more sources failed independently"
+            opentender fetch --all
           fi
 
       - name: Validate canonical schema
@@ -74,30 +91,48 @@ jobs:
           opentender ai queue --reason closing_soon --limit 15 || true
           opentender ai run --max-tasks 40 || echo "::warning::AI step degraded; pipeline continues"
 
+      # quality gate inside build-index: refuses an empty or collapsed dataset
       - name: Build indexes, feeds, digest
         run: opentender build-index
-
-      - name: Publish health status for frontend
-        run: |
-          mkdir -p apps/web/public/data
-          cp status/sources.json apps/web/public/data/status-sources.json
 
       - name: Run test suite
         run: python -m pytest tests/ -q
 
-      - name: Commit meaningful changes only
-        id: commit
+      - name: Save tender store
+        if: ${{ !cancelled() }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            data/hot
+            data/state.json
+            data/indexes/search-docs.meta.json
+            data/ai-cache
+          key: tender-store-${{ github.run_id }}
+
+      - name: Hand datasets to deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-data
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            data/indexes/search-docs.json.gz
+            data/indexes/search-docs.meta.json
+            data/index/manifest.json
+            data/feeds
+            data/details
+            data/public/status-sources.json
+            status/sources.json
+
+      - name: Commit status + digest
         run: |
           git config user.name "opentender-bot"
           git config user.email "actions@opentender.invalid"
-          git add data status apps/web/public/data
+          git add status data/ai-queue.jsonl
           if git diff --cached --quiet; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "no status changes"
           else
             git commit -m "data: daily ingestion $(date -u +%F) [skip ci]"
-            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git pull --rebase --quiet origin main
+            git push
           fi
-
-      - name: Push datasets
-        if: steps.commit.outputs.changed == 'true'
-        run: git push

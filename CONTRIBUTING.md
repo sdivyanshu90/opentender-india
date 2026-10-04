@@ -29,10 +29,10 @@ CLI tour:
 ```bash
 opentender sources        # list configured sources and their status
 opentender health         # probe source reachability/status
-opentender fetch          # fetch listings from enabled sources
+opentender fetch --all    # fetch from enabled sources (GePNIC: organisation walk; OPEN_TENDER_MAX_ORGS overrides the per-portal cap)
 opentender validate       # schema/field validation of ingested records
 opentender dedupe         # cross-source deduplication
-opentender build-index    # build the static search index consumed by apps/web
+opentender build-index    # build the static search index consumed by apps/web (quality gate exits 4)
 opentender digest         # AI digest/enrichment pass (requires OPENROUTER_API_KEY)
 opentender stats          # dataset statistics
 opentender archive        # write archival snapshots
@@ -90,13 +90,15 @@ Order matters — do these steps in sequence:
 
 1. **Research report first.** Write a reconnaissance document under `docs/recon/<source>-recon.md`: verified URLs (fetched, not guessed), robots.txt analysis, presence of CAPTCHA/login/anti-bot controls, listing structure, document formats, and a go/no-go ethics recommendation. See `docs/recon/gepnic-recon.md` for the expected depth.
 2. **Ethics review.** A maintainer reviews the report against the ground rules above. If the source requires login or disallows crawling, it ships as `LOGIN_REQUIRED`/`POLICY_RESTRICTED` and disabled by default — or not at all.
-3. **YAML configuration.** Add an entry to `scrapers/configs/sources.yaml` with `id`, `name`, `base_url`, `adapter`, `status`, rate-limit and politeness settings.
+3. **YAML configuration.** Add an entry to `scrapers/configs/sources.yaml` with `id`, `family`, `name`, `base_url`, `status`, `crawl_delay` and family-specific options. For a GePNIC portal this is usually all that is needed; see [docs/adding-a-source.md](docs/adding-a-source.md) for the keys (`harvest`, `max_orgs`, `max_detail_per_run`, `state`) and the fixture tests.
 4. **Adapter implementation.** Add the adapter under `scrapers/adapters/` (subclass the base adapter contract). Parsing must be deterministic and fixture-driven; keep network access out of the parsing logic itself.
 5. **HTML/PDF fixtures.** Save real (or realistically redacted) response samples under `tests/fixtures/<source>/`. Fixtures are the spec — tests parse them into pydantic models and assert exact fields, including edge cases (missing closing dates, multi-item BOQs, regional encodings).
 6. **Tests.** pytest coverage for listing parsing, detail parsing, validation, and dedupe behaviour. Include a "portal returns garbage" case proving failure isolation.
 7. **Status wiring.** Register the source in health checks and the Sources page so users see its live status.
 
 PRs adding adapters without a prior recon report will be sent back for one.
+
+The tender store (`data/hot/`, `data/state.json`, `data/index*`) is git-ignored; never commit it. CI keeps it in the Actions cache (see [ADR-005](docs/adr/ADR-005.md)).
 
 ## Pull requests
 

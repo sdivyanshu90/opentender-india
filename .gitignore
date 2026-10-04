@@ -20,13 +20,19 @@ node_modules/
 dist/
 *.tsbuildinfo
 
-# Generated data (pipeline output is committed selectively by CI;
-# local runs shouldn't flood git). data/hot/ IS committed: it is the
-# cross-run tender store build-index reads from (ADR-005).
+# Pipeline store + generated datasets. CI persists the store (hot records,
+# state.json) in the Actions cache and hands the built datasets to deploy as
+# an artifact, so ~25k daily-rewritten files never churn git history (ADR-005).
+# Committed: status/, digests, and immutable monthly archive/ partitions.
+data/hot/
+data/state.json
+data/index/
+data/indexes/
+data/feeds/
+data/details/
+data/public/
 data/ai-cache/
 data/extracted-text/
-data/indexes/chunks/
-archive/*.json.gz
 
 # OS / editor noise
 .DS_Store

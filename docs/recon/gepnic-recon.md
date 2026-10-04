@@ -1,5 +1,9 @@
 # GePNIC Ecosystem Reconnaissance Report
 
+> **Update 4-Oct-2026:** section 4d and the harvest strategy in section 6 below
+> were superseded by a live re-check; see "Addendum" at the end. The original
+> 23-Aug text is kept as the historical record.
+
 **Date:** 23-Aug-2026
 **Method:** Live portal fetches (webfetch) + web search. Sandbox has no direct internet; two hosts unreachable from fetcher egress are flagged below.
 **Purpose:** Inputs for building ONE configurable `GePNICAdapter` for an open-source tender aggregator.
@@ -239,3 +243,44 @@ PSUs: iocletenders.nic.in/nicgep/app · coalindiatenders.nic.in/nicgep/app · ep
 States via snippets/lists: tendersodisha.gov.in/nicgep/app · eproc.punjab.gov.in/nicgep/app · jharkhandtenders.gov.in/nicgep/app · tntenders.gov.in/nicgep/app · hptenders.gov.in · assamtenders.gov.in · tripuratenders.gov.in · manipurtenders.gov.in · meghalayatenders.gov.in · mizoramtenders.gov.in · nagalandtenders.gov.in · sikkimtenders.gov.in · eproc.bihar.gov.in · eproc.cgstate.gov.in · tenders.ladakh.gov.in · pmgsytenders.gov.in/nicgep/app (+ per-state pmgsytenders* hosts)
 
 Third-party corroboration: odysseytec.com/eProcurement (xorkeesign supported-portal list) · bidindia.co.in/blog/gepnic-state-portals-explained · bidindia.co.in/portals/gepnic · apify.com/jungle_synthesizer/india-eprocure-tender-scraper · github.com/PranavTamada/Tender_Scraper (state_gepnic_scraper.py) · cdnbbsr.s3waas.gov.in NIC UT reports (J&K, Ladakh)
+
+---
+
+## Addendum (4-Oct-2026): CAPTCHA matrix and harvest strategy
+
+**Method:** live fetches of the seven deployments configured in
+`scrapers/configs/sources.yaml` (CPPP ePublishing, Rajasthan, Kerala, MP,
+Uttarakhand, J&K, BEL). This contradicts the 23-Aug claim in 4d that public
+listing pages carry no CAPTCHA.
+
+| Page | CPPP | RAJ | KER | MP | UK | J&K | BEL |
+|---|---|---|---|---|---|---|---|
+| Latest Active Tenders | gated | gated | gated | gated | gated | gated | gated |
+| Tenders by Closing Date | gated | not checked | not checked | not checked | not checked | not checked | not checked |
+| Tenders by Location / Classification | not checked | not checked | gated | not checked | not checked | not checked | not checked |
+| Tenders by Organisation (list + each org's tender list) | open | open | open | open | open | open | open |
+
+The app-root "Latest Tenders" widget (10 rows, no Tender IDs) is the
+adapter's fallback; its availability was not re-checked per portal on this date.
+
+Consequences for the adapter (`scrapers/adapters/gepnic.py`):
+
+- Strategy `org_walk` is primary: parse the organisation list (name, live
+  count, direct link), sort by count descending, visit up to `max_orgs`
+  (default 60, override `OPEN_TENDER_MAX_ORGS`), parse each organisation's
+  tender list with the standard listing parser. Largest organisation pages are
+  single pages (Kerala LSGD: 5,338 rows), so no pagination is needed there.
+- The organisation page also contains a CAPTCHA search form. It is never
+  submitted. If an organisation list or tender list comes back gated
+  (`detect_captcha`), the adapter records `captcha_hit` and stops that portal.
+- If `org_walk` yields no rows, the adapter falls back to `home_widget`
+  (10 rows, no Tender IDs, so records are keyed provisionally).
+- `latest_active` and `closing_by_date` remain implemented and are still
+  selectable per source; today they hit the CAPTCHA guard on all seven portals.
+- Advertised active tenders on 4-Oct-2026: CPPP 1,382; Rajasthan 4,832;
+  Kerala 7,525; MP 5,320; Uttarakhand 725; J&K 4,767; BEL 100 = 24,651. The
+  daily cap of 60 organisations per portal covers about 97%; the weekly
+  reconcile walks all organisations.
+- Detail pages are hydrated in-session after listing (session-bound `sp=`
+  links), at most `max_detail_per_run` per source (20 in current config).
+

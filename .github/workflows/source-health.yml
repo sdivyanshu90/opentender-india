@@ -6,10 +6,16 @@ on:
     - cron: "23 */6 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   health:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    concurrency:
+      group: data-commit # serialised with ingestion, which also writes status/sources.json
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -24,4 +30,4 @@ jobs:
           git config user.name "opentender-bot"
           git config user.email "actions@opentender.invalid"
           git add status/sources.json
-          git diff --cached --quiet || (git commit -m "status: source health check [skip ci]" && git push)
+          git diff --cached --quiet || (git commit -m "status: source health check [skip ci]" && git pull --rebase --quiet origin main && git push)
