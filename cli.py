@@ -246,6 +246,11 @@ def validate() -> None:
     import jsonschema
 
     schema = json.loads((ROOT / "packages/schema/canonical_tender.schema.json").read_text("utf-8"))
+    # compile once: jsonschema.validate() re-checks the schema on every call,
+    # which made this step take most of an hour at ~60k tenders
+    validator_cls = jsonschema.validators.validator_for(schema)
+    validator_cls.check_schema(schema)
+    validator = validator_cls(schema)
     store = _store()
     bad = total = 0
     for cid in list(store._state):
@@ -254,11 +259,10 @@ def validate() -> None:
             continue
         record = json.loads(gzip.decompress(path.read_bytes()))
         total += 1
-        try:
-            jsonschema.validate(record, schema)
-        except jsonschema.ValidationError as exc:
+        error = jsonschema.exceptions.best_match(validator.iter_errors(record))
+        if error is not None:
             bad += 1
-            typer.secho(f"INVALID {cid}: {exc.message[:140]}", fg=typer.colors.RED)
+            typer.secho(f"INVALID {cid}: {error.message[:140]}", fg=typer.colors.RED)
     typer.echo(f"validated {total} tenders, {bad} invalid")
     raise typer.Exit(1 if bad else 0)
 
