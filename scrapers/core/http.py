@@ -152,4 +152,10 @@ class RobotsDisallowedError(RuntimeError):
 def detect_captcha(html: str) -> bool:
     """Runtime guard used by GePNIC-family adapters: never proceed past a CAPTCHA."""
     lowered = html.lower()
-    return 'name="captchatext"' in lowered or "provide captcha" in lowered
+    return (
+        'name="captchatext"' in lowered
+        or "provide captcha" in lowered
+        # CPPP (Drupal) image CAPTCHA wording
+        or "what code is in the image" in lowered
+        or 'name="captcha_response"' in lowered
+    )

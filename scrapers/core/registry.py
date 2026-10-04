@@ -101,6 +101,10 @@ def build_adapter(cfg: SourceConfig, *, allow_policy_restricted: bool | None = N
         from scrapers.adapters.s3waas import S3WaaSAdapter
 
         return S3WaaSAdapter(cfg)
+    if cfg.family == "cppp_state":
+        from scrapers.adapters.cppp_state import CpppStateAdapter
+
+        return CpppStateAdapter(cfg)
     raise ValueError(f"no adapter for family {cfg.family!r} ({cfg.id})")
 
 

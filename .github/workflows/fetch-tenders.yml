@@ -34,7 +34,7 @@ jobs:
     concurrency:
       group: data-commit # shared with every job that pushes data/status
       cancel-in-progress: false
-    timeout-minutes: 150
+    timeout-minutes: 240 # CPPP state rotation (~2h) runs in parallel with GePNIC hosts
     env:
       MAX_AI_REQUESTS_PER_DAY: ${{ vars.MAX_AI_REQUESTS_PER_DAY || '40' }}
       # GePNIC org walk: daily visits the largest 60 orgs per portal (~97% of

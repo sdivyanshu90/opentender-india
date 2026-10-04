@@ -1,0 +1,25 @@
+# CPPP national state-tenders listing (EXPERIMENTAL).
+# Verified 2026-10-04: robots.txt is 404 (no restrictions) and the closing-by-day
+# listing pages are server-rendered without a CAPTCHA. Detail pages
+# (/cppp/tendersfullviewmmp/...) ARE CAPTCHA-gated and are never fetched.
+# One row per tender across every state/UT; no state filter exists, so the
+# run budget (max_pages_per_run, 10 rows/page) bounds coverage.
+
+sources:
+  - id: cppp_state
+    family: cppp_state
+    name: CPPP state tenders (all states, closing-by-day listing)
+    base_url: https://eprocure.gov.in
+    region: All states (CPPP state tenders)
+    status: EXPERIMENTAL
+    enabled: true
+    crawl_delay: 4.5
+    days_ahead: 45            # closing days today+1 .. today+days_ahead
+    # ~1h55 at 4.5 s. Tenders stay listed until closing (~2-3 weeks) and the
+    # page plan rotates daily, so ~21% of pages/day sees ~95% of tenders.
+    max_pages_per_run: 1500
+    # states_include: [Maharashtra]   # optional: keep only these states
+    # skip_states: []                 # optional: drop states crawled directly
+    policy_notes: >-
+      Listing pages only; the tender detail pages are CAPTCHA-gated and never
+      fetched. Search the Tender ID on the owning state portal for details.
