@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { assetUrl } from "../lib/data";
 
 interface SourceRow {
   status: string;
@@ -19,7 +20,7 @@ export default function SourcesPage() {
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/data/status-sources.json")
+    fetch(assetUrl("data/status-sources.json"))
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("no status file"))))
       .then((j) => {
         setSources(j.sources);
