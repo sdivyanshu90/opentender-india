@@ -1,113 +1,821 @@
 {
-  "generated_at": "2026-10-04T12:15:04.759849+00:00",
+  "generated_at": "2026-10-04T15:47:56.845492+00:00",
   "sources": {
     "cppp_epublish": {
-      "status": "ACTIVE",
-      "last_success": "2026-10-04T12:09:46.718145+00:00",
-      "last_attempt": "2026-10-04T12:09:46.718145+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
-      "changed_last_run": 0,
-      "http_failures_total": 0,
-      "parser_failures_total": 1,
-      "latency_ms": null,
-      "parser_version": "gepnic-1.0.0"
-    },
-    "gem_bids": {
       "status": "TEMPORARILY_BROKEN",
-      "last_success": null,
-      "last_attempt": "2026-10-04T12:10:04.309581+00:00",
+      "last_success": "2026-10-04T12:09:46.718145+00:00",
+      "last_attempt": "2026-10-04T15:47:56.101641+00:00",
       "discovered_last_run": 0,
       "new_last_run": 0,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 2,
-      "latency_ms": null,
-      "parser_version": "gem-1.0.0"
+      "latency_ms": 1437,
+      "parser_version": "gepnic-1.0.0"
     },
-    "gepnic_bel": {
+    "cppp_state": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:15:03.282277+00:00",
-      "last_attempt": "2026-10-04T12:15:03.282277+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
+      "last_success": "2026-10-04T15:47:54.602931+00:00",
+      "last_attempt": "2026-10-04T15:47:54.602931+00:00",
+      "discovered_last_run": 5420,
+      "new_last_run": 5420,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
+      "latency_ms": 4895443,
+      "parser_version": "cppp_state-1.0.0"
+    },
+    "gem_bids": {
+      "status": "DEGRADED",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:37:33.475911+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 3,
+      "latency_ms": 16824,
+      "parser_version": "gem-1.0.0"
+    },
+    "gepnic_arunachal": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:32:59.081588+00:00",
+      "last_attempt": "2026-10-04T14:32:59.081588+00:00",
+      "discovered_last_run": 8,
+      "new_last_run": 8,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 65142,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_assam": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:30:37.411907+00:00",
+      "last_attempt": "2026-10-04T14:30:37.411907+00:00",
+      "discovered_last_run": 507,
+      "new_last_run": 507,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 259502,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_bel": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:41:01.663976+00:00",
+      "last_attempt": "2026-10-04T14:41:01.663976+00:00",
+      "discovered_last_run": 87,
+      "new_last_run": 87,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 163341,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_bhel": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:47.504734+00:00",
+      "last_attempt": "2026-10-04T14:35:47.504734+00:00",
+      "discovered_last_run": 498,
+      "new_last_run": 498,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 64373,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_central_eprocure": {
+      "status": "TEMPORARILY_BROKEN",
+      "last_success": null,
+      "last_attempt": "2026-10-04T15:47:55.375060+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 1,
+      "latency_ms": 971,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_central_etenders": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:31:59.824462+00:00",
+      "last_attempt": "2026-10-04T14:31:59.824462+00:00",
+      "discovered_last_run": 2059,
+      "new_last_run": 2059,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 341490,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_chandigarh": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:33:24.765487+00:00",
+      "last_attempt": "2026-10-04T14:33:24.765487+00:00",
+      "discovered_last_run": 310,
+      "new_last_run": 310,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 85432,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_coal_india": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:06.587434+00:00",
+      "last_attempt": "2026-10-04T14:36:06.587434+00:00",
+      "discovered_last_run": 531,
+      "new_last_run": 531,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 96120,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_cpcl": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:43.696120+00:00",
+      "last_attempt": "2026-10-04T14:35:43.696120+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 21732,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_defproc": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:23.226637+00:00",
+      "last_attempt": "2026-10-04T14:35:23.226637+00:00",
+      "discovered_last_run": 4619,
+      "new_last_run": 4619,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 111336,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_delhi": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:34:41.969908+00:00",
+      "last_attempt": "2026-10-04T14:34:41.969908+00:00",
+      "discovered_last_run": 705,
+      "new_last_run": 705,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 127315,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_dnhdd": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:34:30.327396+00:00",
+      "last_attempt": "2026-10-04T14:34:30.327396+00:00",
+      "discovered_last_run": 14,
+      "new_last_run": 14,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 65640,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_gsl": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:15.204572+00:00",
+      "last_attempt": "2026-10-04T14:37:15.204572+00:00",
+      "discovered_last_run": 100,
+      "new_last_run": 100,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 94048,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_himachal": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:30:59.954153+00:00",
+      "last_attempt": "2026-10-04T14:30:59.954153+00:00",
+      "discovered_last_run": 1097,
+      "new_last_run": 1097,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 281918,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_iocl": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:34:43.060973+00:00",
+      "last_attempt": "2026-10-04T14:34:43.060973+00:00",
+      "discovered_last_run": 224,
+      "new_last_run": 224,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 69716,
       "parser_version": "gepnic-1.0.0"
     },
     "gepnic_jammu_kashmir": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:14:06.034118+00:00",
-      "last_attempt": "2026-10-04T12:14:06.034118+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
+      "last_success": "2026-10-04T14:42:10.541715+00:00",
+      "last_attempt": "2026-10-04T14:42:10.541715+00:00",
+      "discovered_last_run": 4591,
+      "new_last_run": 4591,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
+      "latency_ms": 275794,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_jharkhand": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:49.251879+00:00",
+      "last_attempt": "2026-10-04T14:36:49.251879+00:00",
+      "discovered_last_run": 583,
+      "new_last_run": 583,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 247460,
       "parser_version": "gepnic-1.0.0"
     },
     "gepnic_kerala": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:11:40.972115+00:00",
-      "last_attempt": "2026-10-04T12:11:40.972115+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
+      "last_success": "2026-10-04T14:44:12.482444+00:00",
+      "last_attempt": "2026-10-04T14:44:12.482444+00:00",
+      "discovered_last_run": 7361,
+      "new_last_run": 7361,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
+      "latency_ms": 411123,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_lakshadweep": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:33:29.696523+00:00",
+      "last_attempt": "2026-10-04T14:33:29.696523+00:00",
+      "discovered_last_run": 20,
+      "new_last_run": 20,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 62872,
       "parser_version": "gepnic-1.0.0"
     },
     "gepnic_madhya_pradesh": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:12:28.492165+00:00",
-      "last_attempt": "2026-10-04T12:12:28.492165+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
+      "last_success": "2026-10-04T14:44:01.087679+00:00",
+      "last_attempt": "2026-10-04T14:44:01.087679+00:00",
+      "discovered_last_run": 5097,
+      "new_last_run": 5097,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
+      "latency_ms": 395417,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_manipur": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:32:41.643239+00:00",
+      "last_attempt": "2026-10-04T14:32:41.643239+00:00",
+      "discovered_last_run": 31,
+      "new_last_run": 31,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 124363,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_meghalaya": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:32:26.868631+00:00",
+      "last_attempt": "2026-10-04T14:32:26.868631+00:00",
+      "discovered_last_run": 20,
+      "new_last_run": 20,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 87132,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_nagaland": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:32:34.467516+00:00",
+      "last_attempt": "2026-10-04T14:32:34.467516+00:00",
+      "discovered_last_run": 5,
+      "new_last_run": 5,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 44725,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_ntpc": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:55.281264+00:00",
+      "last_attempt": "2026-10-04T14:35:55.281264+00:00",
+      "discovered_last_run": 448,
+      "new_last_run": 448,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 73376,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_odisha": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:31:54.343500+00:00",
+      "last_attempt": "2026-10-04T14:31:54.343500+00:00",
+      "discovered_last_run": 1517,
+      "new_last_run": 1517,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 336173,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_pmgsy": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:41.254903+00:00",
+      "last_attempt": "2026-10-04T14:35:41.254903+00:00",
+      "discovered_last_run": 357,
+      "new_last_run": 357,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 131440,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_puducherry": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:33:30.640183+00:00",
+      "last_attempt": "2026-10-04T14:33:30.640183+00:00",
+      "discovered_last_run": 58,
+      "new_last_run": 58,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 85817,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_punjab": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:30:01.480230+00:00",
+      "last_attempt": "2026-10-04T14:30:01.480230+00:00",
+      "discovered_last_run": 3574,
+      "new_last_run": 3574,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 222808,
       "parser_version": "gepnic-1.0.0"
     },
     "gepnic_rajasthan": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:10:52.344924+00:00",
-      "last_attempt": "2026-10-04T12:10:52.344924+00:00",
-      "discovered_last_run": 10,
-      "new_last_run": 10,
+      "last_success": "2026-10-04T14:43:57.261730+00:00",
+      "last_attempt": "2026-10-04T14:43:57.261730+00:00",
+      "discovered_last_run": 4269,
+      "new_last_run": 4269,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
+      "latency_ms": 397996,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_tamil_nadu": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:31:51.196568+00:00",
+      "last_attempt": "2026-10-04T14:31:51.196568+00:00",
+      "discovered_last_run": 5708,
+      "new_last_run": 5708,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 331980,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_tripura": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:33:33.361382+00:00",
+      "last_attempt": "2026-10-04T14:33:33.361382+00:00",
+      "discovered_last_run": 301,
+      "new_last_run": 301,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 212704,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_up": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:32:07.943692+00:00",
+      "last_attempt": "2026-10-04T14:32:07.943692+00:00",
+      "discovered_last_run": 11475,
+      "new_last_run": 11475,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 347046,
       "parser_version": "gepnic-1.0.0"
     },
     "gepnic_uttarakhand": {
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:13:17.257228+00:00",
-      "last_attempt": "2026-10-04T12:13:17.257228+00:00",
+      "last_success": "2026-10-04T14:44:02.047254+00:00",
+      "last_attempt": "2026-10-04T14:44:02.047254+00:00",
+      "discovered_last_run": 681,
+      "new_last_run": 681,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 395323,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "gepnic_west_bengal": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:38:35.240572+00:00",
+      "last_attempt": "2026-10-04T14:38:35.240572+00:00",
+      "discovered_last_run": 2410,
+      "new_last_run": 2410,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 335511,
+      "parser_version": "gepnic-1.0.0"
+    },
+    "ireps_works": {
+      "status": "DEGRADED",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:38:36.154843+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 3,
+      "latency_ms": 1553,
+      "parser_version": "ireps-1.0.0"
+    },
+    "mahagenco_notices": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:35:52.265944+00:00",
+      "last_attempt": "2026-10-04T14:35:52.265944+00:00",
+      "discovered_last_run": 76,
+      "new_last_run": 76,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 8550,
+      "parser_version": "notice_pages-1.0.0"
+    },
+    "mahatransco_tenders": {
+      "status": "TEMPORARILY_BROKEN",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:38:18.297770+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 1,
+      "latency_ms": 150930,
+      "parser_version": "notice_pages-1.0.0"
+    },
+    "msedcl_tenders": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:05.476342+00:00",
+      "last_attempt": "2026-10-04T14:36:05.476342+00:00",
+      "discovered_last_run": 18,
+      "new_last_run": 18,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 13069,
+      "parser_version": "notice_pages-1.0.0"
+    },
+    "s3waas_akola": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:05.105231+00:00",
+      "last_attempt": "2026-10-04T14:36:05.105231+00:00",
+      "discovered_last_run": 4,
+      "new_last_run": 4,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 9943,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_amravati": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:16.218725+00:00",
+      "last_attempt": "2026-10-04T14:36:16.218725+00:00",
+      "discovered_last_run": 11,
+      "new_last_run": 11,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10979,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_beed": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:15.842065+00:00",
+      "last_attempt": "2026-10-04T14:36:15.842065+00:00",
+      "discovered_last_run": 4,
+      "new_last_run": 4,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10525,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_bhandara": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:16.942311+00:00",
+      "last_attempt": "2026-10-04T14:36:16.942311+00:00",
+      "discovered_last_run": 4,
+      "new_last_run": 4,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10498,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_dhule": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:28.615256+00:00",
+      "last_attempt": "2026-10-04T14:36:28.615256+00:00",
+      "discovered_last_run": 7,
+      "new_last_run": 7,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 12775,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_gadchiroli": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:26.273124+00:00",
+      "last_attempt": "2026-10-04T14:36:26.273124+00:00",
+      "discovered_last_run": 5,
+      "new_last_run": 5,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10190,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_gondia": {
+      "status": "EXPERIMENTAL",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:36:22.159838+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 5219,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_jalgaon": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:32.472671+00:00",
+      "last_attempt": "2026-10-04T14:36:32.472671+00:00",
+      "discovered_last_run": 2,
+      "new_last_run": 2,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10311,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_jalna": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:36.674770+00:00",
+      "last_attempt": "2026-10-04T14:36:36.674770+00:00",
+      "discovered_last_run": 9,
+      "new_last_run": 9,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10400,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_kolhapur": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:41.419170+00:00",
+      "last_attempt": "2026-10-04T14:36:41.419170+00:00",
+      "discovered_last_run": 1,
+      "new_last_run": 1,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 12805,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_latur": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:44.643278+00:00",
+      "last_attempt": "2026-10-04T14:36:44.643278+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 12170,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_mumbaicity": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:48.198119+00:00",
+      "last_attempt": "2026-10-04T14:36:48.198119+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 11525,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_mumbaisuburban": {
+      "status": "EXPERIMENTAL",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:36:46.901008+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 5482,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_nagpur": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:56.309627+00:00",
+      "last_attempt": "2026-10-04T14:36:56.309627+00:00",
+      "discovered_last_run": 1,
+      "new_last_run": 1,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 11663,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_nanded": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:56.690567+00:00",
+      "last_attempt": "2026-10-04T14:36:56.690567+00:00",
+      "discovered_last_run": 7,
+      "new_last_run": 7,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 9697,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_nandurbar": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:59.233291+00:00",
+      "last_attempt": "2026-10-04T14:36:59.233291+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 11035,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_nashik": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:36:59.619823+00:00",
+      "last_attempt": "2026-10-04T14:36:59.619823+00:00",
+      "discovered_last_run": 7,
+      "new_last_run": 7,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10449,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_palghar": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:07.363026+00:00",
+      "last_attempt": "2026-10-04T14:37:07.363026+00:00",
+      "discovered_last_run": 2,
+      "new_last_run": 2,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 11056,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_parbhani": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:06.811532+00:00",
+      "last_attempt": "2026-10-04T14:37:06.811532+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 10211,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_pune": {
+      "status": "EXPERIMENTAL",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:37:04.561852+00:00",
+      "discovered_last_run": 0,
+      "new_last_run": 0,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 5329,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_raigad": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:10.523829+00:00",
+      "last_attempt": "2026-10-04T14:37:10.523829+00:00",
       "discovered_last_run": 10,
       "new_last_run": 10,
       "changed_last_run": 0,
       "http_failures_total": 0,
       "parser_failures_total": 0,
-      "latency_ms": null,
-      "parser_version": "gepnic-1.0.0"
+      "latency_ms": 10976,
+      "parser_version": "s3waas-1.0.0"
     },
-    "ireps_works": {
-      "status": "TEMPORARILY_BROKEN",
+    "s3waas_ratnagiri": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:19.370128+00:00",
+      "last_attempt": "2026-10-04T14:37:19.370128+00:00",
+      "discovered_last_run": 20,
+      "new_last_run": 20,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 14802,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_solapur": {
+      "status": "EXPERIMENTAL",
       "last_success": null,
-      "last_attempt": "2026-10-04T12:15:04.758396+00:00",
+      "last_attempt": "2026-10-04T14:37:12.138769+00:00",
       "discovered_last_run": 0,
       "new_last_run": 0,
       "changed_last_run": 0,
       "http_failures_total": 0,
-      "parser_failures_total": 2,
-      "latency_ms": null,
-      "parser_version": "ireps-1.0.0"
+      "parser_failures_total": 0,
+      "latency_ms": 5328,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_thane": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:16.652803+00:00",
+      "last_attempt": "2026-10-04T14:37:16.652803+00:00",
+      "discovered_last_run": 3,
+      "new_last_run": 3,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 9288,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_wardha": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:26.518270+00:00",
+      "last_attempt": "2026-10-04T14:37:26.518270+00:00",
+      "discovered_last_run": 13,
+      "new_last_run": 13,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 15993,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_washim": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:18.080332+00:00",
+      "last_attempt": "2026-10-04T14:37:18.080332+00:00",
+      "discovered_last_run": 1,
+      "new_last_run": 1,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 5940,
+      "parser_version": "s3waas-1.0.0"
+    },
+    "s3waas_yavatmal": {
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:37:24.254076+00:00",
+      "last_attempt": "2026-10-04T14:37:24.254076+00:00",
+      "discovered_last_run": 9,
+      "new_last_run": 9,
+      "changed_last_run": 0,
+      "http_failures_total": 0,
+      "parser_failures_total": 0,
+      "latency_ms": 9074,
+      "parser_version": "s3waas-1.0.0"
     }
   },
   "records": {
@@ -116,15 +824,1241 @@
       "discovered_baseline": [
         10
       ],
-      "status": "ACTIVE",
+      "status": "TEMPORARILY_BROKEN",
       "last_success": "2026-10-04T12:09:46.718145+00:00",
-      "last_attempt": "2026-10-04T12:09:46.718145+00:00",
+      "last_attempt": "2026-10-04T15:47:56.101641+00:00",
       "http_failures": 0,
-      "parser_failures": 1,
+      "parser_failures": 2,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 1,
+      "last_run": {
+        "at": "2026-10-04T15:47:56.101641+00:00",
+        "ok": false,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 1437
+    },
+    "gem_bids": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "DEGRADED",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:37:33.475911+00:00",
+      "http_failures": 0,
+      "parser_failures": 3,
+      "parser_version": "gem-1.0.0",
+      "consecutive_failures": 2,
+      "last_run": {
+        "at": "2026-10-04T14:37:33.475911+00:00",
+        "ok": false,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 16824
+    },
+    "gepnic_bel": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        87
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:41:01.663976+00:00",
+      "last_attempt": "2026-10-04T14:41:01.663976+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
       "parser_version": "gepnic-1.0.0",
       "consecutive_failures": 0,
       "last_run": {
-        "at": "2026-10-04T12:09:46.718145+00:00",
+        "at": "2026-10-04T14:41:01.663976+00:00",
+        "ok": true,
+        "discovered": 87,
+        "new": 87,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 163341
+    },
+    "gepnic_jammu_kashmir": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        4591
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:42:10.541715+00:00",
+      "last_attempt": "2026-10-04T14:42:10.541715+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:42:10.541715+00:00",
+        "ok": true,
+        "discovered": 4591,
+        "new": 4591,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 275794
+    },
+    "gepnic_kerala": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        7361
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:44:12.482444+00:00",
+      "last_attempt": "2026-10-04T14:44:12.482444+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:44:12.482444+00:00",
+        "ok": true,
+        "discovered": 7361,
+        "new": 7361,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 411123
+    },
+    "gepnic_madhya_pradesh": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        5097
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:44:01.087679+00:00",
+      "last_attempt": "2026-10-04T14:44:01.087679+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:44:01.087679+00:00",
+        "ok": true,
+        "discovered": 5097,
+        "new": 5097,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 395417
+    },
+    "gepnic_rajasthan": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        4269
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:43:57.261730+00:00",
+      "last_attempt": "2026-10-04T14:43:57.261730+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:43:57.261730+00:00",
+        "ok": true,
+        "discovered": 4269,
+        "new": 4269,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 397996
+    },
+    "gepnic_uttarakhand": {
+      "history": [],
+      "discovered_baseline": [
+        10,
+        681
+      ],
+      "status": "ACTIVE",
+      "last_success": "2026-10-04T14:44:02.047254+00:00",
+      "last_attempt": "2026-10-04T14:44:02.047254+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "parser_version": "gepnic-1.0.0",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:44:02.047254+00:00",
+        "ok": true,
+        "discovered": 681,
+        "new": 681,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 395323
+    },
+    "ireps_works": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "DEGRADED",
+      "last_success": null,
+      "last_attempt": "2026-10-04T14:38:36.154843+00:00",
+      "http_failures": 0,
+      "parser_failures": 3,
+      "parser_version": "ireps-1.0.0",
+      "consecutive_failures": 2,
+      "last_run": {
+        "at": "2026-10-04T14:38:36.154843+00:00",
+        "ok": false,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      },
+      "last_latency_ms": 1553
+    },
+    "gepnic_punjab": {
+      "history": [],
+      "discovered_baseline": [
+        3574
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:30:01.480230+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 222808,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:30:01.480230+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:30:01.480230+00:00",
+        "ok": true,
+        "discovered": 3574,
+        "new": 3574,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_assam": {
+      "history": [],
+      "discovered_baseline": [
+        507
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:30:37.411907+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 259502,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:30:37.411907+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:30:37.411907+00:00",
+        "ok": true,
+        "discovered": 507,
+        "new": 507,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_himachal": {
+      "history": [],
+      "discovered_baseline": [
+        1097
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:30:59.954153+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 281918,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:30:59.954153+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:30:59.954153+00:00",
+        "ok": true,
+        "discovered": 1097,
+        "new": 1097,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_tamil_nadu": {
+      "history": [],
+      "discovered_baseline": [
+        5708
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:31:51.196568+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 331980,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:31:51.196568+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:31:51.196568+00:00",
+        "ok": true,
+        "discovered": 5708,
+        "new": 5708,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_odisha": {
+      "history": [],
+      "discovered_baseline": [
+        1517
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:31:54.343500+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 336173,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:31:54.343500+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:31:54.343500+00:00",
+        "ok": true,
+        "discovered": 1517,
+        "new": 1517,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_central_etenders": {
+      "history": [],
+      "discovered_baseline": [
+        2059
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:31:59.824462+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 341490,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:31:59.824462+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:31:59.824462+00:00",
+        "ok": true,
+        "discovered": 2059,
+        "new": 2059,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_up": {
+      "history": [],
+      "discovered_baseline": [
+        11475
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:32:07.943692+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 347046,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:32:07.943692+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:32:07.943692+00:00",
+        "ok": true,
+        "discovered": 11475,
+        "new": 11475,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_meghalaya": {
+      "history": [],
+      "discovered_baseline": [
+        20
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:32:26.868631+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 87132,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:32:26.868631+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:32:26.868631+00:00",
+        "ok": true,
+        "discovered": 20,
+        "new": 20,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_nagaland": {
+      "history": [],
+      "discovered_baseline": [
+        5
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:32:34.467516+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 44725,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:32:34.467516+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:32:34.467516+00:00",
+        "ok": true,
+        "discovered": 5,
+        "new": 5,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_manipur": {
+      "history": [],
+      "discovered_baseline": [
+        31
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:32:41.643239+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 124363,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:32:41.643239+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:32:41.643239+00:00",
+        "ok": true,
+        "discovered": 31,
+        "new": 31,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_arunachal": {
+      "history": [],
+      "discovered_baseline": [
+        8
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:32:59.081588+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 65142,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:32:59.081588+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:32:59.081588+00:00",
+        "ok": true,
+        "discovered": 8,
+        "new": 8,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_chandigarh": {
+      "history": [],
+      "discovered_baseline": [
+        310
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:33:24.765487+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 85432,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:33:24.765487+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:33:24.765487+00:00",
+        "ok": true,
+        "discovered": 310,
+        "new": 310,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_lakshadweep": {
+      "history": [],
+      "discovered_baseline": [
+        20
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:33:29.696523+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 62872,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:33:29.696523+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:33:29.696523+00:00",
+        "ok": true,
+        "discovered": 20,
+        "new": 20,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_puducherry": {
+      "history": [],
+      "discovered_baseline": [
+        58
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:33:30.640183+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 85817,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:33:30.640183+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:33:30.640183+00:00",
+        "ok": true,
+        "discovered": 58,
+        "new": 58,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_tripura": {
+      "history": [],
+      "discovered_baseline": [
+        301
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:33:33.361382+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 212704,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:33:33.361382+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:33:33.361382+00:00",
+        "ok": true,
+        "discovered": 301,
+        "new": 301,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_dnhdd": {
+      "history": [],
+      "discovered_baseline": [
+        14
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:34:30.327396+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 65640,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:34:30.327396+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:34:30.327396+00:00",
+        "ok": true,
+        "discovered": 14,
+        "new": 14,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_delhi": {
+      "history": [],
+      "discovered_baseline": [
+        705
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:34:41.969908+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 127315,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:34:41.969908+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:34:41.969908+00:00",
+        "ok": true,
+        "discovered": 705,
+        "new": 705,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_iocl": {
+      "history": [],
+      "discovered_baseline": [
+        224
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:34:43.060973+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 69716,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:34:43.060973+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:34:43.060973+00:00",
+        "ok": true,
+        "discovered": 224,
+        "new": 224,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_defproc": {
+      "history": [],
+      "discovered_baseline": [
+        4619
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:23.226637+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 111336,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:35:23.226637+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:23.226637+00:00",
+        "ok": true,
+        "discovered": 4619,
+        "new": 4619,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_pmgsy": {
+      "history": [],
+      "discovered_baseline": [
+        357
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:41.254903+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 131440,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:35:41.254903+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:41.254903+00:00",
+        "ok": true,
+        "discovered": 357,
+        "new": 357,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_cpcl": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:43.696120+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 21732,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:35:43.696120+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:43.696120+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_bhel": {
+      "history": [],
+      "discovered_baseline": [
+        498
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:47.504734+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 64373,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:35:47.504734+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:47.504734+00:00",
+        "ok": true,
+        "discovered": 498,
+        "new": 498,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "mahagenco_notices": {
+      "history": [],
+      "discovered_baseline": [
+        76
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:52.265944+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 8550,
+      "parser_version": "notice_pages-1.0.0",
+      "last_success": "2026-10-04T14:35:52.265944+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:52.265944+00:00",
+        "ok": true,
+        "discovered": 76,
+        "new": 76,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_ntpc": {
+      "history": [],
+      "discovered_baseline": [
+        448
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:35:55.281264+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 73376,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:35:55.281264+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:35:55.281264+00:00",
+        "ok": true,
+        "discovered": 448,
+        "new": 448,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_akola": {
+      "history": [],
+      "discovered_baseline": [
+        4
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:05.105231+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 9943,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:05.105231+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:05.105231+00:00",
+        "ok": true,
+        "discovered": 4,
+        "new": 4,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "msedcl_tenders": {
+      "history": [],
+      "discovered_baseline": [
+        18
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:05.476342+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 13069,
+      "parser_version": "notice_pages-1.0.0",
+      "last_success": "2026-10-04T14:36:05.476342+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:05.476342+00:00",
+        "ok": true,
+        "discovered": 18,
+        "new": 18,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_coal_india": {
+      "history": [],
+      "discovered_baseline": [
+        531
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:06.587434+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 96120,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:36:06.587434+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:06.587434+00:00",
+        "ok": true,
+        "discovered": 531,
+        "new": 531,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_beed": {
+      "history": [],
+      "discovered_baseline": [
+        4
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:15.842065+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10525,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:15.842065+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:15.842065+00:00",
+        "ok": true,
+        "discovered": 4,
+        "new": 4,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_amravati": {
+      "history": [],
+      "discovered_baseline": [
+        11
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:16.218725+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10979,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:16.218725+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:16.218725+00:00",
+        "ok": true,
+        "discovered": 11,
+        "new": 11,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_bhandara": {
+      "history": [],
+      "discovered_baseline": [
+        4
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:16.942311+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10498,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:16.942311+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:16.942311+00:00",
+        "ok": true,
+        "discovered": 4,
+        "new": 4,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_gondia": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "EXPERIMENTAL",
+      "last_attempt": "2026-10-04T14:36:22.159838+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 5219,
+      "parser_version": "s3waas-1.0.0",
+      "consecutive_failures": 1,
+      "last_run": {
+        "at": "2026-10-04T14:36:22.159838+00:00",
+        "ok": true,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_gadchiroli": {
+      "history": [],
+      "discovered_baseline": [
+        5
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:26.273124+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10190,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:26.273124+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:26.273124+00:00",
+        "ok": true,
+        "discovered": 5,
+        "new": 5,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_dhule": {
+      "history": [],
+      "discovered_baseline": [
+        7
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:28.615256+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 12775,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:28.615256+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:28.615256+00:00",
+        "ok": true,
+        "discovered": 7,
+        "new": 7,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_jalgaon": {
+      "history": [],
+      "discovered_baseline": [
+        2
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:32.472671+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10311,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:32.472671+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:32.472671+00:00",
+        "ok": true,
+        "discovered": 2,
+        "new": 2,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_jalna": {
+      "history": [],
+      "discovered_baseline": [
+        9
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:36.674770+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10400,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:36.674770+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:36.674770+00:00",
+        "ok": true,
+        "discovered": 9,
+        "new": 9,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_kolhapur": {
+      "history": [],
+      "discovered_baseline": [
+        1
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:41.419170+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 12805,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:41.419170+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:41.419170+00:00",
+        "ok": true,
+        "discovered": 1,
+        "new": 1,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_latur": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:44.643278+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 12170,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:44.643278+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:44.643278+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_mumbaisuburban": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "EXPERIMENTAL",
+      "last_attempt": "2026-10-04T14:36:46.901008+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 5482,
+      "parser_version": "s3waas-1.0.0",
+      "consecutive_failures": 1,
+      "last_run": {
+        "at": "2026-10-04T14:36:46.901008+00:00",
+        "ok": true,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_mumbaicity": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:48.198119+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 11525,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:48.198119+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:48.198119+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_jharkhand": {
+      "history": [],
+      "discovered_baseline": [
+        583
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:49.251879+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 247460,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:36:49.251879+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:49.251879+00:00",
+        "ok": true,
+        "discovered": 583,
+        "new": 583,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_nagpur": {
+      "history": [],
+      "discovered_baseline": [
+        1
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:56.309627+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 11663,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:56.309627+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:56.309627+00:00",
+        "ok": true,
+        "discovered": 1,
+        "new": 1,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_nanded": {
+      "history": [],
+      "discovered_baseline": [
+        7
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:56.690567+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 9697,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:56.690567+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:56.690567+00:00",
+        "ok": true,
+        "discovered": 7,
+        "new": 7,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_nandurbar": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:59.233291+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 11035,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:59.233291+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:59.233291+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_nashik": {
+      "history": [],
+      "discovered_baseline": [
+        7
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:36:59.619823+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10449,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:36:59.619823+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:36:59.619823+00:00",
+        "ok": true,
+        "discovered": 7,
+        "new": 7,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_pune": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "EXPERIMENTAL",
+      "last_attempt": "2026-10-04T14:37:04.561852+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 5329,
+      "parser_version": "s3waas-1.0.0",
+      "consecutive_failures": 1,
+      "last_run": {
+        "at": "2026-10-04T14:37:04.561852+00:00",
+        "ok": true,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_parbhani": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:06.811532+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10211,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:06.811532+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:06.811532+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_palghar": {
+      "history": [],
+      "discovered_baseline": [
+        2
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:07.363026+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 11056,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:07.363026+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:07.363026+00:00",
+        "ok": true,
+        "discovered": 2,
+        "new": 2,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_raigad": {
+      "history": [],
+      "discovered_baseline": [
+        10
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:10.523829+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 10976,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:10.523829+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:10.523829+00:00",
         "ok": true,
         "discovered": 10,
         "new": 10,
@@ -132,18 +2066,169 @@
         "captcha_hit": false
       }
     },
-    "gem_bids": {
+    "s3waas_solapur": {
+      "history": [],
+      "discovered_baseline": [],
+      "status": "EXPERIMENTAL",
+      "last_attempt": "2026-10-04T14:37:12.138769+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 5328,
+      "parser_version": "s3waas-1.0.0",
+      "consecutive_failures": 1,
+      "last_run": {
+        "at": "2026-10-04T14:37:12.138769+00:00",
+        "ok": true,
+        "discovered": 0,
+        "new": 0,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "gepnic_gsl": {
+      "history": [],
+      "discovered_baseline": [
+        100
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:15.204572+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 94048,
+      "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:37:15.204572+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:15.204572+00:00",
+        "ok": true,
+        "discovered": 100,
+        "new": 100,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_thane": {
+      "history": [],
+      "discovered_baseline": [
+        3
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:16.652803+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 9288,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:16.652803+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:16.652803+00:00",
+        "ok": true,
+        "discovered": 3,
+        "new": 3,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_washim": {
+      "history": [],
+      "discovered_baseline": [
+        1
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:18.080332+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 5940,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:18.080332+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:18.080332+00:00",
+        "ok": true,
+        "discovered": 1,
+        "new": 1,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_ratnagiri": {
+      "history": [],
+      "discovered_baseline": [
+        20
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:19.370128+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 14802,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:19.370128+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:19.370128+00:00",
+        "ok": true,
+        "discovered": 20,
+        "new": 20,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_yavatmal": {
+      "history": [],
+      "discovered_baseline": [
+        9
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:24.254076+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 9074,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:24.254076+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:24.254076+00:00",
+        "ok": true,
+        "discovered": 9,
+        "new": 9,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "s3waas_wardha": {
+      "history": [],
+      "discovered_baseline": [
+        13
+      ],
+      "status": "ACTIVE",
+      "last_attempt": "2026-10-04T14:37:26.518270+00:00",
+      "http_failures": 0,
+      "parser_failures": 0,
+      "last_latency_ms": 15993,
+      "parser_version": "s3waas-1.0.0",
+      "last_success": "2026-10-04T14:37:26.518270+00:00",
+      "consecutive_failures": 0,
+      "last_run": {
+        "at": "2026-10-04T14:37:26.518270+00:00",
+        "ok": true,
+        "discovered": 13,
+        "new": 13,
+        "changed": 0,
+        "captcha_hit": false
+      }
+    },
+    "mahatransco_tenders": {
       "history": [],
       "discovered_baseline": [],
       "status": "TEMPORARILY_BROKEN",
-      "last_success": null,
-      "last_attempt": "2026-10-04T12:10:04.309581+00:00",
+      "last_attempt": "2026-10-04T14:38:18.297770+00:00",
       "http_failures": 0,
-      "parser_failures": 2,
-      "parser_version": "gem-1.0.0",
+      "parser_failures": 1,
+      "last_latency_ms": 150930,
+      "parser_version": "notice_pages-1.0.0",
       "consecutive_failures": 1,
       "last_run": {
-        "at": "2026-10-04T12:10:04.309581+00:00",
+        "at": "2026-10-04T14:38:18.297770+00:00",
         "ok": false,
         "discovered": 0,
         "new": 0,
@@ -151,144 +2236,62 @@
         "captcha_hit": false
       }
     },
-    "gepnic_bel": {
+    "gepnic_west_bengal": {
       "history": [],
       "discovered_baseline": [
-        10
+        2410
       ],
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:15:03.282277+00:00",
-      "last_attempt": "2026-10-04T12:15:03.282277+00:00",
+      "last_attempt": "2026-10-04T14:38:35.240572+00:00",
       "http_failures": 0,
       "parser_failures": 0,
+      "last_latency_ms": 335511,
       "parser_version": "gepnic-1.0.0",
+      "last_success": "2026-10-04T14:38:35.240572+00:00",
       "consecutive_failures": 0,
       "last_run": {
-        "at": "2026-10-04T12:15:03.282277+00:00",
+        "at": "2026-10-04T14:38:35.240572+00:00",
         "ok": true,
-        "discovered": 10,
-        "new": 10,
+        "discovered": 2410,
+        "new": 2410,
         "changed": 0,
         "captcha_hit": false
       }
     },
-    "gepnic_jammu_kashmir": {
+    "cppp_state": {
       "history": [],
       "discovered_baseline": [
-        10
+        5420
       ],
       "status": "ACTIVE",
-      "last_success": "2026-10-04T12:14:06.034118+00:00",
-      "last_attempt": "2026-10-04T12:14:06.034118+00:00",
+      "last_attempt": "2026-10-04T15:47:54.602931+00:00",
       "http_failures": 0,
       "parser_failures": 0,
-      "parser_version": "gepnic-1.0.0",
+      "last_latency_ms": 4895443,
+      "parser_version": "cppp_state-1.0.0",
+      "last_success": "2026-10-04T15:47:54.602931+00:00",
       "consecutive_failures": 0,
       "last_run": {
-        "at": "2026-10-04T12:14:06.034118+00:00",
+        "at": "2026-10-04T15:47:54.602931+00:00",
         "ok": true,
-        "discovered": 10,
-        "new": 10,
+        "discovered": 5420,
+        "new": 5420,
         "changed": 0,
         "captcha_hit": false
       }
     },
-    "gepnic_kerala": {
-      "history": [],
-      "discovered_baseline": [
-        10
-      ],
-      "status": "ACTIVE",
-      "last_success": "2026-10-04T12:11:40.972115+00:00",
-      "last_attempt": "2026-10-04T12:11:40.972115+00:00",
-      "http_failures": 0,
-      "parser_failures": 0,
-      "parser_version": "gepnic-1.0.0",
-      "consecutive_failures": 0,
-      "last_run": {
-        "at": "2026-10-04T12:11:40.972115+00:00",
-        "ok": true,
-        "discovered": 10,
-        "new": 10,
-        "changed": 0,
-        "captcha_hit": false
-      }
-    },
-    "gepnic_madhya_pradesh": {
-      "history": [],
-      "discovered_baseline": [
-        10
-      ],
-      "status": "ACTIVE",
-      "last_success": "2026-10-04T12:12:28.492165+00:00",
-      "last_attempt": "2026-10-04T12:12:28.492165+00:00",
-      "http_failures": 0,
-      "parser_failures": 0,
-      "parser_version": "gepnic-1.0.0",
-      "consecutive_failures": 0,
-      "last_run": {
-        "at": "2026-10-04T12:12:28.492165+00:00",
-        "ok": true,
-        "discovered": 10,
-        "new": 10,
-        "changed": 0,
-        "captcha_hit": false
-      }
-    },
-    "gepnic_rajasthan": {
-      "history": [],
-      "discovered_baseline": [
-        10
-      ],
-      "status": "ACTIVE",
-      "last_success": "2026-10-04T12:10:52.344924+00:00",
-      "last_attempt": "2026-10-04T12:10:52.344924+00:00",
-      "http_failures": 0,
-      "parser_failures": 0,
-      "parser_version": "gepnic-1.0.0",
-      "consecutive_failures": 0,
-      "last_run": {
-        "at": "2026-10-04T12:10:52.344924+00:00",
-        "ok": true,
-        "discovered": 10,
-        "new": 10,
-        "changed": 0,
-        "captcha_hit": false
-      }
-    },
-    "gepnic_uttarakhand": {
-      "history": [],
-      "discovered_baseline": [
-        10
-      ],
-      "status": "ACTIVE",
-      "last_success": "2026-10-04T12:13:17.257228+00:00",
-      "last_attempt": "2026-10-04T12:13:17.257228+00:00",
-      "http_failures": 0,
-      "parser_failures": 0,
-      "parser_version": "gepnic-1.0.0",
-      "consecutive_failures": 0,
-      "last_run": {
-        "at": "2026-10-04T12:13:17.257228+00:00",
-        "ok": true,
-        "discovered": 10,
-        "new": 10,
-        "changed": 0,
-        "captcha_hit": false
-      }
-    },
-    "ireps_works": {
+    "gepnic_central_eprocure": {
       "history": [],
       "discovered_baseline": [],
       "status": "TEMPORARILY_BROKEN",
-      "last_success": null,
-      "last_attempt": "2026-10-04T12:15:04.758396+00:00",
+      "last_attempt": "2026-10-04T15:47:55.375060+00:00",
       "http_failures": 0,
-      "parser_failures": 2,
-      "parser_version": "ireps-1.0.0",
+      "parser_failures": 1,
+      "last_latency_ms": 971,
+      "parser_version": "gepnic-1.0.0",
       "consecutive_failures": 1,
       "last_run": {
-        "at": "2026-10-04T12:15:04.758396+00:00",
+        "at": "2026-10-04T15:47:55.375060+00:00",
         "ok": false,
         "discovered": 0,
         "new": 0,
