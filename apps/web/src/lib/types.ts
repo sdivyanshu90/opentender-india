@@ -55,7 +55,8 @@ export interface TenderDoc {
   published_at: string | null;
   closing_at: string | null;
   pre_bid_meeting_at?: string | null;
-  opening_at: string | null;
+  /** detail shard only (not in the search index) */
+  opening_at?: string | null;
   status: string;
   source: string;
   portal?: string;

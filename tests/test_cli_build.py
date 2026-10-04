@@ -73,12 +73,13 @@ def test_build_index_docs_retention_and_feeds(env):
     docs = _docs(env)
     assert {d["id"] for d in docs} == {f"{1:024x}", f"{2:024x}"}
     d1 = next(d for d in docs if d["id"] == f"{1:024x}")
-    assert d1["last_seen_at"] and d1["first_seen_at"] and d1["tender_number"] == "2026_X_1_1"
+    assert d1["first_seen_at"] and d1["tender_number"] == "2026_X_1_1"
     assert {"title", "authority", "closing_at", "url"} <= set(d1)
     # heavy fields live in lazily loaded detail shards keyed by the id's first two chars
     assert not {"ai", "documents", "award"} & set(d1)
     shard = json.loads(gzip.decompress((env / f"data/details/{d1['id'][:2]}.json.gz").read_bytes()))
-    assert {"ai", "documents", "award", "portal"} <= set(shard[d1["id"]])
+    assert {"ai", "documents", "award", "portal", "opening_at", "last_seen_at"} <= set(shard[d1["id"]])
+    assert shard[d1["id"]]["last_seen_at"]
 
     feeds = env / "data/feeds"
     index = json.loads((feeds / "index.json").read_text())

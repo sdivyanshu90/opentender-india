@@ -6,7 +6,10 @@ import type { TenderDoc } from "./types";
  * Heavy per-tender fields are not in the search index; they are sharded under
  * data/details/<first 2 id chars, lowercase>.json.gz as { id: TenderDetails }.
  */
-export type TenderDetails = Pick<TenderDoc, "documents" | "ai" | "award" | "portal" | "fee" | "pre_bid_meeting_at" | "city">;
+export type TenderDetails = Pick<
+  TenderDoc,
+  "documents" | "ai" | "award" | "portal" | "fee" | "pre_bid_meeting_at" | "city" | "opening_at" | "last_seen_at"
+>;
 
 export function shardKey(id: string): string {
   return id.slice(0, 2).toLowerCase();

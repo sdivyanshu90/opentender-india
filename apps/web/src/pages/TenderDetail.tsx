@@ -228,7 +228,7 @@ function Overview({ doc }: { doc: TenderDoc }) {
     ["EMD", doc.emd != null ? money(doc.emd) : null, ND],
     ["Tender fee", doc.fee != null ? money(doc.fee) : null, ND],
     ["Published", dt(doc.published_at), ND],
-    ["Bid opening", dt(doc.opening_at), ND],
+    ["Bid opening", dt(doc.opening_at ?? null), ND],
     ["Pre-bid meeting", dt(doc.pre_bid_meeting_at ?? null), ND],
     ["Award", doc.award?.winning_bidder ?? null, "Not awarded"],
   ];
@@ -438,7 +438,7 @@ function Timeline({ doc }: { doc: TenderDoc }) {
     { when: doc.first_seen_at, what: "Discovered by OpenTender", tone: "accent" },
     ...(doc.corrigenda_count > 0 ? [{ when: null as string | null, what: `${doc.corrigenda_count} corrigendum revision(s) recorded`, tone: "amber" }] : []),
     { when: doc.closing_at, what: "Bid submission closes", tone: "red" },
-    { when: doc.opening_at, what: "Bids opened" },
+    { when: doc.opening_at ?? null, what: "Bids opened" },
   ].filter((e) => e.when);
   events.sort((a, b) => new Date(a.when!).getTime() - new Date(b.when!).getTime());
   return (

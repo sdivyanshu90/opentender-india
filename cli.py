@@ -512,10 +512,10 @@ def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bo
             "value": rec.financial.estimated_value,
             "emd": rec.financial.emd_amount,
             "fee": rec.financial.tender_fee,
-            "published_at": rec.dates.published_at.isoformat() if rec.dates.published_at else None,
-            "closing_at": rec.dates.bid_submission_end.isoformat() if rec.dates.bid_submission_end else None,
-            "pre_bid_meeting_at": rec.dates.pre_bid_meeting_at.isoformat() if rec.dates.pre_bid_meeting_at else None,
-            "opening_at": rec.dates.bid_opening_at.isoformat() if rec.dates.bid_opening_at else None,
+            "published_at": rec.dates.published_at.isoformat(timespec="minutes") if rec.dates.published_at else None,
+            "closing_at": rec.dates.bid_submission_end.isoformat(timespec="minutes") if rec.dates.bid_submission_end else None,
+            "pre_bid_meeting_at": rec.dates.pre_bid_meeting_at.isoformat(timespec="minutes") if rec.dates.pre_bid_meeting_at else None,
+            "opening_at": rec.dates.bid_opening_at.isoformat(timespec="minutes") if rec.dates.bid_opening_at else None,
             "status": status,
             "source": rec.identity.source,
             "portal": rec.identity.source_portal,
@@ -525,7 +525,7 @@ def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bo
             "tender_number": rec.identity.tender_number
             or (None if rec.identity.source_tender_id.startswith(("hash:", "bid:")) else rec.identity.source_tender_id),
             "url": rec.provenance.official_source_url,
-            "first_seen_at": rec.provenance.first_seen_at.isoformat(),
+            "first_seen_at": rec.provenance.first_seen_at.isoformat(timespec="minutes"),
             "last_seen_at": store.last_seen_at(cid) or rec.provenance.last_seen_at.isoformat(),
             "documents": [d.model_dump(mode="json") for d in rec.documents],
             "corrigenda_count": len(rec.corrigenda),
@@ -568,7 +568,7 @@ def _write_search_docs(store, *, retention_days: int, max_drop: float, force: bo
 # Fields only the tender page needs. They ship in 256 small shards keyed by the
 # first two hex chars of the id, so the list every visitor downloads stays slim
 # at ~60k tenders (spec 37: no gigantic homepage dataset).
-DETAIL_FIELDS = ("documents", "ai", "award", "portal", "fee", "pre_bid_meeting_at", "city")
+DETAIL_FIELDS = ("documents", "ai", "award", "portal", "fee", "pre_bid_meeting_at", "city", "opening_at", "last_seen_at")
 
 
 def _write_detail_shards(docs: list[dict], out_dir: Path) -> None:
