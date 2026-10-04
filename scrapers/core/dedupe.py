@@ -93,14 +93,18 @@ def deduplicate(
             if a.identity.source != b.identity.source and union(a, b):
                 report.reference_matched += 1
 
-    # 6h buckets; comparing each bucket with its successor covers the 6h window
-    by_slot: dict[int, list[CanonicalTender]] = {}
+    # The threshold is unreachable without an identical authority (0.45 + 0.15 +
+    # 0.15 < 0.88) and the closing-date signal, so block on (authority, 6h slot);
+    # comparing each bucket with the next slot's covers the 6h window. Blocking on
+    # time alone put thousands of 6 pm closings from different portals together.
+    by_slot: dict[tuple[str, int], list[CanonicalTender]] = {}
     for t in tenders:
         end = t.dates.bid_submission_end
-        if end is not None:
-            by_slot.setdefault(int(end.timestamp() // (6 * 3600)), []).append(t)
-    for slot, bucket in by_slot.items():
-        neighbours = bucket + by_slot.get(slot + 1, [])
+        authority = (t.organization.authority or "").lower()
+        if end is not None and authority:
+            by_slot.setdefault((authority, int(end.timestamp() // (6 * 3600))), []).append(t)
+    for (authority, slot), bucket in by_slot.items():
+        neighbours = bucket + by_slot.get((authority, slot + 1), [])
         for i, a in enumerate(bucket):
             for b in neighbours[i + 1 :]:
                 if a.identity.source == b.identity.source:
