@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { Link, Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import type { TenderDoc } from "./lib/types";
 import { loadDataset } from "./lib/data";
-import { buildIndex } from "./lib/search";
+import { buildIndexAsync, type TenderIndex } from "./lib/search";
 import { updateWorkspace, useWorkspace } from "./lib/store";
 import { clearCompare, toggleCompare, useCompareIds } from "./lib/compare";
 import CommandPalette from "./components/CommandPalette";
@@ -18,9 +18,12 @@ import Settings from "./pages/Settings";
 
 interface Ctx {
   docs: TenderDoc[];
-  index: ReturnType<typeof buildIndex> | null;
+  /** null until the (deferred, chunked) search index has been built */
+  index: TenderIndex | null;
   byId: Map<string, TenderDoc>;
   loading: boolean;
+  /** set when the dataset could not be loaded (production never falls back to fake data) */
+  error: string | null;
   fixture: boolean;
   generatedAt: string | null;
 }
@@ -29,6 +32,7 @@ const DataContext = createContext<Ctx>({
   index: null,
   byId: new Map(),
   loading: true,
+  error: null,
   fixture: false,
   generatedAt: null,
 });
@@ -36,7 +40,9 @@ export const useData = () => useContext(DataContext);
 
 export default function App() {
   const [docs, setDocs] = useState<TenderDoc[]>([]);
+  const [index, setIndex] = useState<TenderIndex | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [fixture, setFixture] = useState(false);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -45,18 +51,34 @@ export default function App() {
   const ws = useWorkspace();
 
   useEffect(() => {
-    loadDataset().then((d) => {
-      setDocs(d.docs);
-      setFixture(d.fixture);
-      setGeneratedAt(d.generatedAt);
-      setLoading(false);
-    });
+    loadDataset()
+      .then((d) => {
+        setDocs(d.docs);
+        setFixture(d.fixture);
+        setGeneratedAt(d.generatedAt);
+      })
+      .catch((e: unknown) => setError(e instanceof Error ? e.message : "The tender dataset could not be loaded."))
+      .finally(() => setLoading(false));
   }, []);
+
+  // Build the MiniSearch index after first paint, in yielding chunks, so a
+  // ~25k-document dataset never blocks rendering or typing.
+  useEffect(() => {
+    setIndex(null);
+    if (docs.length === 0) return;
+    let stop = false;
+    void buildIndexAsync(docs, () => stop).then((built) => {
+      if (!stop && built) setIndex(built);
+    });
+    return () => {
+      stop = true;
+    };
+  }, [docs]);
 
   const ctx = useMemo<Ctx>(() => {
     const byId = new Map(docs.map((d) => [d.id, d]));
-    return { docs, index: docs.length ? buildIndex(docs) : null, byId, loading, fixture, generatedAt };
-  }, [docs, loading, fixture, generatedAt]);
+    return { docs, index, byId, loading, error, fixture, generatedAt };
+  }, [docs, index, loading, error, fixture, generatedAt]);
 
   // keyboard shortcuts (spec #53/#54)
   useEffect(() => {
@@ -110,6 +132,11 @@ export default function App() {
           )}
           <TopBar onOpenPalette={() => setPaletteOpen(true)} compareCount={compareIds.length} />
 
+          {error && (
+            <div role="alert" className="border-b border-red-300 bg-red-50 px-4 py-2 text-center text-sm text-red-800">
+              {error} Check your connection and reload; no placeholder data is shown.
+            </div>
+          )}
           <main className="min-w-0 flex-1 pb-20 lg:pb-6">
             <Routes>
               <Route path="/" element={<Home />} />

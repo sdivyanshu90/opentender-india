@@ -59,3 +59,37 @@ export function buildCsv(rows: Record<string, unknown>[], columns: string[]): Bl
   const body = rows.map((r) => columns.map((c) => esc(r[c])).join(",")).join("\r\n");
   return new Blob(["\uFEFF" + head + "\r\n" + body], { type: "text/csv;charset=utf-8" });
 }
+
+export const TENDER_EXPORT_COLUMNS = [
+  "id",
+  "tender_number",
+  "title",
+  "authority",
+  "state",
+  "category",
+  "type",
+  "value",
+  "emd",
+  "fee",
+  "published_at",
+  "closing_at",
+  "status",
+  "source",
+  "corrigenda_count",
+  "url",
+] as const;
+
+type ExportableTender = { [K in (typeof TENDER_EXPORT_COLUMNS)[number]]?: unknown };
+
+/** Flat export rows; undisclosed values stay empty (null), never 0. */
+export function tenderExportRows(docs: ExportableTender[]): Record<string, unknown>[] {
+  return docs.map((d) => Object.fromEntries(TENDER_EXPORT_COLUMNS.map((c) => [c, d[c] ?? null])));
+}
+
+export function buildTendersCsv(docs: ExportableTender[]): Blob {
+  return buildCsv(tenderExportRows(docs), [...TENDER_EXPORT_COLUMNS]);
+}
+
+export function buildTendersJson(docs: ExportableTender[]): Blob {
+  return new Blob([JSON.stringify(tenderExportRows(docs), null, 1)], { type: "application/json" });
+}

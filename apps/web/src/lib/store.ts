@@ -102,3 +102,12 @@ export function useWorkspace(): Workspace {
     () => state,
   );
 }
+
+/** Saves the current Discover URL params (query + filters + sort) under a name. */
+export function addSavedSearch(name: string, query: string): void {
+  const id = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `s-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  updateWorkspace((cur) => ({
+    ...cur,
+    savedSearches: [...cur.savedSearches, { id, name: name.trim().slice(0, 200) || "Untitled search", query, createdAt: Date.now() }],
+  }));
+}

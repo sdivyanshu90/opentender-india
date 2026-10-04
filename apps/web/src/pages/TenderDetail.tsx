@@ -2,7 +2,8 @@ import { useMemo, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useData } from "../App";
 import { useWorkspace, updateWorkspace } from "../lib/store";
-import { formatINR, formatINRCompact, formatDateTime, relativeDeadline, timeAgo } from "../lib/format";
+import { formatAuthority, formatINR, formatINRCompact, formatDateTime, relativeDeadline, timeAgo } from "../lib/format";
+import { useTenderDetails, type DetailsState } from "../lib/details";
 import { buildIcs, downloadBlob } from "../lib/export";
 import { SourceBadge, StatusBadge, EmptyState } from "../components/Badges";
 import type { TenderDoc, EvidenceField } from "../lib/types";
@@ -26,7 +27,10 @@ export default function TenderDetail({
   const ws = useWorkspace();
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("overview");
-  const doc = byId.get(id);
+  const {
+    docs: [doc],
+    state: detailState,
+  } = useTenderDetails([byId.get(id)]);
 
   const similar = useMemo(() => {
     if (!doc) return [];
@@ -90,11 +94,11 @@ export default function TenderDetail({
           {doc._fixture && <span className="chip border-amber-300 bg-amber-50 text-amber-700">FIXTURE DATA</span>}
         </div>
         <h1 className="mt-2 text-lg font-bold leading-snug text-ink-900">{doc.title ?? "Untitled tender"}</h1>
-        <p className="mt-1 text-sm text-ink-600">{doc.authority}</p>
+        <p className="mt-1 text-sm text-ink-600">{formatAuthority(doc.authority)}</p>
         <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-4">
-          <Fact label="Value">{formatINRCompact(doc.value)}{doc.value != null && <span className="ml-1 text-[11px] font-normal text-ink-400">{formatINR(doc.value)}</span>}</Fact>
-          <Fact label="EMD">{formatINRCompact(doc.emd)}</Fact>
-          <Fact label="Tender fee">{formatINRCompact(doc.fee)}</Fact>
+          <Fact label="Value">{doc.value == null ? <ND /> : formatINRCompact(doc.value)}{doc.value != null && <span className="ml-1 text-[11px] font-normal text-ink-400">{formatINR(doc.value)}</span>}</Fact>
+          <Fact label="EMD">{doc.emd == null ? <ND /> : formatINRCompact(doc.emd)}</Fact>
+          <Fact label="Tender fee">{doc.fee == null ? <ND /> : formatINRCompact(doc.fee)}</Fact>
           <Fact label="Closing"><span className="block">{relativeDeadline(doc.closing_at)}</span><span className="text-xs font-normal text-ink-500">{formatDateTime(doc.closing_at)}</span></Fact>
         </dl>
         <div className="mt-4 flex flex-wrap gap-2 border-t border-ink-100 pt-4">
@@ -107,11 +111,15 @@ export default function TenderDetail({
           <button onClick={addToCalendar} disabled={!doc.closing_at} className="btn">Add to calendar</button>
           <button onClick={exportCsv} className="btn">Export</button>
           <button onClick={() => setCopilotOpen(!copilotOpen)} className="btn btn-primary">Ask AI about this tender</button>
-          <a href={doc.url} target="_blank" rel="noopener noreferrer nofollow" className="btn ml-auto !border-accent-200 !bg-accent-50 !text-accent-700">
-            View official tender ↗
-          </a>
+          {safeHref(doc.url) && (
+            <a href={safeHref(doc.url)!} target="_blank" rel="noopener noreferrer nofollow" className="btn ml-auto !border-accent-200 !bg-accent-50 !text-accent-700">
+              {isSessionBound(doc) ? "Open official portal ↗" : "View official tender ↗"}
+            </a>
+          )}
         </div>
       </div>
+      <OfficialLink doc={doc} />
+      <DataQuality doc={doc} />
 
       {/* Tabs */}
       <div className="sticky top-[57px] z-10 -mx-4 mt-4 bg-ink-50/95 px-4 py-2 backdrop-blur">
@@ -142,11 +150,11 @@ export default function TenderDetail({
 
       <div className="mt-4 min-h-64">
         {tab === "overview" && <Overview doc={doc} />}
-        {tab === "eligibility" && <Eligibility doc={doc} />}
-        {tab === "documents" && <Documents doc={doc} />}
+        {tab === "eligibility" && <Eligibility doc={doc} detail={detailState} />}
+        {tab === "documents" && <Documents doc={doc} detail={detailState} />}
         {tab === "corrigenda" && <CorrigendaNote count={doc.corrigenda_count} />}
         {tab === "timeline" && <Timeline doc={doc} />}
-        {tab === "ai" && <AiAnalysis doc={doc} />}
+        {tab === "ai" && <AiAnalysis doc={doc} detail={detailState} />}
       </div>
 
       {similar.length > 0 && (
@@ -172,13 +180,15 @@ export default function TenderDetail({
           <div className="flex gap-2">
             <button onClick={toggleBookmark} className="btn">{bookmarked ? "★" : "☆"}</button>
             <button onClick={() => setCopilotOpen(true)} className="btn btn-primary">Ask AI</button>
-            <a href={doc.url} target="_blank" rel="noopener noreferrer nofollow" className="btn">Official ↗</a>
+            {safeHref(doc.url) && (
+              <a href={safeHref(doc.url)!} target="_blank" rel="noopener noreferrer nofollow" className="btn">Official ↗</a>
+            )}
           </div>
         </div>
       </div>
 
       <p className="mt-10 text-xs leading-relaxed text-ink-400">
-        Discovered {timeAgo(doc.first_seen_at)} · Source portal {doc.portal}. OpenTender India is an independent
+        Discovered {timeAgo(doc.first_seen_at)} · Source portal {doc.portal ?? doc.source}. OpenTender India is an independent
         open-source project and is not affiliated with the Government of India or any procurement authority. Always
         verify on the official portal before bidding.{" "}
         <button className="text-accent-600 hover:underline" onClick={() => navigate("/")}>Back to briefing</button>
@@ -196,33 +206,142 @@ function Fact({ label, children }: { label: string; children: React.ReactNode })
   );
 }
 
+function ND() {
+  return <span className="text-sm font-normal italic text-ink-400">Not disclosed</span>;
+}
+
 function Overview({ doc }: { doc: TenderDoc }) {
-  const rows: [string, string | null][] = [
-    ["Reference number", doc.ref],
-    ["Tender number", doc.tender_number],
-    ["Category", doc.category],
-    ["Type", doc.type],
-    ["Location", [doc.city, doc.state].filter(Boolean).join(", ")],
-    ["Published", formatDateTime(doc.published_at)],
-    ["Bid opening", formatDateTime(doc.opening_at)],
-    ["Pre-bid meeting", formatDateTime(doc.pre_bid_meeting_at)],
-    ["Award", doc.award?.winning_bidder ?? null],
+  // Missing fields stay visible: "Not disclosed" = the portal did not publish it
+  // for this tender; "Unknown" = we could not determine it. Never shown as zero.
+  const ND = "Not disclosed";
+  const UNK = "Unknown";
+  const dt = (s: string | null) => (s ? formatDateTime(s) : ND);
+  const money = (n: number | null) => (n != null ? `${formatINRCompact(n)} (${formatINR(n)})` : ND);
+  const rows: [string, string | null, string][] = [
+    ["Authority", formatAuthority(doc.authority) || null, UNK],
+    ["Reference number", doc.ref, UNK],
+    ["Tender number", doc.tender_number, UNK],
+    ["Category", doc.category, UNK],
+    ["Type", doc.type, UNK],
+    ["Location", [doc.city, doc.state].filter(Boolean).join(", ") || null, UNK],
+    ["Estimated value", doc.value != null ? money(doc.value) : null, ND],
+    ["EMD", doc.emd != null ? money(doc.emd) : null, ND],
+    ["Tender fee", doc.fee != null ? money(doc.fee) : null, ND],
+    ["Published", dt(doc.published_at), ND],
+    ["Bid opening", dt(doc.opening_at), ND],
+    ["Pre-bid meeting", dt(doc.pre_bid_meeting_at ?? null), ND],
+    ["Award", doc.award?.winning_bidder ?? null, "Not awarded"],
   ];
   return (
     <div className="card divide-y divide-ink-100">
-      {rows.filter(([, v]) => v).map(([k, v]) => (
+      {rows.map(([k, v, missing]) => (
         <div key={k} className="grid grid-cols-[9rem_1fr] gap-3 px-4 py-2.5 text-sm">
           <span className="font-medium capitalize text-ink-500">{k}</span>
-          <span className="break-words text-ink-800">{v}</span>
+          {v && v !== ND ? (
+            <span className="break-words text-ink-800">{v}</span>
+          ) : (
+            <span className="italic text-ink-400">{missing}</span>
+          )}
         </div>
       ))}
-      {!rows.some(([, v]) => v) && <p className="px-4 py-3 text-sm text-ink-400">No structured fields were published on the listing page.</p>}
     </div>
   );
 }
 
-function Eligibility({ doc }: { doc: TenderDoc }) {
+/** Only http(s) links are ever rendered as hrefs. */
+function safeHref(u: string | null | undefined): string | null {
+  if (!u) return null;
+  try {
+    const p = new URL(u);
+    return p.protocol === "http:" || p.protocol === "https:" ? p.href : null;
+  } catch {
+    return null;
+  }
+}
+
+const isSessionBound = (doc: TenderDoc) => doc.source.startsWith("gepnic");
+
+/** Portal identifier to search for there (GePNIC links are session-bound). */
+function OfficialLink({ doc }: { doc: TenderDoc }) {
+  const [copied, setCopied] = useState(false);
+  const ident = doc.tender_number ?? doc.ref;
+  const sessionBound = isSessionBound(doc);
+  if (!ident && !sessionBound) return null;
+  const copy = async () => {
+    if (!ident) return;
+    try {
+      await navigator.clipboard.writeText(ident);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard unavailable: the ID is still selectable text */
+    }
+  };
+  return (
+    <div className="card mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 text-sm">
+      {ident && (
+        <span className="flex min-w-0 items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wider text-ink-400">Tender ID</span>
+          <code className="select-all break-all font-mono text-ink-800">{ident}</code>
+          <button onClick={copy} className="btn !py-1 text-xs" aria-label="Copy tender ID">
+            {copied ? "Copied" : "Copy"}
+          </button>
+        </span>
+      )}
+      {sessionBound && (
+        <p className="w-full text-xs text-ink-500">
+          This portal’s links are session-based and open its home page. Paste the Tender ID into the portal’s search
+          (Tender ID / Search) to find this tender.
+        </p>
+      )}
+    </div>
+  );
+}
+
+const ISSUE_URL = "https://github.com/sdivyanshu90/opentender-india/issues/new";
+
+/** "Last checked" + a prefilled GitHub issue for wrong or stale data (spec #28). */
+function DataQuality({ doc }: { doc: TenderDoc }) {
+  const checked = doc.last_seen_at ?? doc.first_seen_at;
+  const body = [
+    "**What looks wrong?**",
+    "",
+    "",
+    "---",
+    `Tender id: ${doc.id}`,
+    `Tender number: ${doc.tender_number ?? "n/a"}`,
+    `Source: ${doc.source}`,
+    `Official URL: ${doc.url}`,
+    `Page URL: ${window.location.href}`,
+  ].join("\n");
+  const href = `${ISSUE_URL}?${new URLSearchParams({
+    title: `Data issue: ${doc.tender_number ?? doc.id}`,
+    body,
+  }).toString()}`;
+  return (
+    <div className="card mt-4 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3 text-sm">
+      <p className="text-ink-600">
+        <span className="text-xs font-semibold uppercase tracking-wider text-ink-400">Last checked</span>{" "}
+        <span title={checked}>{formatDateTime(checked)}</span>
+        <span className="ml-1 text-xs text-ink-400">({timeAgo(checked)})</span>
+        {!doc.last_seen_at && <span className="ml-1 text-xs text-ink-400">· first seen; no later check recorded</span>}
+      </p>
+      <a href={href} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-accent-600 hover:underline">
+        Report data issue ↗
+      </a>
+    </div>
+  );
+}
+
+/** Placeholder while the detail shard loads, or when it is missing. */
+function DetailGate({ detail, what }: { detail: DetailsState; what: string }) {
+  if (detail === "loading") return <p className="card p-4 text-sm text-ink-400" role="status">Loading {what}…</p>;
+  return <EmptyState title="Details unavailable" hint={`The ${what} for this tender could not be loaded. Use the official portal link for the authoritative record.`} />;
+}
+
+function Eligibility({ doc, detail }: { doc: TenderDoc; detail: DetailsState }) {
   const reqs = doc.ai?.eligibility?.requirements;
+  if (doc.ai === undefined && detail !== "ready") return <DetailGate detail={detail} what="eligibility details" />;
   if (!reqs || reqs.length === 0) {
     return (
       <EmptyState
@@ -267,19 +386,34 @@ function Eligibility({ doc }: { doc: TenderDoc }) {
   );
 }
 
-function Documents({ doc }: { doc: TenderDoc }) {
+function Documents({ doc, detail }: { doc: TenderDoc; detail: DetailsState }) {
+  if (doc.documents === undefined) return <DetailGate detail={detail} what="documents" />;
   if (!doc.documents.length)
     return <EmptyState title="No documents indexed" hint="Document downloads are CAPTCHA-gated on some portals; links are provided on the official page." />;
   return (
     <ul className="card divide-y divide-ink-100">
-      {doc.documents.map((d, i) => (
-        <li key={i}>
-          <a href={d.url} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-between px-4 py-3 text-sm hover:bg-accent-50/40">
+      {doc.documents.map((d, i) => {
+        const href = safeHref(d.source_url ?? d.url);
+        const inner = (
+          <>
             <span className="truncate font-medium text-ink-700">{d.title}</span>
-            <span className="chip shrink-0 uppercase">{d.type ?? "file"} ↗</span>
-          </a>
-        </li>
-      ))}
+            <span className="chip shrink-0 uppercase">{d.type ?? "file"}{href ? " ↗" : ""}</span>
+          </>
+        );
+        return (
+          <li key={i}>
+            {href ? (
+              <a href={href} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center justify-between px-4 py-3 text-sm hover:bg-accent-50/40">
+                {inner}
+              </a>
+            ) : (
+              <div className="flex items-center justify-between px-4 py-3 text-sm" title="No download link was published">
+                {inner}
+              </div>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -300,7 +434,7 @@ function CorrigendaNote({ count }: { count: number }) {
 function Timeline({ doc }: { doc: TenderDoc }) {
   const events: { when: string | null; what: string; tone?: string }[] = [
     { when: doc.published_at, what: "Published" },
-    { when: doc.pre_bid_meeting_at, what: "Pre-bid meeting" },
+    { when: doc.pre_bid_meeting_at ?? null, what: "Pre-bid meeting" },
     { when: doc.first_seen_at, what: "Discovered by OpenTender", tone: "accent" },
     ...(doc.corrigenda_count > 0 ? [{ when: null as string | null, what: `${doc.corrigenda_count} corrigendum revision(s) recorded`, tone: "amber" }] : []),
     { when: doc.closing_at, what: "Bid submission closes", tone: "red" },
@@ -321,7 +455,8 @@ function Timeline({ doc }: { doc: TenderDoc }) {
   );
 }
 
-function AiAnalysis({ doc }: { doc: TenderDoc }) {
+function AiAnalysis({ doc, detail }: { doc: TenderDoc; detail: DetailsState }) {
+  if (doc.ai === undefined && detail !== "ready") return <DetailGate detail={detail} what="AI analysis" />;
   const summary = doc.ai?.summary;
   if (!summary)
     return (
@@ -389,7 +524,7 @@ function flattenForCsv(d: TenderDoc): Record<string, string> {
     published_at: d.published_at ?? "",
     closing_at: d.closing_at ?? "",
     status: d.status,
-    source_portal: d.portal,
+    source_portal: d.portal ?? d.source,
     official_url: d.url,
   };
 }

@@ -1,28 +1,43 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useData } from "../App";
 import { useWorkspace } from "../lib/store";
 import { matchTender } from "../lib/match";
-import { formatINRCompact, relativeDeadline, timeAgo } from "../lib/format";
+import { formatDateTime, formatINRCompact, istDateKey, relativeDeadline, timeAgo } from "../lib/format";
+import { loadSourceStatus, type SourceStatusFile } from "../lib/data";
+import { loadFeeds, type FeedLink } from "../lib/feeds";
+import { queryToParams } from "../lib/query";
+
+const DAY = 86_400_000;
+const UNHEALTHY = new Set(["DEGRADED", "TEMPORARILY_BROKEN", "CAPTCHA_LIMITED"]);
 
 /** Homepage: "What requires my attention today?" (spec #62). */
 export default function Home() {
   const { docs, generatedAt, fixture, loading } = useData();
   const ws = useWorkspace();
+  const [status, setStatus] = useState<SourceStatusFile | null | undefined>(undefined);
+  const [feeds, setFeeds] = useState<FeedLink[] | null>(null);
+
+  useEffect(() => {
+    void loadSourceStatus().then(setStatus);
+    void loadFeeds().then(setFeeds);
+  }, []);
 
   const sections = useMemo(() => {
     const now = new Date();
-    const today = now.toISOString().slice(0, 10);
+    const todayKey = istDateKey(now);
     const active = docs.filter((d) => d.status === "active");
     const closingSoon = active
-      .filter((d) => d.closing_at && new Date(d.closing_at).getTime() - now.getTime() < 7 * 86_400_000 && new Date(d.closing_at).getTime() > now.getTime())
+      .filter((d) => d.closing_at && new Date(d.closing_at).getTime() - now.getTime() < 7 * DAY && new Date(d.closing_at).getTime() > now.getTime())
       .sort((a, b) => (a.closing_at! < b.closing_at! ? -1 : 1));
-    const newToday = docs.filter((d) => d.first_seen_at?.slice(0, 10) === today);
-    const highValue = [...active]
-      .filter((d) => (d.value ?? 0) >= 1e8)
-      .sort((a, b) => (b.value ?? 0) - (a.value ?? 0))
+    const closingToday = active.filter((d) => istDateKey(d.closing_at) === todayKey && new Date(d.closing_at!).getTime() > now.getTime()).length;
+    const addedToday = docs.filter((d) => istDateKey(d.first_seen_at) === todayKey).length;
+    const disclosed = active.filter((d) => d.value != null);
+    const highValue = disclosed
+      .filter((d) => d.value! >= 1e8)
+      .sort((a, b) => b.value! - a.value!)
       .slice(0, 6);
-    const changed = docs.filter((d) => d.corrigenda_count > 0).slice(0, 5);
+    const changedAll = docs.filter((d) => d.corrigenda_count > 0).sort((a, b) => b.corrigenda_count - a.corrigenda_count);
     const matches = ws.profile
       ? active
           .map((d) => ({ doc: d, m: matchTender(d, ws.profile) }))
@@ -30,8 +45,32 @@ export default function Home() {
           .sort((a, b) => b.m.score - a.m.score)
           .slice(0, 5)
       : [];
-    return { closingSoon, newToday, highValue, changed, matches };
+    return {
+      closingSoon,
+      closingToday,
+      addedToday,
+      activeCount: active.length,
+      disclosedCount: disclosed.length,
+      highValue,
+      changed: changedAll.slice(0, 5),
+      changedTotal: changedAll.length,
+      matches,
+    };
   }, [docs, ws.profile]);
+
+  const portals = useMemo(() => {
+    if (!status) return null;
+    const rows = Object.values(status.sources);
+    const times = rows.map((r) => r.last_success).filter((t): t is string => !!t && !Number.isNaN(Date.parse(t)));
+    times.sort((a, b) => Date.parse(b) - Date.parse(a));
+    return {
+      healthy: rows.filter((r) => r.status === "ACTIVE").length,
+      degraded: rows.filter((r) => UNHEALTHY.has(r.status)).length,
+      lastSuccess: times[0] ?? null,
+    };
+  }, [status]);
+
+  const ready = !loading && docs.length > 0;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-6">
@@ -44,6 +83,31 @@ export default function Home() {
             : "No dataset published yet"}
         {fixture && " · synthetic demo data"}
       </p>
+
+      <HomeSearch />
+
+      {ready && (
+        <dl className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6" data-testid="home-stats">
+          <Stat label="Active tenders" value={sections.activeCount} to="/discover?status=active" />
+          <Stat label="Added today" value={sections.addedToday} to="/new" />
+          <Stat label="Closing today" value={sections.closingToday} to="/discover?within=1" />
+          <Stat label="Closing this week" value={sections.closingSoon.length} to="/closing-soon" />
+          <Stat label="With corrigenda" value={sections.changedTotal} to="/changed" />
+          <Stat
+            label="Portals healthy"
+            value={portals ? `${portals.healthy}${portals.degraded ? ` · ${portals.degraded} degraded` : ""}` : "—"}
+            to="/sources"
+          />
+        </dl>
+      )}
+      {portals && (
+        <p className="mt-1.5 text-xs text-ink-400">
+          {portals.lastSuccess
+            ? `Last successful portal refresh ${timeAgo(portals.lastSuccess)} (${formatDateTime(portals.lastSuccess)}).`
+            : "No portal has recorded a successful refresh yet."}{" "}
+          <Link to="/sources" className="text-accent-600 hover:underline">Source status</Link>
+        </p>
+      )}
 
       {ws.profile && (
         <Section title="Best matches for you" count={sections.matches.length} href="/for-you">
@@ -72,20 +136,30 @@ export default function Home() {
         />
       </Section>
 
-      <Section title="New high-value opportunities" count={undefined} href="/discover?sort=value">
-        <TenderList
-          items={sections.highValue.map((d) => ({
-            id: d.id,
-            title: d.title,
-            authority: d.authority,
-            right: formatINRCompact(d.value),
-            rightTone: "text-emerald-600",
-          }))}
-        />
-      </Section>
+      {sections.highValue.length > 0 ? (
+        <Section title="High-value opportunities" count={undefined} href="/discover?sort=value&min=100000000">
+          <TenderList
+            items={sections.highValue.map((d) => ({
+              id: d.id,
+              title: d.title,
+              authority: d.authority,
+              right: formatINRCompact(d.value),
+              rightTone: "text-emerald-600",
+            }))}
+          />
+        </Section>
+      ) : (
+        ready && (
+          <p className="mt-6 rounded-lg border border-ink-200 bg-white p-3 text-xs leading-relaxed text-ink-500" data-testid="values-note">
+            Tender values are rarely disclosed on procurement portals: {sections.disclosedCount} of {sections.activeCount} active
+            tenders state one, and none is above ₹10 Cr, so there is no high-value list today. A missing value means
+            “not disclosed”, never zero.
+          </p>
+        )
+      )}
 
       {sections.changed.length > 0 && (
-        <Section title="Recently changed" count={sections.changed.length} href="/changed">
+        <Section title="Recently changed" count={sections.changedTotal} href="/changed">
           <TenderList
             items={sections.changed.map((d) => ({
               id: d.id,
@@ -97,11 +171,50 @@ export default function Home() {
       )}
 
       <p className="mt-10 rounded-lg border border-ink-200 bg-white p-3 text-xs leading-relaxed text-ink-500">
+        <Link to="/sources#feeds" className="mr-3 font-medium text-accent-600 hover:underline">
+          {feeds ? `Subscribe to Atom feeds (${feeds.length})` : "Atom feeds"}
+        </Link>
         OpenTender India is an independent open-source project and is not affiliated with the Government of India or any
         procurement authority. Always verify tender information on the linked official portal before making procurement
         decisions or submitting a bid.
       </p>
     </div>
+  );
+}
+
+function HomeSearch() {
+  const navigate = useNavigate();
+  const [text, setText] = useState("");
+  return (
+    <form
+      role="search"
+      onSubmit={(e) => {
+        e.preventDefault();
+        navigate(`/discover?${queryToParams(text.trim()).toString()}`);
+      }}
+      className="mt-4 flex gap-2"
+    >
+      <input
+        type="search"
+        aria-label="Search all tenders"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Search by keyword, tender number or ask e.g. “road repair Kerala under 50 lakh”"
+        className="input w-full"
+      />
+      <button type="submit" className="btn btn-primary">
+        Search
+      </button>
+    </form>
+  );
+}
+
+function Stat({ label, value, to }: { label: string; value: number | string; to: string }) {
+  return (
+    <Link to={to} className="card block px-3 py-2 hover:border-accent-400">
+      <dt className="text-[11px] font-medium uppercase tracking-wide text-ink-400">{label}</dt>
+      <dd className="mt-0.5 text-lg font-bold tabular-nums text-ink-900">{typeof value === "number" ? value.toLocaleString("en-IN") : value}</dd>
+    </Link>
   );
 }
 

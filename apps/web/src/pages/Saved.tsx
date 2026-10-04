@@ -1,16 +1,19 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../App";
 import { updateWorkspace, useWorkspace } from "../lib/store";
 import { formatINRCompact, formatDate } from "../lib/format";
 import { EmptyState } from "../components/Badges";
 import { buildCsv, downloadBlob } from "../lib/export";
+import { copyText, discoverUrl } from "../lib/share";
+import RestoreBackup from "../components/RestoreBackup";
 
 const STATUSES = ["new", "reviewing", "interested", "bid", "skip", "submitted"] as const;
 
 export default function Saved() {
   const { byId } = useData();
   const ws = useWorkspace();
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const savedDocs = useMemo(
     () =>
@@ -29,6 +32,9 @@ export default function Saved() {
           title="No bookmarks yet"
           hint="Bookmark tenders from search results to build your workspace. Everything is stored locally in this browser."
         />
+        <div className="mt-3 flex flex-wrap gap-2">
+          <RestoreBackup />
+        </div>
       </div>
     );
   }
@@ -75,9 +81,10 @@ export default function Saved() {
       <h1 className="text-lg font-bold text-ink-900">Saved</h1>
       <p className="mt-0.5 text-sm text-ink-500">{savedDocs.length} bookmarked tenders · stored locally</p>
 
-      <div className="mt-3 flex gap-2">
+      <div className="mt-3 flex flex-wrap gap-2">
         <button onClick={exportJson} className="btn">Backup JSON</button>
         <button onClick={exportCsvAll} className="btn">Export CSV</button>
+        <RestoreBackup />
       </div>
 
       <ul className="card mt-4 divide-y divide-ink-100">
@@ -132,15 +139,33 @@ export default function Saved() {
           <ul className="card divide-y divide-ink-100">
             {ws.savedSearches.map((s) => (
               <li key={s.id} className="flex items-center justify-between px-4 py-2.5">
-                <Link to={`/discover?${s.query}`} className="min-w-0 truncate text-sm font-medium text-accent-700 hover:underline">
+                <Link to={`/discover?${s.query}`} className="min-w-0 truncate text-sm font-medium text-accent-700 hover:underline" title={`Run “${s.name}”`}>
                   {s.name}
                 </Link>
+                <span className="ml-3 flex shrink-0 items-center gap-3 text-xs">
+                <Link to={`/discover?${s.query}`} className="font-medium text-accent-700 hover:underline" aria-label={`Run saved search ${s.name}`}>
+                  Run
+                </Link>
+                <button
+                  onClick={async () => {
+                    if (await copyText(discoverUrl(s.query))) {
+                      setCopiedId(s.id);
+                      setTimeout(() => setCopiedId((c) => (c === s.id ? null : c)), 1500);
+                    }
+                  }}
+                  className="text-ink-500 hover:text-accent-700"
+                  aria-label={`Copy share link for ${s.name}`}
+                >
+                  {copiedId === s.id ? "Copied" : "Copy share link"}
+                </button>
                 <button
                   onClick={() => updateWorkspace((cur) => ({ ...cur, savedSearches: cur.savedSearches.filter((x) => x.id !== s.id) }))}
-                  className="ml-3 shrink-0 text-xs text-ink-400 hover:text-red-600"
+                  className="text-ink-400 hover:text-red-600"
+                  aria-label={`Delete saved search ${s.name}`}
                 >
                   Delete
                 </button>
+                </span>
               </li>
             ))}
           </ul>

@@ -4,13 +4,16 @@ import { formatINRCompact, relativeDeadline } from "../lib/format";
 import { EmptyState } from "../components/Badges";
 import { matchTender } from "../lib/match";
 import { useWorkspace } from "../lib/store";
+import { useTenderDetails } from "../lib/details";
 
 /** Side-by-side comparison of 2–5 tenders (spec #29). */
 export default function Compare({ compareIds, toggleCompare }: { compareIds: string[]; toggleCompare: (id: string) => void }) {
   const { byId } = useData();
   const ws = useWorkspace();
 
-  const docs = compareIds.map((id) => byId.get(id)).filter(Boolean) as NonNullable<ReturnType<typeof byId.get>>[];
+  const base = compareIds.map((id) => byId.get(id)).filter(Boolean) as NonNullable<ReturnType<typeof byId.get>>[];
+  const { docs: merged, state: detailState } = useTenderDetails(base);
+  const docs = merged as typeof base;
 
   if (docs.length < 2) {
     return (
@@ -102,6 +105,8 @@ export default function Compare({ compareIds, toggleCompare }: { compareIds: str
       <p className="mt-3 text-xs text-ink-400">
         Differences in value, EMD and deadline are highlighted rows. Eligibility rows come from AI extraction where
         available and are marked “not yet extracted” otherwise — always verify against official documents.
+        {detailState === "loading" && " Loading fee, location and AI details…"}
+        {detailState === "unavailable" && " Some details (fee, location, AI extraction) are unavailable for these tenders."}
       </p>
     </div>
   );

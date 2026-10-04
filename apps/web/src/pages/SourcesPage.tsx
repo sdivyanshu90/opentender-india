@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { assetUrl } from "../lib/data";
+import { loadFeeds, type FeedLink } from "../lib/feeds";
+import { FeedList } from "../components/FeedList";
 
 interface SourceRow {
   status: string;
@@ -18,6 +20,11 @@ interface SourceRow {
 export default function SourcesPage() {
   const [sources, setSources] = useState<Record<string, SourceRow> | null>(null);
   const [generatedAt, setGeneratedAt] = useState<string | null>(null);
+  const [feeds, setFeeds] = useState<FeedLink[] | null | undefined>(undefined);
+
+  useEffect(() => {
+    void loadFeeds().then(setFeeds);
+  }, []);
 
   useEffect(() => {
     fetch(assetUrl("data/status-sources.json"))
@@ -81,6 +88,14 @@ export default function SourcesPage() {
           </tbody>
         </table>
       </div>
+
+      <section id="feeds" className="card mt-4 p-4">
+        <h2 className="font-semibold text-ink-900">Subscribe (Atom feeds)</h2>
+        <p className="mt-1 text-xs text-ink-500">Follow new tenders in any feed reader — no account needed.</p>
+        <div className="mt-2">
+          <FeedList feeds={feeds} />
+        </div>
+      </section>
 
       <p className="mt-4 rounded-lg border border-ink-200 bg-white p-3 text-xs leading-relaxed text-ink-500">
         OpenTender India crawls politely: descriptive User-Agent, conservative delays, no CAPTCHA bypass, no login

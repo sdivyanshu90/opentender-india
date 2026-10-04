@@ -4,6 +4,7 @@ import type { Filters } from "../lib/filters";
 import { filtersToSearchParams } from "../lib/filters";
 import { uniqueValues } from "../lib/data";
 import { useData } from "../App";
+import { formatINRCompact } from "../lib/format";
 
 const ALWAYS_VISIBLE = ["state", "category", "value", "closing", "source"] as const;
 
@@ -14,6 +15,12 @@ export default function FilterBar({ filters, onChange }: { filters: Filters; onC
   const { docs } = useData();
   const states = useMemo(() => uniqueValues(docs, "state"), [docs]);
   const sources = useMemo(() => uniqueValues(docs, "source"), [docs]);
+  // Only offer states that exist in the data; hidden entirely when no doc carries one.
+  // A state already in the URL (e.g. typed "Kerala") stays selectable so the control reflects it.
+  const stateOptions = useMemo(
+    () => (states.length === 0 ? [] : filters.state && !states.includes(filters.state) ? [...states, filters.state].sort() : states),
+    [states, filters.state],
+  );
 
   const set = (patch: Partial<Filters>) => onChange({ ...filters, ...patch });
   const [, setSearchParams] = useSearchParams();
@@ -21,8 +28,8 @@ export default function FilterBar({ filters, onChange }: { filters: Filters; onC
   const activeChips: { label: string; clear: () => void }[] = [];
   if (filters.state) activeChips.push({ label: `State: ${filters.state}`, clear: () => set({ state: undefined }) });
   if (filters.category) activeChips.push({ label: `Category: ${filters.category}`, clear: () => set({ category: undefined }) });
-  if (filters.minValue != null) activeChips.push({ label: `Min ₹${(filters.minValue / 1e7).toFixed(1)} Cr`, clear: () => set({ minValue: undefined }) });
-  if (filters.maxValue != null) activeChips.push({ label: `Max ₹${(filters.maxValue / 1e7).toFixed(1)} Cr`, clear: () => set({ maxValue: undefined }) });
+  if (filters.minValue != null) activeChips.push({ label: `Min ${formatINRCompact(filters.minValue)}`, clear: () => set({ minValue: undefined }) });
+  if (filters.maxValue != null) activeChips.push({ label: `Max ${formatINRCompact(filters.maxValue)}`, clear: () => set({ maxValue: undefined }) });
   if (filters.closingWithinDays != null) activeChips.push({ label: `≤ ${filters.closingWithinDays} days`, clear: () => set({ closingWithinDays: undefined }) });
   if (filters.closingThisMonth) activeChips.push({ label: "Closing this month", clear: () => set({ closingThisMonth: false }) });
   if (filters.source) activeChips.push({ label: `Source: ${filters.source}`, clear: () => set({ source: undefined }) });
@@ -31,17 +38,19 @@ export default function FilterBar({ filters, onChange }: { filters: Filters; onC
   return (
     <div className="space-y-2.5">
       <div className="flex flex-wrap items-center gap-2">
-        <select
-          aria-label="State"
-          value={filters.state ?? ""}
-          onChange={(e) => set({ state: e.target.value || undefined })}
-          className="input !py-1.5 text-xs"
-        >
-          <option value="">All states</option>
-          {states.map((s) => (
-            <option key={s}>{s}</option>
-          ))}
-        </select>
+        {stateOptions.length > 0 && (
+          <select
+            aria-label="State"
+            value={filters.state ?? ""}
+            onChange={(e) => set({ state: e.target.value || undefined })}
+            className="input !py-1.5 text-xs"
+          >
+            <option value="">All states</option>
+            {stateOptions.map((s) => (
+              <option key={s}>{s}</option>
+            ))}
+          </select>
+        )}
         <select
           aria-label="Closing window"
           value={filters.closingWithinDays ?? ""}

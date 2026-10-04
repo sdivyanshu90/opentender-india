@@ -15,13 +15,13 @@ export default function Discover({ mode }: { mode: "all" | "new" | "closing" | "
 
   const titles: Record<typeof mode, string> = {
     all: "Discover",
-    new: "New Today",
+    new: "New Tenders",
     closing: "Closing Soon",
     changed: "Recently Changed",
   };
   const hints: Record<typeof mode, string> = {
     all: "All opportunities across connected official portals.",
-    new: "Tenders discovered by the daily ingestion runs.",
+    new: "Tenders first discovered in the last 48 hours (IST).",
     closing: "Deadlines in the next 7 days — act fast.",
     changed: "Corrigenda and revisions detected since first publication.",
   };
@@ -30,7 +30,7 @@ export default function Discover({ mode }: { mode: "all" | "new" | "closing" | "
     <div className="mx-auto max-w-6xl px-4 py-5">
       <h1 className="mb-1 text-lg font-bold text-ink-900">{titles[mode]}</h1>
       <p className="mb-4 text-sm text-ink-500">{hints[mode]}</p>
-      <ResultsList />
+      <ResultsList mode={mode} />
     </div>
   );
 }

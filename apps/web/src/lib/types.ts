@@ -45,27 +45,31 @@ export interface TenderDoc {
   title: string | null;
   authority: string | null;
   state: string | null;
-  city: string | null;
+  /** detail field: lives in data/details shards in production (see lib/details.ts) */
+  city?: string | null;
   category: string | null;
   type: string | null;
   value: number | null;
   emd: number | null;
-  fee: number | null;
+  fee?: number | null;
   published_at: string | null;
   closing_at: string | null;
-  pre_bid_meeting_at: string | null;
+  pre_bid_meeting_at?: string | null;
   opening_at: string | null;
   status: string;
   source: string;
-  portal: string;
+  portal?: string;
   ref: string | null;
   tender_number: string | null;
   url: string;
   first_seen_at: string;
-  documents: { title: string; url: string; type?: string | null }[];
+  /** last time the pipeline observed the tender on its portal (ISO); absent in older datasets */
+  last_seen_at?: string | null;
+  /** pipeline emits `source_url`; legacy/dev fixtures used `url` */
+  documents?: { title: string; source_url?: string | null; url?: string | null; type?: string | null }[];
   corrigenda_count: number;
   award?: { winning_bidder?: string | null; award_value?: number | null } | null;
-  ai: {
+  ai?: {
     summary?: AISummary | null;
     eligibility?: { requirements?: EligibilityRequirement[]; exemptions_noted?: string[] } | null;
     risk?: { flags?: RiskFlag[] } | null;

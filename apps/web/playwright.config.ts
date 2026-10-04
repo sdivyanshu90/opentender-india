@@ -16,7 +16,8 @@ export default defineConfig({
   },
   webServer: {
     // strictPort + no-reuse guarantees we NEVER test against a stale/foreign server
-    command: "npm run preview -- --port 4300 --strictPort",
+    // production builds never load fixtures, so package them as the test dataset first
+    command: "node scripts/e2e-dataset.mjs && npm run preview -- --port 4300 --strictPort",
     port: 4300,
     reuseExistingServer: false,
     stdout: "ignore",

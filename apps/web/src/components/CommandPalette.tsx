@@ -2,7 +2,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../App";
 import { parseQuery } from "../lib/nlq";
-import { searchDocs } from "../lib/search";
+import { mergeParsed, queryToParams, runQuery } from "../lib/query";
+import { uniqueValues } from "../lib/data";
+import { formatAuthority, formatINRCompact } from "../lib/format";
 
 const SUGGESTIONS = [
   "solar EPC Maharashtra",
@@ -24,10 +26,15 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
 
   const parsed = useMemo(() => (query.trim() ? parseQuery(query) : null), [query]);
 
+  const sources = useMemo(() => new Set(uniqueValues(docs, "source")), [docs]);
+
+  // Same pipeline as the Discover page (relevance first, then structured filters),
+  // so the palette and the results page never disagree.
   const hits = useMemo(() => {
-    if (!index || !parsed?.keywords) return [];
-    return searchDocs(index, byId, parsed.keywords).slice(0, 6);
-  }, [index, byId, parsed]);
+    if (!parsed?.keywords) return [];
+    const f = mergeParsed({ keywords: "" }, parsed, sources);
+    return runQuery(docs, f, { index, byId }).docs.slice(0, 6).map((doc) => ({ doc }));
+  }, [docs, index, byId, parsed, sources]);
 
   const commands = useMemo(
     () =>
@@ -42,19 +49,9 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
   );
 
   const go = (rawQuery: string) => {
-    void rawQuery;
-    const sp = new URLSearchParams();
-    if (parsed?.state) sp.set("state", parsed.state);
-    if (parsed?.minValue) sp.set("min", String(Math.round(parsed.minValue)));
-    if (parsed?.maxValue) sp.set("max", String(Math.round(parsed.maxValue)));
-    if (parsed?.closingWithinDays) sp.set("within", String(parsed.closingWithinDays));
-    if (parsed?.closingThisMonth) sp.set("month", "1");
-    if (parsed?.keywords) sp.set("q", parsed.keywords);
-    navigate(`/discover?${sp.toString()}`);
+    navigate(`/discover?${queryToParams(rawQuery, undefined, sources).toString()}`);
     onClose();
   };
-
-  void docs;
 
   return (
     <div className="fixed inset-0 z-50 bg-ink-900/40 p-4 pt-[12vh]" onClick={onClose} role="dialog" aria-modal="true" aria-label="Command palette">
@@ -85,9 +82,12 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
               Interpreted as:
               {parsed.keywords && <> keywords <b>{parsed.keywords}</b> ·</>}
               {parsed.state && <> state <b>{parsed.state}</b> ·</>}
-              {parsed.minValue != null && <> above <b>₹{(parsed.minValue / 1e7).toFixed(1)} Cr</b> ·</>}
+              {parsed.minValue != null && <> above <b>{formatINRCompact(parsed.minValue)}</b> ·</>}
+              {parsed.maxValue != null && <> below <b>{formatINRCompact(parsed.maxValue)}</b> ·</>}
+              {parsed.sourceHint && <> portal <b>{parsed.sourceHint}</b> ·</>}
+              {parsed.closingThisMonth && <> closing <b>this month</b> ·</>}
               {parsed.closingWithinDays != null && <> closing within <b>{parsed.closingWithinDays} days</b></>}
-              {!parsed.keywords && !parsed.state && parsed.minValue == null && parsed.closingWithinDays == null && <i> plain keyword search</i>}
+              {!parsed.keywords && !parsed.state && parsed.minValue == null && parsed.maxValue == null && !parsed.sourceHint && !parsed.closingThisMonth && parsed.closingWithinDays == null && <i> plain keyword search</i>}
             </p>
             <button onClick={() => go(query)} className="btn btn-primary mt-2 w-full">Search →</button>
           </div>
@@ -104,7 +104,7 @@ export default function CommandPalette({ onClose }: { onClose: () => void }) {
                 className="block w-full truncate rounded-md px-2 py-2 text-left text-sm hover:bg-ink-50"
               >
                 <span className="font-medium text-ink-800">{doc.title ?? doc.tender_number ?? doc.id}</span>
-                <span className="ml-2 text-xs text-ink-400">{doc.authority}</span>
+                <span className="ml-2 text-xs text-ink-400">{formatAuthority(doc.authority)}</span>
               </button>
             ))}
           </div>

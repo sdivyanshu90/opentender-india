@@ -1,0 +1,11 @@
+{
+  "name": "OpenTender India",
+  "short_name": "OpenTender",
+  "description": "Open-source tender intelligence for Indian public procurement.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f6f7f9",
+  "theme_color": "#131a26",
+  "icons": [{ "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

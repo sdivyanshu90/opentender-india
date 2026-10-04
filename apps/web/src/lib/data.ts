@@ -1,4 +1,4 @@
-import type { TenderDoc } from "./types";
+import type { SourceHealth, TenderDoc } from "./types";
 
 /**
  * Loads the generated dataset. Production: data/indexes/search-docs.json.gz
@@ -16,15 +16,24 @@ export function assetUrl(path: string): string {
   return import.meta.env.BASE_URL + path.replace(/^\//, "");
 }
 
+export class DatasetError extends Error {}
+
 export async function loadDataset(): Promise<LoadedDataset> {
   try {
     const res = await fetch(assetUrl("data/index/search-docs.json.gz"));
     if (!res.ok) throw new Error(`dataset HTTP ${res.status}`);
-    const buf = await res.arrayBuffer();
-    const text = await gunzip(buf);
-    const docs = (JSON.parse(text) as TenderDoc[]).map(withCurrentStatus);
-    return { docs, fixture: false, generatedAt: latest(docs) };
-  } catch {
+    const text = await decodeBody(await res.arrayBuffer());
+    const parsed: unknown = JSON.parse(text);
+    if (!Array.isArray(parsed)) throw new Error("dataset is not a JSON array");
+    const docs = (parsed as TenderDoc[]).map(withCurrentStatus);
+    return { docs, fixture: false, generatedAt: (await manifestGeneratedAt()) ?? latest(docs) };
+  } catch (err) {
+    // Synthetic fixtures exist for local development only (spec #52: no fake data in production).
+    if (!import.meta.env.DEV) {
+      throw new DatasetError(
+        `The tender dataset could not be loaded (${err instanceof Error ? err.message : "unknown error"}).`,
+      );
+    }
     const res = await fetch(assetUrl("data/dev-fixtures.json"));
     if (!res.ok)
       return { docs: [], fixture: false, generatedAt: null };
@@ -59,10 +68,47 @@ function withCurrentStatus(d: TenderDoc): TenderDoc {
   return d;
 }
 
-async function gunzip(buf: ArrayBuffer): Promise<string> {
-  // DecompressionStream is available in all modern browsers.
-  const stream = new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));
-  return await new Response(stream).text();
+/**
+ * Some hosts send `Content-Encoding: gzip`, so the browser has already inflated
+ * the body; others serve raw gzip bytes. Sniff the magic number (0x1f 0x8b).
+ */
+export async function decodeBody(buf: ArrayBuffer): Promise<string> {
+  const head = new Uint8Array(buf, 0, Math.min(2, buf.byteLength));
+  if (head.length === 2 && head[0] === 0x1f && head[1] === 0x8b) {
+    // DecompressionStream is available in all modern browsers.
+    const stream = new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));
+    return await new Response(stream).text();
+  }
+  return new TextDecoder("utf-8").decode(buf);
+}
+
+async function manifestGeneratedAt(): Promise<string | null> {
+  try {
+    const res = await fetch(assetUrl("data/index/manifest.json"));
+    if (!res.ok) return null;
+    const j = (await res.json()) as { generated_at?: unknown };
+    return typeof j.generated_at === "string" ? j.generated_at : null;
+  } catch {
+    return null;
+  }
+}
+
+export interface SourceStatusFile {
+  generated_at: string | null;
+  sources: Record<string, SourceHealth>;
+}
+
+/** data/status-sources.json (written by the pipeline's health step); null when absent. */
+export async function loadSourceStatus(): Promise<SourceStatusFile | null> {
+  try {
+    const res = await fetch(assetUrl("data/status-sources.json"));
+    if (!res.ok) return null;
+    const j = (await res.json()) as { generated_at?: string; sources?: Record<string, SourceHealth> };
+    if (!j.sources || typeof j.sources !== "object") return null;
+    return { generated_at: j.generated_at ?? null, sources: j.sources };
+  } catch {
+    return null;
+  }
 }
 
 function latest(docs: TenderDoc[]): string | null {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { formatINRCompact, formatDate } from "../lib/format";
+import { formatINRCompact, formatDate, formatAuthority } from "../lib/format";
 import type { TenderDoc } from "../lib/types";
 import { DeadlineBadge, SourceBadge, StatusBadge } from "./Badges";
 
@@ -40,13 +40,13 @@ export function TenderRow({ doc, isNew, bookmarked, selected, match, onToggleBoo
           <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-xs text-ink-500">
             {doc.tender_number && <span className="font-mono">{doc.tender_number}</span>}
             {doc.ref && !doc.tender_number && <span className="font-mono">{doc.ref}</span>}
-            <span className="truncate max-w-[16rem]">{doc.authority}</span>
+            <span className="truncate max-w-[16rem]" title={formatAuthority(doc.authority)}>{formatAuthority(doc.authority)}</span>
           </div>
         </Link>
       </td>
       <td className="hidden whitespace-nowrap px-3 py-2.5 text-xs text-ink-600 md:table-cell">{doc.state ?? "—"}</td>
       <td className="whitespace-nowrap px-3 py-2.5 text-right font-medium tabular-nums text-ink-800">
-        {formatINRCompact(doc.value)}
+        {doc.value == null ? <span title="Value not disclosed" className="text-ink-400">—</span> : formatINRCompact(doc.value)}
       </td>
       <td className="whitespace-nowrap px-3 py-2.5 text-xs text-ink-600">
         <div>{formatDate(doc.closing_at)}</div>
@@ -81,7 +81,7 @@ export function TenderCard({ doc, isNew, bookmarked, match, onToggleBookmark }: 
             {isNew && <NewTag />}
             <span className="line-clamp-2">{doc.title ?? "Untitled tender"}</span>
           </h3>
-          <p className="mt-1 truncate text-xs text-ink-500">{doc.authority}</p>
+          <p className="mt-1 truncate text-xs text-ink-500" title={formatAuthority(doc.authority)}>{formatAuthority(doc.authority)}</p>
         </Link>
         <button
           onClick={onToggleBookmark}
@@ -92,8 +92,8 @@ export function TenderCard({ doc, isNew, bookmarked, match, onToggleBookmark }: 
         </button>
       </div>
       <dl className="mt-3 grid min-w-0 grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
-        <div><dt className="text-ink-400">Value</dt><dd className="font-semibold text-ink-800">{formatINRCompact(doc.value)}</dd></div>
-        <div><dt className="text-ink-400">EMD</dt><dd className="text-ink-700">{formatINRCompact(doc.emd)}</dd></div>
+        <div><dt className="text-ink-400">Value</dt><dd className="font-semibold text-ink-800">{doc.value == null ? <span className="font-normal text-ink-400">Not disclosed</span> : formatINRCompact(doc.value)}</dd></div>
+        <div><dt className="text-ink-400">EMD</dt><dd className="text-ink-700">{doc.emd == null ? <span className="text-ink-400">Not disclosed</span> : formatINRCompact(doc.emd)}</dd></div>
         <div><dt className="text-ink-400">Location</dt><dd className="text-ink-700">{[doc.city, doc.state].filter(Boolean).join(", ") || "—"}</dd></div>
         <div><dt className="text-ink-400">Closes</dt><dd className="text-ink-700"><DeadlineBadge closingAt={doc.closing_at} /></dd></div>
       </dl>

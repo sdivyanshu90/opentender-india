@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateWorkspace, useWorkspace } from "../lib/store";
 import type { CompanyProfile } from "../lib/store";
+import RestoreBackup from "../components/RestoreBackup";
 
 /** Settings: BYOK AI, privacy mode, company profile (all local). */
 export default function Settings() {
@@ -86,6 +87,17 @@ export default function Settings() {
       </section>
 
       <ProfileSection />
+
+      <section className="card p-4">
+        <h2 className="font-semibold text-ink-900">Workspace backup</h2>
+        <p className="mt-1 text-xs leading-relaxed text-ink-500">
+          Restore bookmarks, saved searches and profile from a “Backup JSON” file (made on the Saved page). It is merged
+          with what is already here; nothing in the file is executed.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          <RestoreBackup />
+        </div>
+      </section>
     </div>
   );
 }
