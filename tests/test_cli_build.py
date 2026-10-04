@@ -138,7 +138,8 @@ def test_unchanged_tender_is_not_rewritten_but_last_seen_advances(env):
     first_bytes, first_seen = path.read_bytes(), store.last_seen_at(f"{1:024x}")
     store.upsert(_tender(1, closing_days=5))
     assert path.read_bytes() == first_bytes
-    assert store.last_seen_at(f"{1:024x}") >= first_seen
+    # compare instants, not strings: offsets differ between the store and the runner's TZ
+    assert datetime.fromisoformat(store.last_seen_at(f"{1:024x}")) >= datetime.fromisoformat(first_seen)
     store.upsert(_tender(1, closing_days=9))  # real change is written
     assert path.read_bytes() != first_bytes
 
