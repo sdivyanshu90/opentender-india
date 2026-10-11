@@ -1,26 +1,26 @@
 # OpenTender India — Daily Digest
 
-_Generated 10 Oct 2026 02:44 IST from verified portal data._
+_Generated 11 Oct 2026 02:15 IST from verified portal data._
 
-## New Today (10104)
+## New Today (7743)
 
-- [Maintenance work (annual contract) for garden LED lights and tubewells in gardens and circles within the Trust s plan and non-plan areas.](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-21) —  — value not disclosed — closes 21 Oct 18:00
-- [Tender/2026/YAG LASER MACHINE](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-21) —  — value not disclosed — closes 21 Oct 17:00
-- [Improvement Bishalaxmi Benepukur road starting from Baidyapota More to KMDA Plant in ward no13 under CMC](https://wbtenders.gov.in/nicgep/app) — MUNICIPAL AFFAIRS DEPARTMENT › URBAN LOCAL BODIES › CHANDANNAGAR MC — value not disclosed — closes 12 Oct 16:00
-- [Annual Plan-Cheacode GP 2026-27 Project No 121 27-concreting of korlot chooraparambil road ward 15 General Civil Work](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-14) —  — value not disclosed — closes 14 Oct 10:00
-- [WBMAD/ULB/RSM/375/26-27](https://wbtenders.gov.in/nicgep/app) — MUNICIPAL AFFAIRS DEPARTMENT › URBAN LOCAL BODIES › RAJPUR SONARPUR — value not disclosed — closes 14 Oct 16:00
-- [Annual Maintenance Contract of Maintenance of Existing Sewer line Network in the areas of Dabagardens, Venkateswara metta, Collector s Office road, Salipeta, Manthavari veedhi, Jagadamba Jn. of ward nos. 28p, 29, 30, 31, 32p 33 under AE(WSS)-14 in GVMC, Visakhapatnam for the Year 2026-2027](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-21) —  — value not disclosed — closes 21 Oct 16:30
-- [Work No 14 Bulandshahr Anoopshahr Mukhya Marg Ke 8 Km Sariya Mill Ke Samne Adrash Kanya Vidhlya Hote Hue Gram Jtapur Ki Aur Lapen Ka Karya](https://etender.up.nic.in/nicgep/app) — Panchayati Raj Department › Zila Panchayat Bulandshahar — value not disclosed — closes 15 Oct 17:00
-- [112 Construction of Anganwadi Sidewall Ward 10](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-14) —  — value not disclosed — closes 14 Oct 10:00
-- [MELA PARISHAR MEN TEMP. CC TV INST.](https://mptenders.gov.in/nicgep/app) — Gwalior Vyapar Mela Pradhikaran - GVMP — value not disclosed — closes 05 Nov 14:00
-- [Gram Panchayat Vishnoharpur me Mauhari Vishnoharpur marg se Babbu pandey ke ghar wale marg par Lepan marmmat karya.](https://etender.up.nic.in/nicgep/app) — Panchayati Raj Department › Zila Panchayat Gonda — value not disclosed — closes 15 Oct 13:00
-- [Repairing and Maintanance of Damage tubewell at GP area under Daspalsa GP](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-13) —  — value not disclosed — closes 13 Oct 16:00
-- [RNT Nagra Belthara road to Bhairo Baba Sthan Usmanpur road](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-19) —  — value not disclosed — closes 19 Oct 12:00
-- [ANATOMY_2026](https://uktenders.gov.in/nicgep/app) — Principal Government Medical College Rudrapur — value not disclosed — closes 19 Oct 11:00
-- [GRAM TUGANA KE KANYA COLLEGE BYPASS SE BODHA MARG KI AUR SAMANYA MARAMMAT LEPAN KARYA](https://etender.up.nic.in/nicgep/app) — Panchayati Raj Department › Zila Panchayat Baghpat — value not disclosed — closes 16 Oct 13:00
-- [WARD NO 33/10 BHATAKUWAN PATTI KE MUHALLA AMEENABAD ME IFTEKHAR KE MAKAN SE PARVEZ KE MAKAN TAK NALI PATIYA EWAM INTERLOCKING KA KARYA](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-11-07) —  — value not disclosed — closes 07 Nov 13:00
+- [Retaining Clips](https://eprocuregsl.nic.in/nicgep/app) — BEML Limited › Bangalore Complex › Commuter Rail — value not disclosed — closes 15 Oct 16:00
+- [Gram Sabha Tikari me Nihori Yadav ke ghar se R.P. Rao ke ghar hote huye Angad Yadav ke ghar ke taraf R.C.C. Road ka nirmaan karya.](https://etender.up.nic.in/nicgep/app) — Director Cum Chief Engineer RED › CHIEF ENGINEER EAST › SE GORAKHPUR CIRCLE › EE KUSHINAGAR — value not disclosed — closes 15 Oct 12:00
+- [Additional Class Rooms](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-16) —  — value not disclosed — closes 16 Oct 17:00
+- [REPAIRS RECANNING AND POLISHING OF CERTAIN WOODEN FURNITURE UNDER GE MISSAMARI](https://defproc.gov.in/nicgep/app) — E-IN-C BRANCH - MILITARY ENGINEER SERVICES › CE EC AND CE SILIGURI ZONE - MES › CWE TENGA - MES › GE MISSAMARI - MES — value not disclosed — closes 24 Oct 18:00
+- [Stage SIx](https://jktenders.gov.in/nicgep/app) — PWD › Chief Engineer South Kashmir › Kulgam Circle › D.H Pora Division — value not disclosed — closes 19 Oct 13:30
+- [Year 2026-27 Patch Repaire Work with Potholes roads in Block Gunnour Under AE-1](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-12) —  — value not disclosed — closes 12 Oct 12:00
+- [GENERAL-MS-ACTION PLAN WORKS 2 0 2 6 - 2 7 - canal cleaning works in Peringottukurissi canal from ch 15/000km to 24/220km and sub canals-General Civil Work](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-17) —  — value not disclosed — closes 17 Oct 16:00
+- [WARD NO. 24 RAMDUTTPUR ANTARGAT BANIYAPUR PRA. SCHOOL SE PREM SAKSH VA RAMBABU YADAV KE AAWAS HOTE HUE SARVJEET YADAV KE AAWAS TAK INTERLOCKING LAGANE KA KARYA.](https://etender.up.nic.in/nicgep/app) — Varanasi Nagar Nigam Varanasi — value not disclosed — closes 23 Oct 16:00
+- [Annual Plan-VATTAVADA GP 2026-27 WARD-02 SC UNNATHI TO AMMANPETTY ROAD CONCRETING AND RETAINING WALL (58/27)-ROAD CONCRETING AND RETAINING WALLGeneral Civil Work](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Idukki › Grama Panchayath Section Office IDK › Office of the AE Vattavada Grama Panchayath — value not disclosed — closes 23 Oct 18:00
+- [Provding Water Supply Scheme Bhutan Block Banga Distt SBS Nagar Under 4215](https://eproc.punjab.gov.in/nicgep/app) — Water Supply and sanitation › Department of Water Supply and Sanitation › Division SBS Nagar — value not disclosed — closes 21 Oct 12:00
+- [Raising of 25,500 Nos in polybags at Sonwar Nursery](https://jktenders.gov.in/nicgep/app) — FOREST DEPARTMENT › DIRECTOR SFRI › CONSERVATOR OF FORESTS Research Circle JAMMU › DFO Seed Development Div. Srinagar — value not disclosed — closes 16 Oct 18:00
+- [Constt. Of Bowlie at Marassi Mohalla at tatapani ward no. 7 Sildhar Under PRI Distt. REASI for the year 2026-27](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › Directorate of Rural Development Department JAMMU › Superintending Engineer REW Jammu › XEN REW REASI — value not disclosed — closes 17 Oct 18:00
+- [MANUAL SUCTION](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-31) —  — value not disclosed — closes 31 Oct 11:00
+- [95-Construction Of New Building GPS Langdiya Block Dalot Dist.Pratapgarh](https://eproc.rajasthan.gov.in/nicgep/app) — Rajasthan Council of School Education › State Project Director › Pratapgarh DPC — value not disclosed — closes 14 Oct 18:00
+- [CONSTRUCTION OF SEMI URBAN THANA AT BEDIYA DISTT. KHARGONE](https://mptenders.gov.in/nicgep/app) — MP Police Housing and Infrastructure Development Corporation Ltd › Project Engineer Indore 02 - MPPHC — value not disclosed — closes 28 Oct 17:00
 
-## Closing Soon (7 days) (58370)
+## Closing Soon (7 days) (59536)
 
 - [Construction of VRB over Jeypore Distributary at RD 6.787 Km near Village Damaput.](https://tendersodisha.gov.in/nicgep/app) — CE AND BM IK BASIN BARINIPUT JEYPORE › Upper Kolab Project Bariniput › Upper Kolab Head Works Division Kolab Nagar — value not disclosed — closes 15 Oct 17:30
 - [Maintenance of 6.6KV O/H line pole changing conductor repairing and 3 No. O/H line 550V 6 No. O/H line 550V 220V worker colony Mazar line at Road Crossing Near 5 Pit Substation of LBC(ii)and dismantling of 6.6KV O/H line and 220V O/H line at Bas](https://coalindiatenders.nic.in/nicgep/app) — Bharat Coking Coal Limited › BCCL_SIJUA AREA — value not disclosed — closes 12 Oct 17:00
@@ -29,11 +29,11 @@ _Generated 10 Oct 2026 02:44 IST from verified portal data._
 - [Rough cost estimate for repair of brick dart, sewerage storm line and cave-ins of different sizes along with reconstruction of damaged machine holes and road gullies at various places of zone no. 4 MC SAS Nagar.](https://eproc.punjab.gov.in/nicgep/app) — Department of Local Government › Director - Local Government › Municipal Corporation - S.A.S Nagar — value not disclosed — closes 14 Oct 16:30
 - [ITTIVA GP - Pro. No - 322/26-27 Manaluvattom Anappadu Paloor Road Maintenance](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Kollam › Grama Panchayath Section Office KLM › Office of the AE Ittiva Grama Panchayath — value not disclosed — closes 12 Oct 17:00
 - [Godavari Pushkaralu-2027](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-14) —  — value not disclosed — closes 14 Oct 16:00
+- [Retaining Clips](https://eprocuregsl.nic.in/nicgep/app) — BEML Limited › Bangalore Complex › Commuter Rail — value not disclosed — closes 15 Oct 16:00
+- [Gram Sabha Tikari me Nihori Yadav ke ghar se R.P. Rao ke ghar hote huye Angad Yadav ke ghar ke taraf R.C.C. Road ka nirmaan karya.](https://etender.up.nic.in/nicgep/app) — Director Cum Chief Engineer RED › CHIEF ENGINEER EAST › SE GORAKHPUR CIRCLE › EE KUSHINAGAR — value not disclosed — closes 15 Oct 12:00
 - [Improvement Bishalaxmi Benepukur road starting from Baidyapota More to KMDA Plant in ward no13 under CMC](https://wbtenders.gov.in/nicgep/app) — MUNICIPAL AFFAIRS DEPARTMENT › URBAN LOCAL BODIES › CHANDANNAGAR MC — value not disclosed — closes 12 Oct 16:00
 - [SITC of 2 nos 15 Passenger stretcher Elevator in Trauma Building at MBGH Hospital, Udaipur.](https://eproc.rajasthan.gov.in/nicgep/app) — PWD - CE AND AS — value not disclosed — closes 14 Oct 18:00
+- [Additional Class Rooms](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-16) —  — value not disclosed — closes 16 Oct 17:00
 - [Annual Maintenance to Ariyanayagipuram Anicut and Tanks Under Kodagan Channel from L.S.0 to 24Km for the year 2026-27](https://tntenders.gov.in/nicgep/app) — Water Resources Department › CE WRD Madurai Region - Madurai › SE Thambaraparani Basin Circle WRD - Tirunelveli-2 › EE Upper Thamirabarani Basin Division Tirunelveli — value not disclosed — closes 16 Oct 15:00
 - [Annual Plan-PUTHIGE GP 2026-27 PROJECT NO 75/26-27 - KODICHAL PUTHIGE BAYALROAD IMPROVEMENT-General Civil Work](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-15) —  — value not disclosed — closes 15 Oct 17:00
 - [CONSTRUCTION OF RAIN WATER HARVESTING STRUCTURE AT DIFFERENT LOCATIONS UNDER GE PALAMPUR](https://defproc.gov.in/nicgep/app) — E-IN-C BRANCH - MILITARY ENGINEER SERVICES › CE WC AND CE PATHANKOT ZONE - MES › CWE YOL - MES › GE PALAMPUR - MES — value not disclosed — closes 13 Oct 18:00
-- [Annual Plan-Cheacode GP 2026-27 Project No 121 27-concreting of korlot chooraparambil road ward 15 General Civil Work](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-14) —  — value not disclosed — closes 14 Oct 10:00
-- [Repair and Protection Work of MS Chatrara, Panchayat. Sia-Mehri, Block. Dudu-Basantgarh under CDF Budget FY 2025-26.](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › Directorate of Rural Development Department JAMMU › Superintending Engineer REW Jammu › XEN REW UDHAMPUR — value not disclosed — closes 14 Oct 18:00
-- [Strengthening and widening of Rood to Baru road (5.00km) Distt. Chittorgarh](https://eproc.rajasthan.gov.in/nicgep/app) — PWD - CE AND AS › ACE - KOTA › SE-BARAN › EE-BARAN — value not disclosed — closes 14 Oct 18:00
