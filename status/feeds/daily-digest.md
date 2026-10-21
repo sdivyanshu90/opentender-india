@@ -1,26 +1,26 @@
 # OpenTender India — Daily Digest
 
-_Generated 20 Oct 2026 02:22 IST from verified portal data._
+_Generated 21 Oct 2026 01:49 IST from verified portal data._
 
-## New Today (6645)
+## New Today (3577)
 
-- [Works related to Labour Outsourcing - Civil Line Sub Division Hoshiarpur](https://eproc.punjab.gov.in/nicgep/app) — Department of Power › Punjab State Power Corporation Limited › North Zone (DS) › DS Circle - Hoshiarpur — value not disclosed — closes 02 Nov 15:00
-- [Hiring of Insulated Road Milk Tankers for Transportation of Milk from BMC/MCC/Other Milk Unions/Hired Plants at Verka Ludhiana Dairy](https://eproc.punjab.gov.in/nicgep/app) — Department of Cooperation › Milkfed (Verka) › Verka Dairy Ludhiana — value not disclosed — closes 11 Nov 13:00
-- [nppachhnera mee wardo me house connection work](https://etender.up.nic.in/nicgep/app) — Directorate of Local Bodies UP › Nagar Palika Parishad Achnera Agra — value not disclosed — closes 16 Nov 12:00
-- [Annual Plan VMC 2026-27 Proj No.84/27 Mayithara Santhinagar Palackal road Retarring in ward 27](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-29) —  — value not disclosed — closes 29 Oct 18:00
-- [zone-01 ward-01 laxmipurwa ke antargat khalwa khatigrast nale me rmc ka kary](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-21) —  — value not disclosed — closes 21 Oct 15:00
-- [NIe-T-89/Sl.No.15/2026-27](https://wbtenders.gov.in/nicgep/app) — NORTH BENGAL DEVELOPMENT DEPARTMENT — value not disclosed — closes 02 Nov 15:00
-- [Global Junction to Paruthivila road Retarrring](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Alappuzha › Grama Panchayath Section Office ALP › O/O the AE Mavelikkara-Thekkekkara Grama Pnchyth — value not disclosed — closes 30 Oct 18:00
-- [NIe-T-89/Sl.No.22/2026-27](https://wbtenders.gov.in/nicgep/app) — NORTH BENGAL DEVELOPMENT DEPARTMENT — value not disclosed — closes 02 Nov 15:00
-- [online e-tender from recongnised Contractor/Society/Service Provider for providing Drivers on Contract basis for University Vehicles](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-21) —  — value not disclosed — closes 21 Oct 13:00
-- [Imp. C.C. Road in ward 105 Zone 03](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-22) —  — value not disclosed — closes 22 Oct 15:00
-- [Repairing of toilets by Supply and fixing of Doors at various toilet in Beat no.63 Andheri W in K West Ward](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-22) —  — value not disclosed — closes 22 Oct 12:00
-- [TGPS](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-30) —  — value not disclosed — closes 30 Oct 16:00
-- [KARUNAPURAM GP MAINTENANCE OF PAILIKKANAM KUNJIRAMANMUKKU ROAD(35/27)](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Idukki › Grama Panchayath Section Office IDK › Office of the AE Karunapuram Grama Panchayath — value not disclosed — closes 28 Oct 17:00
-- [Construction of H.L. Bridge over Gendajore Nallah on Jarabaga Bhatipada to Bichhukhalia Nuadihi Road](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-30) —  — value not disclosed — closes 30 Oct 17:00
-- [Pointing, Plastering and Miscellaneous Civil works in Govt. Model High School, Sector-25B, Chandigarh](https://etenders.chd.nic.in/nicgep/app) — Chandigarh Administration › Engineering › Construction Circle - I › CP - IV — value not disclosed — closes 26 Oct 11:00
+- [Up gradation and Renovation of WHS (Bowli) in Co.12/Bsl at Dharkore/Khandli, Mahanpur Forest Range.](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-27) —  — value not disclosed — closes 27 Oct 17:00
+- [PROCUREMENT OF KEY MATERIALS FOR VB-G RAM-G WORKS FOR PANCHAYAT GHARI](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › Directorate of Rural Development Department JAMMU › Superintending Engineer REW Jammu › XEN REW RAMBAN — value not disclosed — closes 26 Oct 18:00
+- [Installation of Submersible near Joyramchak Ajit Khatua house at Palaspai GP under Daspur II PS](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-29) —  — value not disclosed — closes 29 Oct 18:55
+- [Cane Transportation from Baithkhedi Centre](https://uktenders.gov.in/nicgep/app) — GM (The Bazpur Co-operative Sugar Factory Ltd.) › Chief Chemist — value not disclosed — closes 24 Oct 17:00
+- [Rennovation of Vanjipathrapadi Ivelipadi portion of Kareelamukku Kunnathumkara Valayilpadi Road](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Pathanamthitta › Block Panchayath Sub Division Office PTHTA › O/O Asst. Exec Engg Koipuram Block Panchayath — value not disclosed — closes 27 Oct 18:00
+- [Balance job for Supply and Installations of Furniture, Decorative, Electrical Items, Audio Visual Items, Sanitary Works, Finishing Works and Other Allied Works of newly constructed Admin Building at IOCL LPG Bottling Plant, Jharsuguda, Odisha](https://iocletenders.nic.in/nicgep/app) — IndianOil › Marketing › Eastern Region Office › Contract Cell — value not disclosed — closes 02 Nov 11:00
+- [CONST. OF SHED FOR ARTISANS NEAR NAINA DEVI AND BABA BALAK NATH SAMTI, DHURI DISTT. SANGRUR (FUNDS MP-26 RANGLA PUNJAB DEV. SCHEME 2026-27) WORK CODE-SGR-2026-157](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-29) —  — value not disclosed — closes 29 Oct 10:30
+- [eTender Notice No.05/04 of CWMD MERI Nashik](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-23) —  — value not disclosed — closes 23 Oct 17:00
+- [142-Deviganj subeha marg se gram jagpatipur lepan marg tak sampark marg nirman karya.](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-11-02) —  — value not disclosed — closes 02 Nov 11:00
+- [Renewal of LED Light fittings, Ceiling Fans and Set Plug Arrangements to Government Circuit house Building at Coutrallam in Tenkasi District.](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-29) —  — value not disclosed — closes 29 Oct 12:00
+- [Bed and slope Scrapping work of Sahjadpura Mr. from km. 0.000 to km. 2.600](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-24) —  — value not disclosed — closes 24 Oct 16:00
+- [Cane Transportation from Gajraula Centre](https://uktenders.gov.in/nicgep/app) — GM (The Bazpur Co-operative Sugar Factory Ltd.) › Chief Chemist — value not disclosed — closes 24 Oct 17:00
+- [NIRMANWORK](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-24) —  — value not disclosed — closes 24 Oct 17:00
+- [Construction of protection wall from the land of Gh. Hussain Dar to the land of Nazir Ahmad Dar on Zabbar canal at Karipora](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-29) —  — value not disclosed — closes 29 Oct 16:00
+- [REPAIR, RENOVATION AND DE-SILTATION OF EXISTING CHECK DAM OVER PACHA KHAL](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-11-06) —  — value not disclosed — closes 06 Nov 16:00
 
-## Closing Soon (7 days) (62815)
+## Closing Soon (7 days) (68643)
 
 - [Repair work for damaged Culvert at PR street in Ward no 22 in Vaniyambadi Municipality](https://tntenders.gov.in/nicgep/app) — MAWS › Vaniyambadi Municipality — value not disclosed — closes 21 Oct 15:00
 - [Construction work of Mokshadham including tin shed and platform in development block Kabrai village Parsaha.](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-22) —  — value not disclosed — closes 22 Oct 18:00
