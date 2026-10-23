@@ -1,6 +1,6 @@
 # OpenTender India — Daily Digest
 
-_Generated 23 Oct 2026 02:04 IST from verified portal data._
+_Generated 23 Oct 2026 23:53 IST from verified portal data._
 
 ## New Today (7761)
 
@@ -20,14 +20,14 @@ _Generated 23 Oct 2026 02:04 IST from verified portal data._
 - [WARD NO 41 NEYAZMUHAMMADPURA ME ANSARI KE MAKAN SE ANWAR KA MAKAN HOTE HUE MAINE RAOD TK TATHA FAIYYAZ AHMAD KE MAKAN TK RCC NALA V ANSIK CC ROAD NIRMAN KARYA](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-11-07) —  — value not disclosed — closes 07 Nov 13:00
 - [Construction of street in Balaji Nagar saidpura ward no. 7](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-11-10) —  — value not disclosed — closes 10 Nov 17:00
 
-## Closing Soon (7 days) (62121)
+## Closing Soon (7 days) (59961)
 
 - [Installation of a cold storage room on a turnkey basis at the designated location within the store section of Mahatma Gandhi Hospital, Bhilwara.](https://eproc.rajasthan.gov.in/nicgep/app) — Medical and Health › Director (F.W.) Medical Health and Family Welfare Services — value not disclosed — closes 30 Oct 17:00
+- [Construction of Atal Bus Stand (A-Type) at Panikoili under Korei Block, Jajpur.](https://tendersodisha.gov.in/nicgep/app) — Orissa State Police Housing and Welfare Corporation Ltd — value not disclosed — closes 31 Oct 17:00
 - [Outsourcing of work of water sprinkling on the roads of PGI to mitigate the dust particles on the roads of Hospital and Campus area and washing tree canopies in PGI, Sector-12, Chandigarh](https://eprocure.gov.in/eprocure/app) — Postgraduate Institute of Medical and Education and Research Chandigarh › Engineering department - PGIMER Chandigarh › H.E.(Construction) - PGIMER Chandigarh › A.E. (Const.2) - PGIMER Chandigarh — value not disclosed — closes 27 Oct 15:00
 - [NIRMAN WORK](https://etender.up.nic.in/nicgep/app) — Directorate of Local Bodies UP › Aligarh Municipal Corporation — value not disclosed — closes 24 Oct 17:00
 - [Short Term Tender for purchase of furniture items for NELS Skill Centre, PGIMS, Rohtak](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-27) —  — value not disclosed — closes 27 Oct 16:00
 - [e-TENDER NOTICE FOR PURCHASE AND INSTALLATION OF MANNEQUIN, INSTRUMENTS, EQUIPMENTS AND MODELS FOR THE CALCUTTA HOMOEOPATHIC MEDICAL COLLEGE AND HOSPITAL](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-24) —  — value not disclosed — closes 24 Oct 18:00
-- [Filling of Eidgah near Hospital at Tulmulla-D Block Ganderbal CDF](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › RURAL DEVELOPMENT DEPARTMENT KASHMIR › Superintending Engineer REW Kashmir › XEN REW Ganderbal — value not disclosed — closes 23 Oct 18:00
 - [Const of Shed at HSS Dullangal Pyt Dullangal Block Duggan](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › Directorate of Rural Development Department JAMMU › Superintending Engineer REW Jammu › XEN REW KATHUA — value not disclosed — closes 28 Oct 16:00
 - [Procurements of Recombinant Human EGFR protein etc](https://etenders.gov.in/eprocure/app) — Council of Scientific and Industrial Research › AMPRI - CSIR › Purchase-AMPRI - CSIR — value not disclosed — closes 29 Oct 11:00
 - [NH-224 - Neliguda_Road_Pothole repair,SDBC 0.180 to 0.630](https://eprocure.gov.in/cppp/statetendersclosingbydays/byday/by2026-10-26) —  — value not disclosed — closes 26 Oct 17:00
