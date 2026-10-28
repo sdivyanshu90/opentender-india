@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-28T13:26:50.087105+00:00",
+  "generated_at": "2026-10-28T22:48:52.994629+00:00",
   "sources": {
     "cppp_epublish": {
       "status": "ACTIVE",
@@ -865,8 +865,8 @@
         "source": "cppp_epublish",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:05.996409+00:00",
-        "latency_ms": 2519
+        "checked_at": "2026-10-28T22:48:12.903360+00:00",
+        "latency_ms": 2349
       }
     },
     "gem_bids": {
@@ -892,8 +892,8 @@
         "source": "gem_bids",
         "ok": false,
         "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-10-28T13:26:08.528641+00:00",
-        "latency_ms": 17043
+        "checked_at": "2026-10-28T22:48:15.263342+00:00",
+        "latency_ms": 17012
       }
     },
     "gepnic_bel": {
@@ -946,8 +946,8 @@
         "source": "gepnic_bel",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:46.104167+00:00",
-        "latency_ms": 2671
+        "checked_at": "2026-10-28T22:48:48.838491+00:00",
+        "latency_ms": 2856
       }
     },
     "gepnic_jammu_kashmir": {
@@ -998,10 +998,10 @@
       "last_latency_ms": 256869,
       "last_healthcheck": {
         "source": "gepnic_jammu_kashmir",
-        "ok": false,
-        "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-10-28T13:26:38.133211+00:00",
-        "latency_ms": 7957
+        "ok": true,
+        "error": null,
+        "checked_at": "2026-10-28T22:48:45.587701+00:00",
+        "latency_ms": 3240
       }
     },
     "gepnic_kerala": {
@@ -1054,8 +1054,8 @@
         "source": "gepnic_kerala",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:28.514685+00:00",
-        "latency_ms": 3486
+        "checked_at": "2026-10-28T22:48:35.096121+00:00",
+        "latency_ms": 4830
       }
     },
     "gepnic_madhya_pradesh": {
@@ -1107,8 +1107,8 @@
         "source": "gepnic_madhya_pradesh",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:32.014284+00:00",
-        "latency_ms": 3293
+        "checked_at": "2026-10-28T22:48:39.937098+00:00",
+        "latency_ms": 3070
       }
     },
     "gepnic_rajasthan": {
@@ -1160,8 +1160,8 @@
         "source": "gepnic_rajasthan",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:25.585426+00:00",
-        "latency_ms": 2916
+        "checked_at": "2026-10-28T22:48:32.286163+00:00",
+        "latency_ms": 2799
       }
     },
     "gepnic_uttarakhand": {
@@ -1213,8 +1213,8 @@
         "source": "gepnic_uttarakhand",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:26:35.320867+00:00",
-        "latency_ms": 2799
+        "checked_at": "2026-10-28T22:48:43.018011+00:00",
+        "latency_ms": 2559
       }
     },
     "ireps_works": {
@@ -1240,8 +1240,8 @@
         "source": "ireps_works",
         "ok": false,
         "error": "RobotsDisallowedError: https://www.ireps.gov.in/eps/anonymSearch.do?searchParam=showPage&language=en",
-        "checked_at": "2026-10-28T13:26:48.789216+00:00",
-        "latency_ms": 1297
+        "checked_at": "2026-10-28T22:48:51.704853+00:00",
+        "latency_ms": 1289
       }
     },
     "gepnic_punjab": {
@@ -1293,8 +1293,8 @@
         "source": "gepnic_punjab",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:09.475650+00:00",
-        "latency_ms": 3484
+        "checked_at": "2026-10-28T22:42:18.071754+00:00",
+        "latency_ms": 3824
       }
     },
     "gepnic_assam": {
@@ -1344,8 +1344,8 @@
         "source": "gepnic_assam",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:15.518222+00:00",
-        "latency_ms": 2745
+        "checked_at": "2026-10-28T22:42:24.937799+00:00",
+        "latency_ms": 3185
       }
     },
     "gepnic_himachal": {
@@ -1397,8 +1397,8 @@
         "source": "gepnic_himachal",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:12.972989+00:00",
-        "latency_ms": 2532
+        "checked_at": "2026-10-28T22:42:21.906544+00:00",
+        "latency_ms": 3020
       }
     },
     "gepnic_tamil_nadu": {
@@ -1450,8 +1450,8 @@
         "source": "gepnic_tamil_nadu",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:03.326336+00:00",
-        "latency_ms": 3041
+        "checked_at": "2026-10-28T22:42:10.396625+00:00",
+        "latency_ms": 4071
       }
     },
     "gepnic_odisha": {
@@ -1503,8 +1503,8 @@
         "source": "gepnic_odisha",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:06.381364+00:00",
-        "latency_ms": 3081
+        "checked_at": "2026-10-28T22:42:14.479010+00:00",
+        "latency_ms": 3581
       }
     },
     "gepnic_central_etenders": {
@@ -1556,8 +1556,8 @@
         "source": "gepnic_central_etenders",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:12:57.966312+00:00",
-        "latency_ms": 2315
+        "checked_at": "2026-10-28T22:42:03.937854+00:00",
+        "latency_ms": 3103
       }
     },
     "gepnic_up": {
@@ -1609,8 +1609,8 @@
         "source": "gepnic_up",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:00.295184+00:00",
-        "latency_ms": 3017
+        "checked_at": "2026-10-28T22:42:07.051689+00:00",
+        "latency_ms": 3334
       }
     },
     "gepnic_meghalaya": {
@@ -1661,8 +1661,8 @@
         "source": "gepnic_meghalaya",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:23.542964+00:00",
-        "latency_ms": 2964
+        "checked_at": "2026-10-28T22:42:34.332371+00:00",
+        "latency_ms": 7322
       }
     },
     "gepnic_nagaland": {
@@ -1712,8 +1712,8 @@
         "source": "gepnic_nagaland",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:26.520802+00:00",
-        "latency_ms": 2986
+        "checked_at": "2026-10-28T22:42:41.665012+00:00",
+        "latency_ms": 3110
       }
     },
     "gepnic_manipur": {
@@ -1752,8 +1752,8 @@
         "source": "gepnic_manipur",
         "ok": false,
         "error": "captcha on landing page",
-        "checked_at": "2026-10-28T13:13:20.779586+00:00",
-        "latency_ms": 2750
+        "checked_at": "2026-10-28T22:42:31.009121+00:00",
+        "latency_ms": 3312
       }
     },
     "gepnic_arunachal": {
@@ -1805,8 +1805,8 @@
         "source": "gepnic_arunachal",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:29.520793+00:00",
-        "latency_ms": 6029
+        "checked_at": "2026-10-28T22:42:44.786357+00:00",
+        "latency_ms": 3080
       }
     },
     "gepnic_chandigarh": {
@@ -1858,8 +1858,8 @@
         "source": "gepnic_chandigarh",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:35.563786+00:00",
-        "latency_ms": 2995
+        "checked_at": "2026-10-28T22:42:47.877307+00:00",
+        "latency_ms": 3233
       }
     },
     "gepnic_lakshadweep": {
@@ -1911,8 +1911,8 @@
         "source": "gepnic_lakshadweep",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:41.583728+00:00",
-        "latency_ms": 2816
+        "checked_at": "2026-10-28T22:42:54.436334+00:00",
+        "latency_ms": 3423
       }
     },
     "gepnic_puducherry": {
@@ -1964,8 +1964,8 @@
         "source": "gepnic_puducherry",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:38.572644+00:00",
-        "latency_ms": 2997
+        "checked_at": "2026-10-28T22:42:51.130591+00:00",
+        "latency_ms": 3295
       }
     },
     "gepnic_tripura": {
@@ -2017,8 +2017,8 @@
         "source": "gepnic_tripura",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:18.276971+00:00",
-        "latency_ms": 2489
+        "checked_at": "2026-10-28T22:42:28.134114+00:00",
+        "latency_ms": 2864
       }
     },
     "gepnic_dnhdd": {
@@ -2070,8 +2070,8 @@
         "source": "gepnic_dnhdd",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:54.235046+00:00",
-        "latency_ms": 3000
+        "checked_at": "2026-10-28T22:43:09.517364+00:00",
+        "latency_ms": 3057
       }
     },
     "gepnic_delhi": {
@@ -2123,8 +2123,8 @@
         "source": "gepnic_delhi",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:44.413287+00:00",
-        "latency_ms": 3775
+        "checked_at": "2026-10-28T22:42:57.870159+00:00",
+        "latency_ms": 5188
       }
     },
     "gepnic_iocl": {
@@ -2174,8 +2174,8 @@
         "source": "gepnic_iocl",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:03.372068+00:00",
-        "latency_ms": 2972
+        "checked_at": "2026-10-28T22:43:18.889219+00:00",
+        "latency_ms": 3221
       }
     },
     "gepnic_defproc": {
@@ -2226,8 +2226,8 @@
         "source": "gepnic_defproc",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:00.298360+00:00",
-        "latency_ms": 3060
+        "checked_at": "2026-10-28T22:43:15.552940+00:00",
+        "latency_ms": 3326
       }
     },
     "gepnic_pmgsy": {
@@ -2279,8 +2279,8 @@
         "source": "gepnic_pmgsy",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:57.248629+00:00",
-        "latency_ms": 3036
+        "checked_at": "2026-10-28T22:43:12.585046+00:00",
+        "latency_ms": 2957
       }
     },
     "gepnic_cpcl": {
@@ -2331,8 +2331,8 @@
         "source": "gepnic_cpcl",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:15.225019+00:00",
-        "latency_ms": 2807
+        "checked_at": "2026-10-28T22:43:31.469476+00:00",
+        "latency_ms": 3096
       }
     },
     "gepnic_bhel": {
@@ -2384,8 +2384,8 @@
         "source": "gepnic_bhel",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:12.447982+00:00",
-        "latency_ms": 2763
+        "checked_at": "2026-10-28T22:43:28.714934+00:00",
+        "latency_ms": 2744
       }
     },
     "mahagenco_notices": {
@@ -2437,8 +2437,8 @@
         "source": "mahagenco_notices",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:21.011992+00:00",
-        "latency_ms": 9269
+        "checked_at": "2026-10-28T22:43:37.794451+00:00",
+        "latency_ms": 8443
       }
     },
     "gepnic_ntpc": {
@@ -2490,8 +2490,8 @@
         "source": "gepnic_ntpc",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:09.411337+00:00",
-        "latency_ms": 3023
+        "checked_at": "2026-10-28T22:43:25.356373+00:00",
+        "latency_ms": 3348
       }
     },
     "s3waas_akola": {
@@ -2540,8 +2540,8 @@
         "source": "s3waas_akola",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:17:10.380134+00:00",
-        "latency_ms": 3436
+        "checked_at": "2026-10-28T22:46:24.546943+00:00",
+        "latency_ms": 3655
       }
     },
     "msedcl_tenders": {
@@ -2593,8 +2593,8 @@
         "source": "msedcl_tenders",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:17:00.983869+00:00",
-        "latency_ms": 9381
+        "checked_at": "2026-10-28T22:46:17.747848+00:00",
+        "latency_ms": 6787
       }
     },
     "gepnic_coal_india": {
@@ -2646,8 +2646,8 @@
         "source": "gepnic_coal_india",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:06.357401+00:00",
-        "latency_ms": 3040
+        "checked_at": "2026-10-28T22:43:22.121241+00:00",
+        "latency_ms": 3224
       }
     },
     "s3waas_beed": {
@@ -2696,10 +2696,10 @@
       },
       "last_healthcheck": {
         "source": "s3waas_beed",
-        "ok": false,
-        "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-10-28T13:17:15.976713+00:00",
-        "latency_ms": 161535
+        "ok": true,
+        "error": null,
+        "checked_at": "2026-10-28T22:46:31.845007+00:00",
+        "latency_ms": 6619
       }
     },
     "s3waas_amravati": {
@@ -2750,8 +2750,8 @@
         "source": "s3waas_amravati",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:17:13.829294+00:00",
-        "latency_ms": 2134
+        "checked_at": "2026-10-28T22:46:28.213056+00:00",
+        "latency_ms": 3621
       }
     },
     "s3waas_bhandara": {
@@ -2801,8 +2801,8 @@
         "source": "s3waas_bhandara",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:19:57.525103+00:00",
-        "latency_ms": 2989
+        "checked_at": "2026-10-28T22:46:38.475253+00:00",
+        "latency_ms": 3182
       }
     },
     "s3waas_gondia": {
@@ -2827,8 +2827,8 @@
         "source": "s3waas_gondia",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:32.995722+00:00",
-        "latency_ms": 2775
+        "checked_at": "2026-10-28T22:46:48.742233+00:00",
+        "latency_ms": 2730
       }
     },
     "s3waas_gadchiroli": {
@@ -2877,10 +2877,10 @@
       },
       "last_healthcheck": {
         "source": "s3waas_gadchiroli",
-        "ok": false,
-        "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-10-28T13:20:04.050921+00:00",
-        "latency_ms": 148931
+        "ok": true,
+        "error": null,
+        "checked_at": "2026-10-28T22:46:44.890934+00:00",
+        "latency_ms": 3841
       }
     },
     "s3waas_dhule": {
@@ -2931,8 +2931,8 @@
         "source": "s3waas_dhule",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:20:00.527550+00:00",
-        "latency_ms": 3510
+        "checked_at": "2026-10-28T22:46:41.667994+00:00",
+        "latency_ms": 3212
       }
     },
     "s3waas_jalgaon": {
@@ -2983,8 +2983,8 @@
         "source": "s3waas_jalgaon",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:35.784414+00:00",
-        "latency_ms": 3262
+        "checked_at": "2026-10-28T22:46:51.483070+00:00",
+        "latency_ms": 6952
       }
     },
     "s3waas_jalna": {
@@ -3035,8 +3035,8 @@
         "source": "s3waas_jalna",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:39.060091+00:00",
-        "latency_ms": 4068
+        "checked_at": "2026-10-28T22:46:58.445893+00:00",
+        "latency_ms": 3367
       }
     },
     "s3waas_kolhapur": {
@@ -3085,8 +3085,8 @@
         "source": "s3waas_kolhapur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:43.141482+00:00",
-        "latency_ms": 3701
+        "checked_at": "2026-10-28T22:47:01.823629+00:00",
+        "latency_ms": 2820
       }
     },
     "s3waas_latur": {
@@ -3136,8 +3136,8 @@
         "source": "s3waas_latur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:46.863476+00:00",
-        "latency_ms": 2590
+        "checked_at": "2026-10-28T22:47:04.654059+00:00",
+        "latency_ms": 7502
       }
     },
     "s3waas_mumbaisuburban": {
@@ -3162,8 +3162,8 @@
         "source": "s3waas_mumbaisuburban",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:52.443220+00:00",
-        "latency_ms": 2721
+        "checked_at": "2026-10-28T22:47:19.692807+00:00",
+        "latency_ms": 3537
       }
     },
     "s3waas_mumbaicity": {
@@ -3214,8 +3214,8 @@
         "source": "s3waas_mumbaicity",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:49.466846+00:00",
-        "latency_ms": 2963
+        "checked_at": "2026-10-28T22:47:12.166627+00:00",
+        "latency_ms": 7515
       }
     },
     "gepnic_jharkhand": {
@@ -3267,8 +3267,8 @@
         "source": "gepnic_jharkhand",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:48.201535+00:00",
-        "latency_ms": 2993
+        "checked_at": "2026-10-28T22:43:03.069529+00:00",
+        "latency_ms": 3061
       }
     },
     "s3waas_nagpur": {
@@ -3319,8 +3319,8 @@
         "source": "s3waas_nagpur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:22:55.177728+00:00",
-        "latency_ms": 5215
+        "checked_at": "2026-10-28T22:47:23.240765+00:00",
+        "latency_ms": 5691
       }
     },
     "s3waas_nanded": {
@@ -3371,8 +3371,8 @@
         "source": "s3waas_nanded",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:00.406159+00:00",
-        "latency_ms": 2983
+        "checked_at": "2026-10-28T22:47:28.942615+00:00",
+        "latency_ms": 3928
       }
     },
     "s3waas_nandurbar": {
@@ -3422,8 +3422,8 @@
         "source": "s3waas_nandurbar",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:03.403328+00:00",
-        "latency_ms": 2765
+        "checked_at": "2026-10-28T22:47:32.881592+00:00",
+        "latency_ms": 2974
       }
     },
     "s3waas_nashik": {
@@ -3474,8 +3474,8 @@
         "source": "s3waas_nashik",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:06.182463+00:00",
-        "latency_ms": 3046
+        "checked_at": "2026-10-28T22:47:35.873949+00:00",
+        "latency_ms": 3592
       }
     },
     "s3waas_pune": {
@@ -3500,8 +3500,8 @@
         "source": "s3waas_pune",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:15.421134+00:00",
-        "latency_ms": 2498
+        "checked_at": "2026-10-28T22:47:45.426847+00:00",
+        "latency_ms": 2960
       }
     },
     "s3waas_parbhani": {
@@ -3551,8 +3551,8 @@
         "source": "s3waas_parbhani",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:12.777172+00:00",
-        "latency_ms": 2630
+        "checked_at": "2026-10-28T22:47:42.615720+00:00",
+        "latency_ms": 2800
       }
     },
     "s3waas_palghar": {
@@ -3603,8 +3603,8 @@
         "source": "s3waas_palghar",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:09.241984+00:00",
-        "latency_ms": 3522
+        "checked_at": "2026-10-28T22:47:39.476336+00:00",
+        "latency_ms": 3129
       }
     },
     "s3waas_raigad": {
@@ -3655,8 +3655,8 @@
         "source": "s3waas_raigad",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:17.933311+00:00",
-        "latency_ms": 3182
+        "checked_at": "2026-10-28T22:47:48.397054+00:00",
+        "latency_ms": 4658
       }
     },
     "s3waas_solapur": {
@@ -3681,8 +3681,8 @@
         "source": "s3waas_solapur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:23.964299+00:00",
-        "latency_ms": 3820
+        "checked_at": "2026-10-28T22:47:56.586884+00:00",
+        "latency_ms": 3042
       }
     },
     "gepnic_gsl": {
@@ -3734,8 +3734,8 @@
         "source": "gepnic_gsl",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:14:18.045906+00:00",
-        "latency_ms": 2949
+        "checked_at": "2026-10-28T22:43:34.576765+00:00",
+        "latency_ms": 3204
       }
     },
     "s3waas_thane": {
@@ -3783,8 +3783,8 @@
         "source": "s3waas_thane",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:27.798008+00:00",
-        "latency_ms": 2852
+        "checked_at": "2026-10-28T22:47:59.639535+00:00",
+        "latency_ms": 3846
       }
     },
     "s3waas_washim": {
@@ -3834,8 +3834,8 @@
         "source": "s3waas_washim",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:33.499293+00:00",
-        "latency_ms": 2701
+        "checked_at": "2026-10-28T22:48:06.315884+00:00",
+        "latency_ms": 2970
       }
     },
     "s3waas_ratnagiri": {
@@ -3886,8 +3886,8 @@
         "source": "s3waas_ratnagiri",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:21.128601+00:00",
-        "latency_ms": 2822
+        "checked_at": "2026-10-28T22:47:53.065276+00:00",
+        "latency_ms": 3511
       }
     },
     "s3waas_yavatmal": {
@@ -3936,10 +3936,10 @@
       },
       "last_healthcheck": {
         "source": "s3waas_yavatmal",
-        "ok": false,
-        "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-10-28T13:23:36.213438+00:00",
-        "latency_ms": 149769
+        "ok": true,
+        "error": null,
+        "checked_at": "2026-10-28T22:48:09.297058+00:00",
+        "latency_ms": 3596
       }
     },
     "s3waas_wardha": {
@@ -3989,8 +3989,8 @@
         "source": "s3waas_wardha",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:23:30.663637+00:00",
-        "latency_ms": 2822
+        "checked_at": "2026-10-28T22:48:03.495903+00:00",
+        "latency_ms": 2809
       }
     },
     "mahatransco_tenders": {
@@ -4015,8 +4015,8 @@
         "source": "mahatransco_tenders",
         "ok": false,
         "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-10-28T13:14:30.295449+00:00",
-        "latency_ms": 150675
+        "checked_at": "2026-10-28T22:43:46.249807+00:00",
+        "latency_ms": 151487
       }
     },
     "gepnic_west_bengal": {
@@ -4067,8 +4067,8 @@
         "source": "gepnic_west_bengal",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:13:51.207819+00:00",
-        "latency_ms": 3014
+        "checked_at": "2026-10-28T22:43:06.141311+00:00",
+        "latency_ms": 3365
       }
     },
     "cppp_state": {
@@ -4115,8 +4115,8 @@
         "source": "cppp_state",
         "ok": false,
         "error": "expected CPPP listing markers missing",
-        "checked_at": "2026-10-28T13:12:53.006661+00:00",
-        "latency_ms": 2324
+        "checked_at": "2026-10-28T22:41:53.960153+00:00",
+        "latency_ms": 2081
       }
     },
     "gepnic_central_eprocure": {
@@ -4161,8 +4161,8 @@
         "source": "gepnic_central_eprocure",
         "ok": true,
         "error": null,
-        "checked_at": "2026-10-28T13:12:55.344993+00:00",
-        "latency_ms": 2608
+        "checked_at": "2026-10-28T22:41:56.051944+00:00",
+        "latency_ms": 7875
       },
       "last_success": "2026-10-28T00:07:21.124410+00:00"
     }
