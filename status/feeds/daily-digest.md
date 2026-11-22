@@ -1,26 +1,26 @@
 # OpenTender India — Daily Digest
 
-_Generated 21 Nov 2026 02:07 IST from verified portal data._
+_Generated 22 Nov 2026 01:06 IST from verified portal data._
 
-## New Today (6265)
+## New Today (4889)
 
-- [Tender/2026/NP/ICH/1698](https://mptenders.gov.in/nicgep/app) — Directorate Urban Administration and Development › Join Director-Bhopal Division - UAD › Sehore-Nagar Parishad Ichhawar - UAD — value not disclosed — closes 04 Dec 17:30
-- [06/26-27](https://tntenders.gov.in/nicgep/app) — TNEB Limited › TANGEDCO › CE-Distribution-Madurai - TANGEDCO › SE-Ramnad - TANGEDCO — value not disclosed — closes 07 Dec 14:00
-- [Annual Plan Vazhayur Grama Panchayat 2026 2027 Karad Vayanasala Road renovation Ward 4-p no 107 27 General Civil Work](https://etenders.kerala.gov.in/nicgep/app) — Local Self Government Department › Malappuram › Grama Panchayath Section Office Malappuram › Office of the AE Vazhayoor Grama Panchayath — value not disclosed — closes 27 Nov 17:00
-- [98 - Gram sherpur mai bijli ghar se surjeet singh ke khet ki or mitti khadanja nirman kariya.](https://etender.up.nic.in/nicgep/app) — Panchayati Raj Department › Zila Panchayat Muzaffarnagar — value not disclosed — closes 02 Dec 13:00
-- [Repair /Renovation of Toilet and Drinking facilities at Anganwadi Centre Choon under CAPEX Budget 2026-27](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › RURAL DEVELOPMENT DEPARTMENT KASHMIR › Superintending Engineer REW Kashmir › XEN REW Budgam — value not disclosed — closes 27 Nov 18:55
-- [SUPPLY OF COTTON SOCKS (KHAKI) 14000 NOS](https://tntenders.gov.in/nicgep/app) — Tamilnadu Fire and Rescue Services Department — value not disclosed — closes 08 Dec 11:00
-- [Magahar Shahari Bhag(Kabeer Chaura)](https://etender.up.nic.in/nicgep/app) — Chief Engineer Basti Zone PWD Basti › SE Basti Circle PWD Basti › EE Provincial Divison PWD Sant Kabir Nagar — value not disclosed — closes 27 Nov 12:00
-- [CMIUDM 2026 27 Providing of Park in Thottiyankadu S F No 240 1A 2A 249 Ward No 15 in Karumathampatti Municipality](https://tntenders.gov.in/nicgep/app) — MAWS › Karumathampatti Municipality — value not disclosed — closes 07 Dec 15:00
-- [AIC/AED/NIeT-214/26-27/Gr_5](https://wbtenders.gov.in/nicgep/app) — WB AGRO INDUSTRIES CORP. — value not disclosed — closes 14 Dec 15:00
-- [ENCODER PCB](https://eprocurebhel.co.in/nicgep/app) — Bharat Heavy Electricals Limited › HPEP - Hyderabad › CMM — value not disclosed — closes 30 Nov 14:00
-- [Construction of 500 seated capacity Town Hall at Chawmanu, LTV, Dhalai Tripura under RD Manu Division.](https://tripuratenders.gov.in/nicgep/app) — Chief Engineer, Rural Development Department › Superintending Engineer Circle-4, CE, RDD › Executive Engineer Dhalai Division-2 — value not disclosed — closes 30 Nov 15:00
-- [E-TENDER FOR SUPPLY, COMMISSIONING, TESTING AND CERTIFICATION OF 1 No. CARGO HOSE HANDLING CRANE OF20T(SWL) at Min. 20 MRADIUS ON SCI TANKER M.T. DESH ABHIMAAN](https://eprocure.gov.in/epublish/app) — Shipping Corporation of India Ltd › Shipping Corp. of India Ltd.-SCI, New Delhi — value not disclosed — closes 11 Dec 17:00
-- [GRAM SABHA BHATHI ME BHADKAHI MARG SE SARVESH SINGH KE GHAR TAK KHADANJA KARYA](https://etender.up.nic.in/nicgep/app) — Panchayati Raj Department › Zila Panchayat Varanasi — value not disclosed — closes 03 Dec 17:00
-- [Construction of water tanki near house of babli devi (EX-panch) at village pangali, Pyt Chibba, Block Nagrota under scheme MPLADs for the year 2026-27 3rd call](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › Directorate of Rural Development Department JAMMU › Superintending Engineer REW Jammu › XEN REW JAMMU — value not disclosed — closes 30 Nov 18:00
-- [Providing Technical Assistance for Operation, Maintenance and Upgradation of Antenna, Mechanical Drive Systems, Structures, Cranes and Other Mechanical Equipment at GMRT](https://eprocure.gov.in/eprocure/app) — Department of Atomic Energy › Tata Institute of Fundamental Research-Colaba-Mumbai-Purchase Dept-TIFR-DAE › NCRA(Pune)-TIFR-DAE — value not disclosed — closes 14 Dec 17:00
+- [Work No. 01](https://etender.up.nic.in/nicgep/app) — Directorate of Local Bodies UP › Nagar Palika Parishad Jalaun Jalaun — value not disclosed — closes 14 Dec 14:00
+- [PROVISION OF CCTV SYSTEM FOR VARIOUS ELECTION RELATED EVENTS DURING THE ELECTION 2027](https://uktenders.gov.in/nicgep/app) — Chief Electoral Officer Uttarakhand › Addl. Chief Electoral Officer › Dy. Chief Electoral Officer › Assistant District Election Officer Almora — value not disclosed — closes 07 Dec 10:00
+- [Kheri Branch Canal Patri Marg](https://etender.up.nic.in/nicgep/app) — Chief Engineer PWD Central Zone,Lucknow › S.E. UPPWD Sitapur › Construction Division-4, Sitapur — value not disclosed — closes 28 Nov 12:00
+- [51Z5141442/OIL COOLER HOUSING](https://eprocuregsl.nic.in/nicgep/app) — BEML Limited › Mysore Complex › Engine Division — value not disclosed — closes 30 Nov 17:00
+- [Establishment of Sub-Control Rooms at PTL and Kanzalwan, Gurez, for Snow Clearance operations under MHSD 2nd, Bandipora](https://jktenders.gov.in/nicgep/app) — PWD › CE Mechanical and Hospital Directorate Kashmir › SE Mechanical and Hospital Circle Kashmir › Mechanical and Hospital Division Handwara — value not disclosed — closes 30 Nov 14:00
+- [turnkey works link line for 33KV SEVEGANAPALLY SS in HosurDivision](https://tntenders.gov.in/nicgep/app) — TNEB Limited › TANGEDCO › CE-Distribution-Vellore - TANGEDCO › SE-Krishnagiri - TANGEDCO — value not disclosed — closes 04 Dec 14:00
+- [RDDDC2627107144 -(CONST OF CSC NEAR DARULULOOM KAREWA AT ROHMOO B (SHADIM))](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › RURAL DEVELOPMENT DEPARTMENT KASHMIR › Superintending Engineer REW Kashmir › XEN REW Pulwama — value not disclosed — closes 30 Nov 18:55
+- [Construction of a two-suite inspection building in Erach, Garautha Vidhan Sabha of Jhansi district](https://etender.up.nic.in/nicgep/app) — Chief Engineer Jhansi Zone PWD Jhansi UP › JHANSI CIRLCE PWD JHANSI — value not disclosed — closes 26 Nov 12:00
+- [Supply of Office mats](https://eprocure.gov.in/epublish/app) — Indian Rare Earths Limited — value not disclosed — closes 11 Dec 17:00
+- [Construction of Samudayik Bhawan Sansad Nidhi](https://mptenders.gov.in/nicgep/app) — Directorate Urban Administration and Development › Join Director-Ujjain Division - UAD › Shajapur -Nagar Parishad Makshi - UAD — value not disclosed — closes 05 Dec 17:30
+- [REPAIR MAINT OF MES INSTALLATION UNDER AGE BR-ll UNDER GE (NW) NOFRA](https://defproc.gov.in/nicgep/app) — E-IN-C BRANCH - MILITARY ENGINEER SERVICES › CESC AND CE( NAVY )MUMBAI - MES › CWE (NW) MUMBAI - MES › GE (NW) NOFRA - MES — value not disclosed — closes 10 Dec 18:00
+- [Construction of the road using interlocking tiles from passing through Babanpuri Village up to the Gadarpur Milak Khanam Road in Gadarpur Constituency District Udham Singh Nagar under Honble Chief Minister Announcement No. 795-2026](https://uktenders.gov.in/nicgep/app) — PWD › 4th Circle U.S. Nagar — value not disclosed — closes 03 Dec 15:00
+- [Repair of Guard Hut at Chontra in Compt. 32/Th Thakrakote Range of Reasi Forest Division under PDNA FY 2026-27](https://jktenders.gov.in/nicgep/app) — FOREST DEPARTMENT › Chief Conservator of Forests Jammu › CF West Circle Rajouri › Reasi Forest Division — value not disclosed — closes 28 Nov 18:00
+- [CONSTRUCTION OF ROAD WIDENING WITH PAVER BLOCK FROM SIRMAUR CHOWK TO HOSPITAL CHOWK BOTH SIDE AT WARD NO. 16, 17, 22, 23 UNDER CHIEF MINISTER CITY INFRASTRUCTURE CONSTRUCTION SCHEME (CMCICS).](https://mptenders.gov.in/nicgep/app) — Directorate Urban Administration and Development › Muncipal Corporations - UAD › Muncipal Corporation - Rewa - UAD — value not disclosed — closes 21 Dec 18:00
+- [REPAIRING OF KARAMTOLA MIDDLE SCHOOL BLOCK BARHAIT, DIST-SAHIBGANJ](https://jharkhandtenders.gov.in/nicgep/app) — NREP Sahibganj — value not disclosed — closes 26 Nov 17:00
 
-## Closing Soon (7 days) (39550)
+## Closing Soon (7 days) (38223)
 
 - [Special Repair work of Mora to Datiya road](https://etender.up.nic.in/nicgep/app) — Chief Engineer Agra Zone PWD Agra UP › AGRA CIRCLE PWD AGRA › PROVINCIAL DIVISION PWD MATHURA — value not disclosed — closes 23 Nov 12:30
 - [KMC/ROADS/2026-2027/468](https://wbtenders.gov.in/nicgep/app) — KOLKATA MUNICIPAL CORPORATION › ROADS (CIVIL) — value not disclosed — closes 26 Nov 12:00
