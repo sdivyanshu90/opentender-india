@@ -1,26 +1,26 @@
 # OpenTender India — Daily Digest
 
-_Generated 22 Nov 2026 01:06 IST from verified portal data._
+_Generated 23 Nov 2026 01:33 IST from verified portal data._
 
-## New Today (4889)
+## New Today (199)
 
-- [Work No. 01](https://etender.up.nic.in/nicgep/app) — Directorate of Local Bodies UP › Nagar Palika Parishad Jalaun Jalaun — value not disclosed — closes 14 Dec 14:00
-- [PROVISION OF CCTV SYSTEM FOR VARIOUS ELECTION RELATED EVENTS DURING THE ELECTION 2027](https://uktenders.gov.in/nicgep/app) — Chief Electoral Officer Uttarakhand › Addl. Chief Electoral Officer › Dy. Chief Electoral Officer › Assistant District Election Officer Almora — value not disclosed — closes 07 Dec 10:00
-- [Kheri Branch Canal Patri Marg](https://etender.up.nic.in/nicgep/app) — Chief Engineer PWD Central Zone,Lucknow › S.E. UPPWD Sitapur › Construction Division-4, Sitapur — value not disclosed — closes 28 Nov 12:00
-- [51Z5141442/OIL COOLER HOUSING](https://eprocuregsl.nic.in/nicgep/app) — BEML Limited › Mysore Complex › Engine Division — value not disclosed — closes 30 Nov 17:00
-- [Establishment of Sub-Control Rooms at PTL and Kanzalwan, Gurez, for Snow Clearance operations under MHSD 2nd, Bandipora](https://jktenders.gov.in/nicgep/app) — PWD › CE Mechanical and Hospital Directorate Kashmir › SE Mechanical and Hospital Circle Kashmir › Mechanical and Hospital Division Handwara — value not disclosed — closes 30 Nov 14:00
-- [turnkey works link line for 33KV SEVEGANAPALLY SS in HosurDivision](https://tntenders.gov.in/nicgep/app) — TNEB Limited › TANGEDCO › CE-Distribution-Vellore - TANGEDCO › SE-Krishnagiri - TANGEDCO — value not disclosed — closes 04 Dec 14:00
-- [RDDDC2627107144 -(CONST OF CSC NEAR DARULULOOM KAREWA AT ROHMOO B (SHADIM))](https://jktenders.gov.in/nicgep/app) — Rural Development and Panchayati Raj › RURAL DEVELOPMENT DEPARTMENT KASHMIR › Superintending Engineer REW Kashmir › XEN REW Pulwama — value not disclosed — closes 30 Nov 18:55
-- [Construction of a two-suite inspection building in Erach, Garautha Vidhan Sabha of Jhansi district](https://etender.up.nic.in/nicgep/app) — Chief Engineer Jhansi Zone PWD Jhansi UP › JHANSI CIRLCE PWD JHANSI — value not disclosed — closes 26 Nov 12:00
-- [Supply of Office mats](https://eprocure.gov.in/epublish/app) — Indian Rare Earths Limited — value not disclosed — closes 11 Dec 17:00
-- [Construction of Samudayik Bhawan Sansad Nidhi](https://mptenders.gov.in/nicgep/app) — Directorate Urban Administration and Development › Join Director-Ujjain Division - UAD › Shajapur -Nagar Parishad Makshi - UAD — value not disclosed — closes 05 Dec 17:30
-- [REPAIR MAINT OF MES INSTALLATION UNDER AGE BR-ll UNDER GE (NW) NOFRA](https://defproc.gov.in/nicgep/app) — E-IN-C BRANCH - MILITARY ENGINEER SERVICES › CESC AND CE( NAVY )MUMBAI - MES › CWE (NW) MUMBAI - MES › GE (NW) NOFRA - MES — value not disclosed — closes 10 Dec 18:00
-- [Construction of the road using interlocking tiles from passing through Babanpuri Village up to the Gadarpur Milak Khanam Road in Gadarpur Constituency District Udham Singh Nagar under Honble Chief Minister Announcement No. 795-2026](https://uktenders.gov.in/nicgep/app) — PWD › 4th Circle U.S. Nagar — value not disclosed — closes 03 Dec 15:00
-- [Repair of Guard Hut at Chontra in Compt. 32/Th Thakrakote Range of Reasi Forest Division under PDNA FY 2026-27](https://jktenders.gov.in/nicgep/app) — FOREST DEPARTMENT › Chief Conservator of Forests Jammu › CF West Circle Rajouri › Reasi Forest Division — value not disclosed — closes 28 Nov 18:00
-- [CONSTRUCTION OF ROAD WIDENING WITH PAVER BLOCK FROM SIRMAUR CHOWK TO HOSPITAL CHOWK BOTH SIDE AT WARD NO. 16, 17, 22, 23 UNDER CHIEF MINISTER CITY INFRASTRUCTURE CONSTRUCTION SCHEME (CMCICS).](https://mptenders.gov.in/nicgep/app) — Directorate Urban Administration and Development › Muncipal Corporations - UAD › Muncipal Corporation - Rewa - UAD — value not disclosed — closes 21 Dec 18:00
-- [REPAIRING OF KARAMTOLA MIDDLE SCHOOL BLOCK BARHAIT, DIST-SAHIBGANJ](https://jharkhandtenders.gov.in/nicgep/app) — NREP Sahibganj — value not disclosed — closes 26 Nov 17:00
+- [Construction of RCC drain and Approach culvert with RWHS at New industrial area IGP Rundh Sonkhari Kathumar Alwar](https://eproc.rajasthan.gov.in/nicgep/app) — RIICO-Sr. DGM(Tech) › RIICO-Technical Cell HO › UH- Alwar — value not disclosed — closes 15 Dec 18:00
+- [124/EDC(G)/2026-27](https://etender.up.nic.in/nicgep/app) — Madhyanchal Vidyut Vitran Nigam Ltd › C E - DEVIPATAN ZONE › S E - Gonda — value not disclosed — closes 27 Nov 17:00
+- [SOIL CONSERVATION WORKS IN KURIYIDATHUKONAM UNNATHI](https://etenders.kerala.gov.in/nicgep/app) — Directorate of Soil Survey and Soil conservation › The District Soil Conservation Officer Thiruvananthapuram — value not disclosed — closes 28 Nov 17:00
+- [Providing street light to Girls hostel at VCRI Orathanadu](https://tntenders.gov.in/nicgep/app) — Tamil Nadu Veterinary and Animal Sciences University › Registrar-TANUVAS › Dean-VCRI-Orathanadu-TANUVAS — value not disclosed — closes 17 Dec 14:00
+- [Maintenance of various vayals under Tholpetty Forest Station of Tholpetty Range during 2026-27. Re Tender 3](https://etenders.kerala.gov.in/nicgep/app) — Forest Department › Wildlife Division Wayanad — value not disclosed — closes 27 Nov 18:00
+- [Vayal maintenance in Thathur Forest Section of Kurichiat Range during 2026-2027 (3rd Retender)](https://etenders.kerala.gov.in/nicgep/app) — Forest Department › Wildlife Division Wayanad — value not disclosed — closes 27 Nov 18:00
+- [NIPANI BRANCH FURNISHING WORK](https://eprocure.gov.in/epublish/app) — Union Bank of India › Central Office-UBoI — value not disclosed — closes 30 Nov 16:00
+- [IT CITY YOJNA STHITH MOHARIKALA VILLAGE ME BANAYE GAYE SITE OFFICE PR NIRBADH VIDHUT AAPURTI HETU DG SET KI AAPURTI EVAM STHAPANA TATHA 02 VERSO KE SANCHALAN KA KARYA](https://etender.up.nic.in/nicgep/app) — Lucknow Development Authority — value not disclosed — closes 28 Nov 15:00
+- [PURCHASE OF HONEY BEE HIVE WITH COLONY AND ACCESSORIES](https://etenders.kerala.gov.in/nicgep/app) — Department of Agriculture › Directorate of Agriculture › Principal Agricultural Office Kasargod › Krishibhavan Kallar — value not disclosed — closes 05 Dec 11:00
+- [Supply and fixing of D.I Soft Seated gate valve at WSS campus I/A EPIP Sitapura, Jaipur.](https://eproc.rajasthan.gov.in/nicgep/app) — RIICO-Sr. DGM(Tech) › RIICO-Technical Cell HO › UH- EPIP Sitapura — value not disclosed — closes 30 Nov 18:00
+- [Operation and Maintenance of Screening Plant at Chilkla Mine.](https://eprocure.gov.in/epublish/app) — MOIL Limited — value not disclosed — closes 25 Nov 15:00
+- [Gram Bakkas (Nikat Green Coridore) se Kisan Path ke Madhya Gomti Nadi ke Dono or 04 Vibhinn Sthalo Par 03 Nos 400 KL avam 01 Nos 600 KL Chamta ke Flood Pumping Stations ka Nirman avam 05 Varsho ke Varshik Anurakshan avam Sanchalan ka karya. (Part-C)](https://etender.up.nic.in/nicgep/app) — Lucknow Development Authority — value not disclosed — closes 11 Dec 15:00
+- [Improvement of trek path from Ananirathi Mooppanappu Ananirathi onamkachi Ananirathi Kallipara Chokkanchadi puzhukoli in Neyyar](https://etenders.kerala.gov.in/nicgep/app) — Forest Department › Wildlife Division Trivandrum — value not disclosed — closes 28 Nov 15:00
+- [APRF10 poradhar Group e-tender](https://mptenders.gov.in/nicgep/app) — Excise Department › District Excise Office Anuppur — value not disclosed — closes 25 Nov 14:00
+- [Cost of Supply Installation and Commissioning of Smart Solar Hanging Fence (1.25 km) from Kadassery to Ummanoor of Punnala Forest Station under Pathanapuram Range during 2026-27- General Electrical Work](https://etenders.kerala.gov.in/nicgep/app) — Forest Department › Divisional Forest Office, Punalur — value not disclosed — closes 28 Nov 17:00
 
-## Closing Soon (7 days) (38223)
+## Closing Soon (7 days) (43972)
 
 - [Special Repair work of Mora to Datiya road](https://etender.up.nic.in/nicgep/app) — Chief Engineer Agra Zone PWD Agra UP › AGRA CIRCLE PWD AGRA › PROVINCIAL DIVISION PWD MATHURA — value not disclosed — closes 23 Nov 12:30
 - [KMC/ROADS/2026-2027/468](https://wbtenders.gov.in/nicgep/app) — KOLKATA MUNICIPAL CORPORATION › ROADS (CIVIL) — value not disclosed — closes 26 Nov 12:00
