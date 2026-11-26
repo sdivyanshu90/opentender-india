@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26T08:46:12.402924+00:00",
+  "generated_at": "2026-11-26T21:52:43.930169+00:00",
   "sources": {
     "cppp_epublish": {
       "status": "TEMPORARILY_BROKEN",
@@ -874,8 +874,8 @@
         "source": "cppp_epublish",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:44:59.754692+00:00",
-        "latency_ms": 8358
+        "checked_at": "2026-11-26T21:51:31.532886+00:00",
+        "latency_ms": 8197
       }
     },
     "gem_bids": {
@@ -901,8 +901,8 @@
         "source": "gem_bids",
         "ok": false,
         "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-11-26T08:45:08.117128+00:00",
-        "latency_ms": 16457
+        "checked_at": "2026-11-26T21:51:39.735103+00:00",
+        "latency_ms": 16735
       }
     },
     "gepnic_bel": {
@@ -960,8 +960,8 @@
         "source": "gepnic_bel",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:46:01.932581+00:00",
-        "latency_ms": 8134
+        "checked_at": "2026-11-26T21:52:34.204378+00:00",
+        "latency_ms": 8205
       }
     },
     "gepnic_jammu_kashmir": {
@@ -1019,8 +1019,8 @@
         "source": "gepnic_jammu_kashmir",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:45:53.550325+00:00",
-        "latency_ms": 8378
+        "checked_at": "2026-11-26T21:52:25.764908+00:00",
+        "latency_ms": 8434
       }
     },
     "gepnic_kerala": {
@@ -1078,8 +1078,8 @@
         "source": "gepnic_kerala",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:45:33.291630+00:00",
-        "latency_ms": 8938
+        "checked_at": "2026-11-26T21:52:05.017797+00:00",
+        "latency_ms": 9015
       }
     },
     "gepnic_madhya_pradesh": {
@@ -1137,8 +1137,8 @@
         "source": "gepnic_madhya_pradesh",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:45:42.234426+00:00",
-        "latency_ms": 2975
+        "checked_at": "2026-11-26T21:52:14.038113+00:00",
+        "latency_ms": 3269
       }
     },
     "gepnic_rajasthan": {
@@ -1196,8 +1196,8 @@
         "source": "gepnic_rajasthan",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:45:24.578472+00:00",
-        "latency_ms": 8709
+        "checked_at": "2026-11-26T21:51:56.475430+00:00",
+        "latency_ms": 8537
       }
     },
     "gepnic_uttarakhand": {
@@ -1255,8 +1255,8 @@
         "source": "gepnic_uttarakhand",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:45:45.213743+00:00",
-        "latency_ms": 8332
+        "checked_at": "2026-11-26T21:52:17.312676+00:00",
+        "latency_ms": 8447
       }
     },
     "ireps_works": {
@@ -1282,8 +1282,8 @@
         "source": "ireps_works",
         "ok": false,
         "error": "RobotsDisallowedError: https://www.ireps.gov.in/eps/anonymSearch.do?searchParam=showPage&language=en",
-        "checked_at": "2026-11-26T08:46:10.071108+00:00",
-        "latency_ms": 2331
+        "checked_at": "2026-11-26T21:52:42.414766+00:00",
+        "latency_ms": 1515
       }
     },
     "gepnic_punjab": {
@@ -1341,8 +1341,8 @@
         "source": "gepnic_punjab",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:20.982314+00:00",
-        "latency_ms": 8328
+        "checked_at": "2026-11-26T21:44:31.311630+00:00",
+        "latency_ms": 8487
       }
     },
     "gepnic_assam": {
@@ -1400,8 +1400,8 @@
         "source": "gepnic_assam",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:37.655761+00:00",
-        "latency_ms": 8352
+        "checked_at": "2026-11-26T21:44:48.276847+00:00",
+        "latency_ms": 8543
       }
     },
     "gepnic_himachal": {
@@ -1459,8 +1459,8 @@
         "source": "gepnic_himachal",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:29.314029+00:00",
-        "latency_ms": 8338
+        "checked_at": "2026-11-26T21:44:39.803992+00:00",
+        "latency_ms": 8468
       }
     },
     "gepnic_tamil_nadu": {
@@ -1518,8 +1518,8 @@
         "source": "gepnic_tamil_nadu",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:04.268417+00:00",
-        "latency_ms": 8342
+        "checked_at": "2026-11-26T21:44:14.412023+00:00",
+        "latency_ms": 8478
       }
     },
     "gepnic_odisha": {
@@ -1577,8 +1577,8 @@
         "source": "gepnic_odisha",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:12.614459+00:00",
-        "latency_ms": 8364
+        "checked_at": "2026-11-26T21:44:22.896212+00:00",
+        "latency_ms": 8410
       }
     },
     "gepnic_central_etenders": {
@@ -1635,9 +1635,9 @@
       "last_healthcheck": {
         "source": "gepnic_central_etenders",
         "ok": false,
-        "error": "ConnectTimeout: _ssl.c:994: The handshake operation timed out",
-        "checked_at": "2026-11-26T08:37:31.232096+00:00",
-        "latency_ms": 19603
+        "error": "ConnectError: [Errno 104] Connection reset by peer",
+        "checked_at": "2026-11-26T21:44:02.379604+00:00",
+        "latency_ms": 8502
       }
     },
     "gepnic_up": {
@@ -1695,8 +1695,8 @@
         "source": "gepnic_up",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:37:50.839600+00:00",
-        "latency_ms": 13424
+        "checked_at": "2026-11-26T21:44:10.887016+00:00",
+        "latency_ms": 3520
       }
     },
     "gepnic_meghalaya": {
@@ -1754,8 +1754,8 @@
         "source": "gepnic_meghalaya",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:02.674147+00:00",
-        "latency_ms": 8368
+        "checked_at": "2026-11-26T21:45:14.099336+00:00",
+        "latency_ms": 8507
       }
     },
     "gepnic_nagaland": {
@@ -1813,8 +1813,8 @@
         "source": "gepnic_nagaland",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:11.046191+00:00",
-        "latency_ms": 8356
+        "checked_at": "2026-11-26T21:45:22.611143+00:00",
+        "latency_ms": 8446
       }
     },
     "gepnic_manipur": {
@@ -1854,8 +1854,8 @@
         "source": "gepnic_manipur",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:54.374969+00:00",
-        "latency_ms": 8295
+        "checked_at": "2026-11-26T21:45:05.264116+00:00",
+        "latency_ms": 8830
       }
     },
     "gepnic_arunachal": {
@@ -1913,8 +1913,8 @@
         "source": "gepnic_arunachal",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:19.406192+00:00",
-        "latency_ms": 8320
+        "checked_at": "2026-11-26T21:45:31.062323+00:00",
+        "latency_ms": 8711
       }
     },
     "gepnic_chandigarh": {
@@ -1972,8 +1972,8 @@
         "source": "gepnic_chandigarh",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:27.730749+00:00",
-        "latency_ms": 8347
+        "checked_at": "2026-11-26T21:45:39.778697+00:00",
+        "latency_ms": 8447
       }
     },
     "gepnic_lakshadweep": {
@@ -2031,8 +2031,8 @@
         "source": "gepnic_lakshadweep",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:44.410171+00:00",
-        "latency_ms": 8327
+        "checked_at": "2026-11-26T21:45:56.682377+00:00",
+        "latency_ms": 8439
       }
     },
     "gepnic_puducherry": {
@@ -2090,8 +2090,8 @@
         "source": "gepnic_puducherry",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:36.081629+00:00",
-        "latency_ms": 8324
+        "checked_at": "2026-11-26T21:45:48.231232+00:00",
+        "latency_ms": 8446
       }
     },
     "gepnic_tripura": {
@@ -2149,8 +2149,8 @@
         "source": "gepnic_tripura",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:38:46.012291+00:00",
-        "latency_ms": 8358
+        "checked_at": "2026-11-26T21:44:56.825177+00:00",
+        "latency_ms": 8433
       }
     },
     "gepnic_dnhdd": {
@@ -2208,8 +2208,8 @@
         "source": "gepnic_dnhdd",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:12.433151+00:00",
-        "latency_ms": 8421
+        "checked_at": "2026-11-26T21:46:24.973802+00:00",
+        "latency_ms": 8723
       }
     },
     "gepnic_delhi": {
@@ -2267,8 +2267,8 @@
         "source": "gepnic_delhi",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:39:52.741956+00:00",
-        "latency_ms": 8338
+        "checked_at": "2026-11-26T21:46:05.126249+00:00",
+        "latency_ms": 8447
       }
     },
     "gepnic_iocl": {
@@ -2326,8 +2326,8 @@
         "source": "gepnic_iocl",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:32.634670+00:00",
-        "latency_ms": 8318
+        "checked_at": "2026-11-26T21:46:45.411637+00:00",
+        "latency_ms": 8433
       }
     },
     "gepnic_defproc": {
@@ -2385,8 +2385,8 @@
         "source": "gepnic_defproc",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:24.295012+00:00",
-        "latency_ms": 8335
+        "checked_at": "2026-11-26T21:46:36.972130+00:00",
+        "latency_ms": 8434
       }
     },
     "gepnic_pmgsy": {
@@ -2444,8 +2444,8 @@
         "source": "gepnic_pmgsy",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:40:20.858481+00:00",
-        "latency_ms": 3432
+        "checked_at": "2026-11-26T21:46:33.702026+00:00",
+        "latency_ms": 3265
       }
     },
     "gepnic_cpcl": {
@@ -2503,8 +2503,8 @@
         "source": "gepnic_cpcl",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:56.133201+00:00",
-        "latency_ms": 8345
+        "checked_at": "2026-11-26T21:47:08.241240+00:00",
+        "latency_ms": 8421
       }
     },
     "gepnic_bhel": {
@@ -2562,8 +2562,8 @@
         "source": "gepnic_bhel",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:40:52.817755+00:00",
-        "latency_ms": 3311
+        "checked_at": "2026-11-26T21:47:05.405324+00:00",
+        "latency_ms": 2831
       }
     },
     "mahagenco_notices": {
@@ -2621,8 +2621,8 @@
         "source": "mahagenco_notices",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:41:12.838194+00:00",
-        "latency_ms": 8507
+        "checked_at": "2026-11-26T21:47:25.169337+00:00",
+        "latency_ms": 16038
       }
     },
     "gepnic_ntpc": {
@@ -2680,8 +2680,8 @@
         "source": "gepnic_ntpc",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:44.502199+00:00",
-        "latency_ms": 8311
+        "checked_at": "2026-11-26T21:46:57.003653+00:00",
+        "latency_ms": 8396
       }
     },
     "s3waas_akola": {
@@ -2739,8 +2739,8 @@
         "source": "s3waas_akola",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:43:57.160815+00:00",
-        "latency_ms": 2510
+        "checked_at": "2026-11-26T21:50:15.261650+00:00",
+        "latency_ms": 3744
       }
     },
     "msedcl_tenders": {
@@ -2798,8 +2798,8 @@
         "source": "msedcl_tenders",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:43:50.917252+00:00",
-        "latency_ms": 6237
+        "checked_at": "2026-11-26T21:50:08.812012+00:00",
+        "latency_ms": 6442
       }
     },
     "gepnic_coal_india": {
@@ -2857,8 +2857,8 @@
         "source": "gepnic_coal_india",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:40:40.957343+00:00",
-        "latency_ms": 3541
+        "checked_at": "2026-11-26T21:46:53.849744+00:00",
+        "latency_ms": 3149
       }
     },
     "s3waas_beed": {
@@ -2916,8 +2916,8 @@
         "source": "s3waas_beed",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:02.727620+00:00",
-        "latency_ms": 1975
+        "checked_at": "2026-11-26T21:50:21.604118+00:00",
+        "latency_ms": 3772
       }
     },
     "s3waas_amravati": {
@@ -2975,8 +2975,8 @@
         "source": "s3waas_amravati",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:43:59.674841+00:00",
-        "latency_ms": 3048
+        "checked_at": "2026-11-26T21:50:19.011058+00:00",
+        "latency_ms": 2588
       }
     },
     "s3waas_bhandara": {
@@ -3034,8 +3034,8 @@
         "source": "s3waas_bhandara",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:04.707036+00:00",
-        "latency_ms": 2416
+        "checked_at": "2026-11-26T21:50:25.381494+00:00",
+        "latency_ms": 3617
       }
     },
     "s3waas_gondia": {
@@ -3060,8 +3060,8 @@
         "source": "s3waas_gondia",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:11.344247+00:00",
-        "latency_ms": 3086
+        "checked_at": "2026-11-26T21:50:35.720511+00:00",
+        "latency_ms": 2290
       }
     },
     "s3waas_gadchiroli": {
@@ -3119,8 +3119,8 @@
         "source": "s3waas_gadchiroli",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:09.206131+00:00",
-        "latency_ms": 2134
+        "checked_at": "2026-11-26T21:50:31.533315+00:00",
+        "latency_ms": 4182
       }
     },
     "s3waas_dhule": {
@@ -3178,8 +3178,8 @@
         "source": "s3waas_dhule",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:07.127548+00:00",
-        "latency_ms": 2074
+        "checked_at": "2026-11-26T21:50:29.004042+00:00",
+        "latency_ms": 2524
       }
     },
     "s3waas_jalgaon": {
@@ -3237,8 +3237,8 @@
         "source": "s3waas_jalgaon",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:14.435328+00:00",
-        "latency_ms": 1961
+        "checked_at": "2026-11-26T21:50:38.016661+00:00",
+        "latency_ms": 3862
       }
     },
     "s3waas_jalna": {
@@ -3296,8 +3296,8 @@
         "source": "s3waas_jalna",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:16.400737+00:00",
-        "latency_ms": 1872
+        "checked_at": "2026-11-26T21:50:41.885500+00:00",
+        "latency_ms": 2275
       }
     },
     "s3waas_kolhapur": {
@@ -3355,8 +3355,8 @@
         "source": "s3waas_kolhapur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:18.276811+00:00",
-        "latency_ms": 2081
+        "checked_at": "2026-11-26T21:50:44.166365+00:00",
+        "latency_ms": 2562
       }
     },
     "s3waas_latur": {
@@ -3414,8 +3414,8 @@
         "source": "s3waas_latur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:20.361769+00:00",
-        "latency_ms": 2052
+        "checked_at": "2026-11-26T21:50:46.733823+00:00",
+        "latency_ms": 2624
       }
     },
     "s3waas_mumbaisuburban": {
@@ -3440,8 +3440,8 @@
         "source": "s3waas_mumbaisuburban",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:24.468543+00:00",
-        "latency_ms": 2012
+        "checked_at": "2026-11-26T21:50:51.879067+00:00",
+        "latency_ms": 2481
       }
     },
     "s3waas_mumbaicity": {
@@ -3499,8 +3499,8 @@
         "source": "s3waas_mumbaicity",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:22.418249+00:00",
-        "latency_ms": 2046
+        "checked_at": "2026-11-26T21:50:49.362861+00:00",
+        "latency_ms": 2511
       }
     },
     "gepnic_jharkhand": {
@@ -3558,8 +3558,8 @@
         "source": "gepnic_jharkhand",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:40:01.084070+00:00",
-        "latency_ms": 8362
+        "checked_at": "2026-11-26T21:46:13.578460+00:00",
+        "latency_ms": 8673
       }
     },
     "s3waas_nagpur": {
@@ -3610,8 +3610,8 @@
         "source": "s3waas_nagpur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:26.484788+00:00",
-        "latency_ms": 2116
+        "checked_at": "2026-11-26T21:50:54.364925+00:00",
+        "latency_ms": 3264
       }
     },
     "s3waas_nanded": {
@@ -3669,8 +3669,8 @@
         "source": "s3waas_nanded",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:28.604796+00:00",
-        "latency_ms": 1998
+        "checked_at": "2026-11-26T21:50:57.633887+00:00",
+        "latency_ms": 2300
       }
     },
     "s3waas_nandurbar": {
@@ -3728,8 +3728,8 @@
         "source": "s3waas_nandurbar",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:30.606828+00:00",
-        "latency_ms": 3025
+        "checked_at": "2026-11-26T21:50:59.939147+00:00",
+        "latency_ms": 2272
       }
     },
     "s3waas_nashik": {
@@ -3787,8 +3787,8 @@
         "source": "s3waas_nashik",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:33.636189+00:00",
-        "latency_ms": 3168
+        "checked_at": "2026-11-26T21:51:02.215891+00:00",
+        "latency_ms": 2269
       }
     },
     "s3waas_pune": {
@@ -3813,8 +3813,8 @@
         "source": "s3waas_pune",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:41.911655+00:00",
-        "latency_ms": 2000
+        "checked_at": "2026-11-26T21:51:08.913104+00:00",
+        "latency_ms": 3574
       }
     },
     "s3waas_parbhani": {
@@ -3872,8 +3872,8 @@
         "source": "s3waas_parbhani",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:39.877509+00:00",
-        "latency_ms": 2030
+        "checked_at": "2026-11-26T21:51:06.803274+00:00",
+        "latency_ms": 2105
       }
     },
     "s3waas_palghar": {
@@ -3931,8 +3931,8 @@
         "source": "s3waas_palghar",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:36.808980+00:00",
-        "latency_ms": 3064
+        "checked_at": "2026-11-26T21:51:04.489749+00:00",
+        "latency_ms": 2308
       }
     },
     "s3waas_raigad": {
@@ -3990,8 +3990,8 @@
         "source": "s3waas_raigad",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:43.915921+00:00",
-        "latency_ms": 2006
+        "checked_at": "2026-11-26T21:51:12.492854+00:00",
+        "latency_ms": 2366
       }
     },
     "s3waas_solapur": {
@@ -4016,8 +4016,8 @@
         "source": "s3waas_solapur",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:48.926494+00:00",
-        "latency_ms": 2510
+        "checked_at": "2026-11-26T21:51:18.207445+00:00",
+        "latency_ms": 2453
       }
     },
     "gepnic_gsl": {
@@ -4075,8 +4075,8 @@
         "source": "gepnic_gsl",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:41:04.482722+00:00",
-        "latency_ms": 8344
+        "checked_at": "2026-11-26T21:47:16.667588+00:00",
+        "latency_ms": 8489
       }
     },
     "s3waas_thane": {
@@ -4134,8 +4134,8 @@
         "source": "s3waas_thane",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:51.440891+00:00",
-        "latency_ms": 2115
+        "checked_at": "2026-11-26T21:51:20.665953+00:00",
+        "latency_ms": 2817
       }
     },
     "s3waas_washim": {
@@ -4193,8 +4193,8 @@
         "source": "s3waas_washim",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:55.581966+00:00",
-        "latency_ms": 2011
+        "checked_at": "2026-11-26T21:51:26.716380+00:00",
+        "latency_ms": 2382
       }
     },
     "s3waas_ratnagiri": {
@@ -4252,8 +4252,8 @@
         "source": "s3waas_ratnagiri",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:45.926445+00:00",
-        "latency_ms": 2996
+        "checked_at": "2026-11-26T21:51:14.864385+00:00",
+        "latency_ms": 3338
       }
     },
     "s3waas_yavatmal": {
@@ -4311,8 +4311,8 @@
         "source": "s3waas_yavatmal",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:57.597727+00:00",
-        "latency_ms": 2153
+        "checked_at": "2026-11-26T21:51:29.103704+00:00",
+        "latency_ms": 2424
       }
     },
     "s3waas_wardha": {
@@ -4370,8 +4370,8 @@
         "source": "s3waas_wardha",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:44:53.559973+00:00",
-        "latency_ms": 2018
+        "checked_at": "2026-11-26T21:51:23.488923+00:00",
+        "latency_ms": 3222
       }
     },
     "mahatransco_tenders": {
@@ -4396,8 +4396,8 @@
         "source": "mahatransco_tenders",
         "ok": false,
         "error": "ConnectTimeout: timed out",
-        "checked_at": "2026-11-26T08:41:21.350461+00:00",
-        "latency_ms": 149562
+        "checked_at": "2026-11-26T21:47:41.213488+00:00",
+        "latency_ms": 147593
       }
     },
     "gepnic_west_bengal": {
@@ -4455,8 +4455,8 @@
         "source": "gepnic_west_bengal",
         "ok": true,
         "error": null,
-        "checked_at": "2026-11-26T08:40:09.450449+00:00",
-        "latency_ms": 2978
+        "checked_at": "2026-11-26T21:46:22.256481+00:00",
+        "latency_ms": 2712
       }
     },
     "cppp_state": {
@@ -4503,8 +4503,8 @@
         "source": "cppp_state",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:37:14.744341+00:00",
-        "latency_ms": 8389
+        "checked_at": "2026-11-26T21:43:45.150736+00:00",
+        "latency_ms": 8537
       }
     },
     "gepnic_central_eprocure": {
@@ -4561,8 +4561,8 @@
         "source": "gepnic_central_eprocure",
         "ok": false,
         "error": "ConnectError: [Errno 104] Connection reset by peer",
-        "checked_at": "2026-11-26T08:37:23.137463+00:00",
-        "latency_ms": 8090
+        "checked_at": "2026-11-26T21:43:53.692885+00:00",
+        "latency_ms": 8681
       },
       "last_success": "2026-11-25T03:51:10.389499+00:00"
     }
